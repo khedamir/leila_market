@@ -1,0 +1,56 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr 162px 1fr;
+  padding: 12px 24px;
+  max-width: 1922px;
+  min-width: 393px;
+  margin: auto;
+}
+
+.logo {
+  justify-self: center;
+}
+
+.rightPanel {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  justify-self: end;
+}
+
+@media (max-width: 1440px) {
+  .logo {
+    img {
+      width: 111px;
+      height: 37px;
+    }
+  }
+
+  .rightPanel {
+    .search {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    img {
+      width: 90px;
+      height: 30px;
+    }
+  }
+
+  .rightPanel {
+    .profile {
+      display: none;
+    }
+
+    li {
+      img {
+        width: 21px;
+        height:  21px;
+      }
+    }
+  }
+}
