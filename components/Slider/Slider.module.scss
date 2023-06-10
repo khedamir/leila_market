@@ -1,0 +1,87 @@
+.sliders {
+  position: relative;
+  transition: 1s all;
+  margin: 0 auto;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1042px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  @media (max-width: 1440px) {
+    height: 627px;
+  }
+}
+
+.sliderSceleton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 680px;
+  margin-top: 32px;
+  border-radius: 15px;
+  padding: 0 24px;
+  text-align: center;
+  @media (max-width: 768px) {
+    border-radius: 0;
+    margin-top: 0;
+    height: 335px;
+  }
+  @media (max-width: 460px) {
+    padding: 0 12px;
+  }
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  color: #fff;
+  font-family: "Cormorant", sans-serif;
+  font-size: 56px;
+  text-transform: uppercase;
+  font-weight: 500;
+  @media (max-width: 1440px) {
+    font-size: 48px;
+  }
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.arrows {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 48px);
+  position: absolute;
+  z-index: 1;
+  top: calc(50% - 24px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  @media (max-width: 1440px) {
+    display: none;
+  }
+}

@@ -12,6 +12,7 @@
 .navItem {
   .submenu {
     position: absolute;
+    z-index: 10;
     left: 0;
     top: 48px;
     width: 100%;
