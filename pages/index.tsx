@@ -3,6 +3,8 @@ import styles from "@/styles/Home.module.scss";
 import Slider from "@/components/Slider";
 import { useState } from "react";
 import CollectionsList from "@/components/CollectionsList";
+import CategoryList from "@/components/CategoryList";
+import CollectionBlock from "@/components/CollectionBlock";
 
 export type CollectionType = {
   id: number;
@@ -56,6 +58,278 @@ const collections: CollectionType[] = [
   },
 ];
 
+export type ProductType = {
+  id: number;
+  collection: string;
+  name: string;
+  price: number;
+  category: string;
+  images: { id: number; image: string }[];
+};
+
+const Products: ProductType[] = [
+  {
+    id: 1,
+    collection: "Весенняя коллекция",
+    name: "Platok",
+    price: 20500,
+    category: "Новинки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 2,
+    collection: "Весенняя коллекция",
+    name: "Platok",
+    price: 20500,
+    category: "Новинки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 3,
+    collection: "Весенняя коллекция",
+    name: "Platok",
+    price: 20500,
+    category: "Новинки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 4,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Новинки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 5,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Рубашки и блузы",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 6,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Рубашки и блузы",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 7,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Рубашки и блузы",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 8,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Рубашки и блузы",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 9,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Толстовки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 10,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Толстовки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 11,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Толстовки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 12,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Толстовки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 13,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Брюки и шорты",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 14,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Брюки и шорты",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 15,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Брюки и шорты",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 16,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Брюки и шорты",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 17,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Футболки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 18,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Футболки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 19,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Футболки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+  {
+    id: 20,
+    collection: "Kenzo",
+    name: "Platok",
+    price: 20500,
+    category: "Футболки",
+    images: [
+      {
+        id: 1,
+        image: "https://www.gakkard.ru/userfiles/articles/blog/9316.jpg",
+      },
+    ],
+  },
+];
+
 export default function Home() {
   const [load, setLoad] = useState(true);
 
@@ -67,6 +341,59 @@ export default function Home() {
       <div>
         <Slider collections={collections} load={load} />
         <CollectionsList collections={collections} load={load} />
+        <CategoryList
+          categoryName="Новинки"
+          products={Products.filter((v) => v.category === "Новинки")}
+        />
+        <CategoryList
+          categoryName="Рубашки и блузы"
+          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+        />
+        <CollectionBlock
+          collection={collections[0]}
+          products={Products.filter(
+            (v) => v.collection === collections[0].name
+          )}
+          version="one"
+        />
+        <CategoryList
+          categoryName="Толстовка"
+          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+        />
+        <CategoryList
+          categoryName="Брюки и шорты"
+          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+        />
+        <CollectionBlock
+          collection={collections[0]}
+          products={Products.filter(
+            (v) => v.collection === collections[0].name
+          )}
+          version="two"
+        />
+        <CategoryList
+          categoryName="Футболки"
+          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+        />
+        <CategoryList
+          categoryName="Абайи"
+          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+        />
+        <CollectionBlock
+          collection={collections[0]}
+          products={Products.filter(
+            (v) => v.collection === collections[0].name
+          )}
+          version="three"
+        />
+        <CategoryList
+          categoryName="Футболки"
+          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+        />
+        <CategoryList
+          categoryName="Абайи"
+          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+        />
       </div>
     </>
   );

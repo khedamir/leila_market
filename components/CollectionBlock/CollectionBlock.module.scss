@@ -1,0 +1,77 @@
+.collectionBlock {
+  max-width: 1216px;
+  margin: 40px auto;
+  display: flex;
+  gap: 20px;
+
+  .collectionDescription {
+    display: none;
+  }
+
+  &.two {
+    flex-direction: row-reverse;
+    
+    .collectionDescription {
+      display: block;
+    }
+
+    .collectionSecondBlock {
+      .collectionMiniPoster {
+        display: none;
+        gap: 0;
+      }
+      .collectionDescription {
+        height: 289px;
+        width: 294px;
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  &.three {
+    flex-direction: row-reverse;
+  }
+}
+
+.collectionPoster {
+  width: 598px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 705px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    font-size: 40px;
+    color: #fff;
+    font-family: "Cormorant", sans-serif;
+    font-weight: 500;
+  }
+}
+
+.collectionSecondBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .collectionMiniPoster {
+    width: 598px;
+    height: 285px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  ul {
+    display: flex;
+    gap: 20px;
+
+    img {
+      height: 289px;
+      border-radius: 0px !important;
+    }
+  }
+}

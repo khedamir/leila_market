@@ -9,7 +9,6 @@ interface CollectionItem {
 
 const CollectionItem: FC<CollectionItem> = ({ collection }) => {
   const backgroundStyle = {
-    // backgroundImage: `url(${collection.images[0].image})`,
     background: `linear-gradient(180deg, rgba(31, 27, 22, 0) 0%, rgba(31, 27, 22, 0.6) 100%), url(${collection.images[0].image}) center/cover`,
   };
   return (

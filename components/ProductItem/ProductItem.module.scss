@@ -1,0 +1,32 @@
+.productItem {
+  color: #0f0f0f;
+
+  .productImg {
+    border-radius: 4px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .productDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .productName {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .productPrice {
+    font-size: 20px;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+  }
+}
