@@ -1,9 +1,25 @@
 .collectionList {
   max-width: 1216px;
+  min-width: 393px;
   margin: 40px auto;
+}
 
-  .collectionListItems {
-    display: flex;
-    gap: 20px;
+@media (max-width: 1260px) {
+  .collectionList {
+    max-width: 728px;
+  }
+}
+
+@media (max-width: 796px) {
+  .collectionList {
+    width: 478px;
+  }
+}
+
+@media (max-width: 512px) {
+  .collectionList {
+    width: calc(100%);
+    margin: 40px 0;
+    padding-left: 20px;
   }
 }

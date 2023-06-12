@@ -1,16 +1,30 @@
+.collection {
+  min-width: 393px;
+  .mobileTitle {
+    display: none;
+  }
+}
+
 .collectionBlock {
   max-width: 1216px;
   margin: 40px auto;
   display: flex;
   gap: 20px;
 
-  .collectionDescription {
+  .collectionDescription,
+  .collectionMiniPosterMobile {
     display: none;
+  }
+
+  .collectionMiniPosterMobile {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   &.two {
     flex-direction: row-reverse;
-    
+
     .collectionDescription {
       display: block;
     }
@@ -22,7 +36,7 @@
       }
       .collectionDescription {
         height: 289px;
-        width: 294px;
+        width: 100%;
         font-size: 16px;
         font-weight: 400;
       }
@@ -69,9 +83,115 @@
     display: flex;
     gap: 20px;
 
+    li {
+      width: 289px;
+    }
+
     img {
       height: 289px;
       border-radius: 0px !important;
+    }
+  }
+}
+
+@media (max-width: 1260px) {
+  .collectionBlock {
+    justify-content: center;
+    &.one {
+      flex-wrap: wrap;
+
+      .collectionMiniPosterMobile {
+        display: block;
+        width: 728px;
+        height: 294px;
+      }
+    }
+
+    &.two {
+      .collectionPoster {
+        width: 479px;
+        height: 564px;
+      }
+      .collectionSecondBlock {
+        ul > li {
+          display: flex;
+          flex-direction: column-reverse;
+          gap: 12px;
+
+          .collectionDescription {
+            height: auto;
+          }
+          &:first-child {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .collectionPoster {
+    width: 479px;
+    height: 764px;
+  }
+
+  .collectionSecondBlock {
+    .collectionMiniPoster {
+      display: none;
+    }
+
+    ul {
+      flex-direction: column;
+
+      li {
+        width: 229px;
+
+        img {
+          height: 277px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 796px) {
+  .collection {
+    .mobileTitle {
+      display: block;
+      font-family: "Cormorant", sans-serif;
+      font-size: 24px;
+      text-align: center;
+      padding: 0 20px;
+    }
+  }
+  .collectionBlock {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    .collectionSecondBlock {
+      display: none;
+    }
+
+    .collectionPoster,
+    .collectionMiniPosterMobile {
+      display: block;
+      width: 229px !important;
+      height: 277px !important;
+
+      h3 {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 512px) {
+  .collectionBlock {
+    padding: 0 20px;
+    margin: 24px auto;
+    .collectionPoster,
+    .collectionMiniPosterMobile {
+      width: 166px !important;
+      height: 229px !important;
     }
   }
 }

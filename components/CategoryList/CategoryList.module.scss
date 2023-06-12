@@ -1,9 +1,25 @@
 .categoryList {
   max-width: 1216px;
+  min-width: 393px;
   margin: 40px auto;
+}
 
-  .categoryListItems {
-    display: flex;
-    gap: 20px;
+@media (max-width: 1260px) {
+  .categoryList {
+    max-width: 728px;
+  }
+}
+
+@media (max-width: 796px) {
+  .categoryList {
+    width: 478px;
+  }
+}
+
+@media (max-width: 512px) {
+  .categoryList {
+    width: calc(100%);
+    margin: 40px 0;
+    padding-left: 20px;
   }
 }
