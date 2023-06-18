@@ -1,10 +1,15 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.scss";
+
 import Slider from "@/components/Slider";
-import { useState } from "react";
 import CollectionsList from "@/components/CollectionsList";
 import CategoryList from "@/components/CategoryList";
 import CollectionBlock from "@/components/CollectionBlock";
+
+import { wrapper } from "@/redux/store";
+import { useSelector } from "react-redux";
+import { fetchProducts } from "@/redux/products/asyncAction";
+import { selectProducts } from "@/redux/products/slice";
 
 export type CollectionType = {
   id: number;
@@ -330,8 +335,10 @@ const Products: ProductType[] = [
   },
 ];
 
-export default function Home() {
-  const [load, setLoad] = useState(true);
+const Home = () => {
+  const products = useSelector(selectProducts);
+
+  console.log(products);
 
   return (
     <>
@@ -339,15 +346,17 @@ export default function Home() {
         <title>Главная</title>
       </Head>
       <div>
-        <Slider collections={collections} load={load} />
-        <CollectionsList collections={collections} load={load} />
+        <Slider collections={collections} load={true} />
+        <CollectionsList collections={collections} load={true} />
         <CategoryList
           categoryName="Новинки"
-          products={Products.filter((v) => v.category === "Новинки")}
+          products={products.items.filter((v) => v.category.name === "Новинки")}
         />
         <CategoryList
           categoryName="Рубашки и блузы"
-          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+          products={products.items.filter(
+            (v) => v.category.name === "Рубашки и блузы"
+          )}
         />
         <CollectionBlock
           collection={collections[0]}
@@ -358,11 +367,13 @@ export default function Home() {
         />
         <CategoryList
           categoryName="Толстовка"
-          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+          products={products.items.filter(
+            (v) => v.category.name === "Рубашки и блузы"
+          )}
         />
         <CategoryList
           categoryName="Брюки и шорты"
-          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
         />
         <CollectionBlock
           collection={collections[0]}
@@ -373,11 +384,11 @@ export default function Home() {
         />
         <CategoryList
           categoryName="Футболки"
-          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
         />
         <CategoryList
           categoryName="Абайи"
-          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
         />
         <CollectionBlock
           collection={collections[0]}
@@ -388,13 +399,24 @@ export default function Home() {
         />
         <CategoryList
           categoryName="Футболки"
-          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
         />
         <CategoryList
           categoryName="Абайи"
-          products={Products.filter((v) => v.category === "Рубашки и блузы")}
+          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
         />
       </div>
     </>
   );
-}
+};
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    await store.dispatch(fetchProducts());
+    return {
+      props: {},
+    };
+  }
+);
+
+export default Home;

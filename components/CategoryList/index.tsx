@@ -1,6 +1,5 @@
 import React, { FC, useRef } from "react";
 import styles from "./CategoryList.module.scss";
-import { ProductType } from "@/pages";
 import SectionHeader from "../SectionHeader";
 import ProductItem from "../ProductItem";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,15 +7,17 @@ import { Navigation, EffectFade, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
+import { ProductItem as ProductItemType } from "@/redux/products/types";
 
 interface CategoryListProps {
-  products: ProductType[];
+  products: ProductItemType[];
   categoryName: string;
 }
 
 const CategoryList: FC<CategoryListProps> = ({ products, categoryName }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+
   return (
     <div className={styles.categoryList}>
       <SectionHeader title={categoryName} link="" />

@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import styles from "./ProductItem.module.scss";
-import { ProductType } from "@/pages";
 import Image from "next/image";
+import { ProductItem as ProductItemType } from "@/redux/products/types";
 
 interface ProductItemProps {
-  product: ProductType;
+  product: ProductItemType;
 }
 
 const ProductItem: FC<ProductItemProps> = ({ product }) => {
@@ -14,12 +14,12 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => {
         src={product.images[0].image}
         width={289}
         height={350}
-        alt={product.name}
+        alt={product.product_name}
         className={styles.productImg}
       />
       <div className={styles.productDescription}>
-        <h4>{product.collection}</h4>
-        <p className={styles.productName}>{product.name}</p>
+        <h4>{product.product_name}</h4>
+        <p className={styles.productName}>{product.collection.name}</p>
         <p className={styles.productPrice}>{product.price} ₽</p>
       </div>
     </div>

@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import style from "./Slider.module.scss";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
-import 'swiper/css/navigation';
+import "swiper/css/navigation";
 import "react-loading-skeleton/dist/skeleton.css";
 
 interface SliderProps {
@@ -57,7 +57,7 @@ const Slider: FC<SliderProps> = ({ collections, load }) => {
             </SwiperSlide>
           ))}
           <div className={style.arrows}>
-            <button ref={prevRef} className={`${style.arrow}`}>
+            {/* <button ref={prevRef} className={`${style.arrow}`}>
               <svg
                 width="17"
                 height="31"
@@ -90,7 +90,7 @@ const Slider: FC<SliderProps> = ({ collections, load }) => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </button>
+            </button> */}
           </div>
         </Swiper>
       ) : (

@@ -1,6 +1,6 @@
 export type ProductItem = {
   id: number;
-  collection: []; //
+  collection: any; //
   product_name: string;
   price: string;
   size: SizeItem;
@@ -11,7 +11,7 @@ export type ProductItem = {
   description: string;
   images: ImageItem[];
   instructions: Instructions;
-  category: {}; //
+  category: any; //
   quantity: 2;
 };
 
