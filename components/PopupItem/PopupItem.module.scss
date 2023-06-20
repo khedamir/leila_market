@@ -1,0 +1,14 @@
+.popupItem {
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(15, 15, 15, 0.04);
+  }
+
+  &.active {
+    background-color: rgba(15, 15, 15, 0.04);
+  }
+}

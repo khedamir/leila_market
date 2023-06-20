@@ -12,7 +12,7 @@ export type ProductItem = {
   images: ImageItem[];
   instructions: Instructions;
   category: any; //
-  quantity: 2;
+  quantity: number;
 };
 
 export type SizeItem = {

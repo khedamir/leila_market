@@ -11,7 +11,7 @@ const nextConfig = {
   images: {
     domains: ["storefurniture.pythonanywhere.com"],
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;

@@ -1,0 +1,26 @@
+.breadCrumbs {
+  display: flex;
+  align-items: center;
+  gap: 14.37px;
+  padding-left: 8px;
+
+  p {
+    cursor: pointer;
+    color: #5b5b5b;
+    padding: 4px;
+    border-radius: 4px;
+
+    &:last-child {
+      color: #282828;
+
+      &:hover {
+        cursor: default;
+        background-color: transparent;
+      }
+    }
+
+    &:hover {
+      background-color: #0F0F0F0A;
+    }
+  }
+}

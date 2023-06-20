@@ -1,0 +1,36 @@
+.catalog {
+  max-width: 1292px;
+  min-width: 393px;
+  margin: 24px auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.productList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  // display: flex;
+  // flex-wrap: wrap;
+  max-width: 1113px;
+  gap: 24px;
+
+  li {
+    div > img {
+      // width: 355px !important;
+      height: 429px;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  gap: 28px;
+}
+
+.filters {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}

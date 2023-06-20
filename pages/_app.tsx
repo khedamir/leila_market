@@ -1,10 +1,12 @@
 import Layout from "@/components/Layout";
+import { fetchMenu } from "@/redux/menu/asyncAction";
+import { fetchProducts } from "@/redux/products/asyncAction";
 import { wrapper } from "@/redux/store";
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 
-export default function App({ Component, ...rest }: AppProps) {
+function App({ Component, ...rest }: AppProps) {
   const { store } = wrapper.useWrappedStore(rest);
   return (
     <Provider store={store}>
@@ -14,3 +16,18 @@ export default function App({ Component, ...rest }: AppProps) {
     </Provider>
   );
 }
+
+App.getInitialProps = wrapper.getInitialAppProps(
+  (store) =>
+    async ({ Component, ctx }) => {
+      await store.dispatch(fetchMenu());
+      await store.dispatch(fetchProducts());
+
+      const pageProps = Component.getInitialProps
+        ? await Component.getInitialProps({ ...ctx, store })
+        : {};
+      return { pageProps };
+    }
+);
+
+export default App;
