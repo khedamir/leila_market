@@ -8,19 +8,28 @@ import styles from "./Catalog.module.scss";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import Sidebar from "@/components/Sidebar";
 import FilterSelect from "@/components/FilterSelect";
+import MobileFilters from "@/components/MobileFilters";
 
 const Catalog = () => {
   const products = useSelector(selectProducts);
   return (
     <div className={styles.catalog}>
-      <BreadCrumbs />
+      <div className={styles.breadcrumbs}>
+        <BreadCrumbs />
+      </div>
       <div className={styles.wrapper}>
-        <Sidebar />
+        <div className={styles.sidebar}>
+          <Sidebar />
+        </div>
         <div>
           <div className={styles.filters}>
             <FilterSelect />
             <FilterSelect />
             <FilterSelect />
+            <FilterSelect />
+          </div>
+          <div className={styles.mobileFilters}>
+            <MobileFilters />
           </div>
           <ul className={styles.productList}>
             {products.items.map((product) => (
