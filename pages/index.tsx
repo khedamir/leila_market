@@ -350,13 +350,11 @@ const Home = () => {
         <CollectionsList collections={collections} load={true} />
         <CategoryList
           categoryName="Новинки"
-          products={products.items.filter((v) => v.category.name === "Новинки")}
+          products={products.items}
         />
         <CategoryList
           categoryName="Рубашки и блузы"
-          products={products.items.filter(
-            (v) => v.category.name === "Рубашки и блузы"
-          )}
+          products={products.items}
         />
         <CollectionBlock
           collection={collections[0]}
@@ -367,13 +365,11 @@ const Home = () => {
         />
         <CategoryList
           categoryName="Толстовка"
-          products={products.items.filter(
-            (v) => v.category.name === "Рубашки и блузы"
-          )}
+          products={products.items}
         />
         <CategoryList
           categoryName="Брюки и шорты"
-          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
+          products={products.items}
         />
         <CollectionBlock
           collection={collections[0]}
@@ -384,11 +380,11 @@ const Home = () => {
         />
         <CategoryList
           categoryName="Футболки"
-          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
+          products={products.items}
         />
         <CategoryList
           categoryName="Абайи"
-          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
+          products={products.items}
         />
         <CollectionBlock
           collection={collections[0]}
@@ -399,11 +395,11 @@ const Home = () => {
         />
         <CategoryList
           categoryName="Футболки"
-          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
+          products={products.items}
         />
         <CategoryList
           categoryName="Абайи"
-          products={products.items.filter((v) => v.category.name === "Рубашки и блузы")}
+          products={products.items}
         />
       </div>
     </>

@@ -9,6 +9,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import Sidebar from "@/components/Sidebar";
 import FilterSelect from "@/components/FilterSelect";
 import MobileFilters from "@/components/MobileFilters";
+import Link from "next/link";
 
 const Catalog = () => {
   const products = useSelector(selectProducts);
@@ -34,7 +35,9 @@ const Catalog = () => {
           <ul className={styles.productList}>
             {products.items.map((product) => (
               <li key={product.id}>
-                <ProductItem product={product} />
+                <Link href={'/product/1'}>
+                  <ProductItem product={product} />
+                </Link>
               </li>
             ))}
           </ul>

@@ -20,7 +20,7 @@ const CategoryList: FC<CategoryListProps> = ({ products, categoryName }) => {
 
   return (
     <div className={styles.categoryList}>
-      <SectionHeader title={categoryName} link="" />
+      <SectionHeader title={categoryName} link="/catalog" />
       <Swiper
         spaceBetween={9.8}
         effect="coverflow"

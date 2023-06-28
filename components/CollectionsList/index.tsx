@@ -21,7 +21,7 @@ const CollectionsList: FC<CollectionsProps> = ({ collections, load }) => {
   const nextRef = useRef(null);
   return (
     <div className={styles.collectionList}>
-      <SectionHeader title="Коллекции" link="" />
+      <SectionHeader title="Коллекции" link="/catalog" />
       <Swiper
         spaceBetween={9.8}
         effect="coverflow"
