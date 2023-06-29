@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styles from "./CollectionBlock.module.scss";
-import { CollectionType, ProductType } from "@/pages";
-import Image from "next/image";
 import ProductItem from "../ProductItem";
+import { CollectionType } from "@/redux/types";
+import { ProductType } from "@/redux/products/types";
 
 interface CollectionBlockProps {
   collection: CollectionType;
@@ -16,18 +16,18 @@ const CollectionBlock: FC<CollectionBlockProps> = ({
   version,
 }) => {
   return (
-    <div className= {styles.collection}>
+    <div className={styles.collection}>
       <h3 className={styles.mobileTitle}>{collection.name}</h3>
       <div className={`${styles.collectionBlock} ${styles[version]}`}>
         <div
-          style={{ backgroundImage: `url(${collection.images[0].image})` }}
+          style={{ backgroundImage: `url("${collection.images[0].image}")` }}
           className={styles.collectionPoster}
         >
           <h3>{collection.name}</h3>
         </div>
         <div className={styles.collectionSecondBlock}>
           <div
-            style={{ backgroundImage: `url(${collection.images[0].image})` }}
+            style={{ backgroundImage: `url("${collection.images[0].image}")` }}
             className={styles.collectionMiniPoster}
           ></div>
           <ul>
@@ -44,7 +44,7 @@ const CollectionBlock: FC<CollectionBlockProps> = ({
           </ul>
         </div>
         <div
-          style={{ backgroundImage: `url(${collection.images[0].image})` }}
+          style={{ backgroundImage: `url("${collection.images[0].image}")` }}
           className={styles.collectionMiniPosterMobile}
         ></div>
       </div>

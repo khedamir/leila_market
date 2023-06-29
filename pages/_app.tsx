@@ -21,8 +21,6 @@ App.getInitialProps = wrapper.getInitialAppProps(
   (store) =>
     async ({ Component, ctx }) => {
       await store.dispatch(fetchMenu());
-      await store.dispatch(fetchProducts());
-
       const pageProps = Component.getInitialProps
         ? await Component.getInitialProps({ ...ctx, store })
         : {};

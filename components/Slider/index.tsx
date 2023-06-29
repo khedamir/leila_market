@@ -7,13 +7,10 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "react-loading-skeleton/dist/skeleton.css";
+import { CollectionType } from "@/redux/types";
 
 interface SliderProps {
-  collections: {
-    id: number;
-    images: { id: number; image: string }[];
-    name: string;
-  }[];
+  collections: CollectionType[]
   load: boolean;
 }
 
@@ -42,16 +39,16 @@ const Slider: FC<SliderProps> = ({ collections, load }) => {
           }}
           modules={[Autoplay, Navigation, EffectFade]}
         >
-          {collections.map(({ id, images, name }) => (
-            <SwiperSlide key={id}>
+          {collections.map((collection) => (
+            <SwiperSlide key={collection.id}>
               <div
                 className={`${style.slider}`}
                 style={{
-                  backgroundImage: `url(${images[0].image})`,
+                  backgroundImage: `url(${collection.images[0].image})`,
                 }}
               >
                 <div className={style.center}>
-                  <div className={style.title}>{name}</div>
+                  <div className={style.title}>{collection.name}</div>
                 </div>
               </div>
             </SwiperSlide>

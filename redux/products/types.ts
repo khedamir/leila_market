@@ -1,4 +1,6 @@
-export type ProductItem = {
+import { Status } from "../types";
+
+export type ProductType = {
   id: number;
   collection: any; //
   product_name: string;
@@ -32,13 +34,7 @@ export type Instructions = {
   care: string;
 };
 
-export enum Status {
-  LOADING = "loading",
-  SUCCESS = "success",
-  ERROR = "error",
-}
-
 export interface ProductSliceState {
-  items: ProductItem[];
+  items: ProductType[];
   status: Status;
 }

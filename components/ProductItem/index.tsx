@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import styles from "./ProductItem.module.scss";
 import Image from "next/image";
-import { ProductItem as ProductItemType } from "@/redux/products/types";
+import { ProductType } from "@/redux/products/types";
 
 interface ProductItemProps {
-  product: ProductItemType;
+  product: ProductType;
 }
 
 const ProductItem: FC<ProductItemProps> = ({ product }) => {

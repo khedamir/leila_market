@@ -7,10 +7,10 @@ import { Navigation, EffectFade, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
-import { ProductItem as ProductItemType } from "@/redux/products/types";
+import { ProductType } from "@/redux/products/types";
 
 interface CategoryListProps {
-  products: ProductItemType[];
+  products: ProductType[];
   categoryName: string;
 }
 

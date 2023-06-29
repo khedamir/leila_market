@@ -3,7 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AppState } from "../store";
 import { fetchProducts } from "./asyncAction";
-import { ProductItem, ProductSliceState, Status } from "./types";
+import { ProductType, ProductSliceState } from "./types";
+import { Status } from "../types";
 
 const initialState: ProductSliceState = {
   items: [],
@@ -14,7 +15,7 @@ export const productSlice = createSlice({
   name: "Product",
   initialState,
   reducers: {
-    setItems(state, action: PayloadAction<ProductItem[]>) {
+    setItems(state, action: PayloadAction<ProductType[]>) {
       state.items = action.payload;
     },
   },

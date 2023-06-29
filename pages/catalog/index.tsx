@@ -47,13 +47,13 @@ const Catalog = () => {
   );
 };
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   (store) => async () => {
-//     await store.dispatch(fetchProducts());
-//     return {
-//       props: {},
-//     };
-//   }
-// );
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    await store.dispatch(fetchProducts());
+    return {
+      props: {},
+    };
+  }
+);
 
 export default Catalog;

@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import productReducer from "./products/slice";
 import menuReducer from "./menu/slice";
+import homeReducer from "./home/slice";
 
 const store = () =>
   configureStore({
     reducer: {
+      home: homeReducer,
       products: productReducer,
       menu: menuReducer,
     },
