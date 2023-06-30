@@ -3,11 +3,13 @@ import styles from "./Header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import Nav from "./Nav";
+import MobileNav from "./MobileNav";
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <Nav />
+      <MobileNav />
       <div className={styles.logo}>
         <Link href={"/"}>
           <Image

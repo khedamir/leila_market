@@ -1,12 +1,12 @@
 import { FC } from "react";
-import style from "./Humburger.module.scss";
+import style from "./Burger.module.scss";
 
-interface HumburgerProps {
+interface BurgerProps {
   setMenuOpen: (v: boolean) => void;
   menuOpen: boolean;
 }
 
-const Hamburger: FC<HumburgerProps> = ({ setMenuOpen, menuOpen }) => {
+const Burger: FC<BurgerProps> = ({ setMenuOpen, menuOpen }) => {
   return (
     <div
       className={style.hamburger__wrap}
@@ -21,4 +21,4 @@ const Hamburger: FC<HumburgerProps> = ({ setMenuOpen, menuOpen }) => {
   );
 };
 
-export default Hamburger;
+export default Burger;

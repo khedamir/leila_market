@@ -1,14 +1,10 @@
+import { CategoryType, Status } from "../types";
+
 export type MenuItem = {
   id: number;
   name: string;
-  show_menu: boolean;
+  categories: CategoryType[];
 };
-
-export enum Status {
-  LOADING = "loading",
-  SUCCESS = "success",
-  ERROR = "error",
-}
 
 export interface MenuSliceState {
   items: MenuItem[];

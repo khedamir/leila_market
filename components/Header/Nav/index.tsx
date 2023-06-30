@@ -1,58 +1,60 @@
 import React, { useState } from "react";
 import styles from "./Nav.module.scss";
-import Link from "next/link";
-import MobileNav from "./MobileNav";
-import { categories } from "./categoories";
+import { useSelector } from "react-redux";
+import selectMenu from "@/redux/menu/selectMenu";
+import NavItem from "./NavItem";
 
-
-
-const navigation = [
-  { id: 1, title: "Женщинам", path: "/women", submenu: categories },
-  { id: 2, title: "Мужчинам", path: "/men", submenu: categories },
-  { id: 3, title: "Для Хаджа и Умры", path: "/hadj", submenu: categories },
+const MenuItems = [
   {
-    id: 4,
-    title: "Покупателям",
+    id: 1,
+    name: "Покупателям",
     path: "#",
     submenu: [
-      { id: 1, title: "Доставка", path: "" },
-      { id: 2, title: "Возврат", path: "" },
-      { id: 3, title: "Контакты", path: "" },
-      { id: 4, title: "Telegram", path: "" },
-      { id: 5, title: "Whatsapp", path: "" },
-      { id: 6, title: "Instagram", path: "" },
+      { id: 1, name: "Доставка", path: "tt" },
+      { id: 2, name: "Возврат", path: "vv" },
+      { id: 3, name: "Контакты", path: "cc" },
+      { id: 4, name: "Telegram", path: "" },
+      { id: 5, name: "Whatsapp", path: "" },
+      { id: 6, name: "Instagram", path: "" },
     ],
   },
 ];
 
 const Nav = () => {
   const [index, setIndex] = useState<number>();
+  const [staticItemActive, setStaticItemActive] = useState<number>();
+  const { items } = useSelector(selectMenu);
+
+  const MouseOut = () => {
+    setIndex(undefined);
+    setStaticItemActive(undefined);
+  };
+
   return (
     <>
-      <nav onMouseOut={() => setIndex(undefined)} className={styles.mainNav}>
-        {navigation.map(({ id, title, path, submenu }) => (
-          <span key={id} className={styles.navItem}>
-            <Link onMouseOver={() => setIndex(id)} href={path}>
-              {title}
-            </Link>
-            <div
-              onMouseOver={() => setIndex(index)}
-              className={`${styles.submenu} ${id === index && styles.active}`}
-            >
-              <div className={styles.wrapper}>
-                <ul>
-                  {submenu.map(({ id, title, path }) => (
-                    <li key={id}>
-                      <Link href={path}>{title}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </span>
+      <nav onMouseOut={MouseOut} className={styles.mainNav}>
+        {items.map(({ id, name, categories }) => (
+          <NavItem
+            key={id}
+            change={setIndex}
+            activeMenuIndex={index}
+            id={id}
+            name={name}
+            submenu={categories}
+          />
+        ))}
+        {MenuItems.map((item) => (
+          <NavItem
+            key={`item${item.id}`}
+            change={setStaticItemActive}
+            activeMenuIndex={staticItemActive}
+            id={item.id}
+            name={item.name}
+            path={item.path}
+            submenu={item.submenu}
+          />
         ))}
       </nav>
-      <MobileNav />
     </>
   );
 };

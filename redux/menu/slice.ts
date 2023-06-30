@@ -1,9 +1,8 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-import { AppState } from "../store";
 import { fetchMenu } from "./asyncAction";
-import { MenuItem, MenuSliceState, Status } from "./types";
+import { MenuItem, MenuSliceState } from "./types";
+import { Status } from "../types";
 
 const initialState: MenuSliceState = {
   items: [],
@@ -44,7 +43,5 @@ export const menuSlice = createSlice({
 });
 
 export const { setItems } = menuSlice.actions;
-
-export const selectMenu = (state: AppState) => state.menu;
 
 export default menuSlice.reducer;
