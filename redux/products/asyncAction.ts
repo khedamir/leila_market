@@ -1,13 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ProductType } from "./types";
+import { FetchProductsArgs, ProductType } from "./types";
 
-export const fetchProducts = createAsyncThunk<ProductType[]>(
+export const fetchProducts = createAsyncThunk<ProductType[], FetchProductsArgs>(
   "product/fetchProduct",
-  async () => {
+  async (params) => {
     const { data } = await axios.get(
-      `https://storefurniture.pythonanywhere.com/api/product/`
+      "https://storefurniture.pythonanywhere.com/api/product/",
+      {
+        params,
+      }
     );
-    return data;
+    return data.results;
   }
 );

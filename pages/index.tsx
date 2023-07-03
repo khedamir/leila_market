@@ -10,9 +10,14 @@ import { wrapper } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { fetchHomeData } from "@/redux/home/asyncAction";
 import { selectHomeData } from "@/redux/home/slice";
+import { Status } from "@/redux/types";
 
 const Home = () => {
-  const { data } = useSelector(selectHomeData);
+  const { data, status } = useSelector(selectHomeData);
+
+  if (status === Status.LOADING) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -74,13 +79,11 @@ const Home = () => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async () => {
-    await store.dispatch(fetchHomeData());
-    return {
-      props: {},
-    };
-  }
-);
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+  await store.dispatch(fetchHomeData());
+  return {
+    props: {},
+  };
+});
 
 export default Home;

@@ -4,16 +4,22 @@ import { fetchProducts } from "@/redux/products/asyncAction";
 import { wrapper } from "@/redux/store";
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { Provider } from "react-redux";
 
 function App({ Component, ...rest }: AppProps) {
   const { store } = wrapper.useWrappedStore(rest);
   return (
-    <Provider store={store}>
-      <Layout>
-        <Component {...rest.pageProps} />
-      </Layout>
-    </Provider>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <Provider store={store}>
+        <Layout>
+          <Component {...rest.pageProps} />
+        </Layout>
+      </Provider>
+    </>
   );
 }
 

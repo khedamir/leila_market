@@ -19,8 +19,9 @@ const FilterSelect = () => {
   const title = "Размер одежды";
   return (
     <Popup preview={title} countSelectItems={activeItems.length}>
-      {items.map((item) => (
+      {items.map((item, id) => (
         <PopupItem
+          key={id}
           onClick={() => handleActiveItems(item)}
           isActive={activeItems.includes(item)}
         >

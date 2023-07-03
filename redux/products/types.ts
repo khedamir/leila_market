@@ -1,11 +1,24 @@
-import { Status } from "../types";
+import { CategoryType, CollectionType, Status } from "../types";
+
+export type FetchProductsArgs = {
+  menu?: number;
+  // collection?: string;
+  category?: number;
+  // size?: string;
+  // color?: string;
+  min_price?: number;
+  max_price?: number;
+  // sort?: any; //
+  // search?: string;
+  page?: number;
+};
 
 export type ProductType = {
   id: number;
-  collection: any; //
+  collection: CollectionType;
   product_name: string;
   price: string;
-  size: SizeItem;
+  size: SizeItem[];
   delivery_info: string;
   sku: string;
   model_parameters: string;
@@ -13,12 +26,16 @@ export type ProductType = {
   description: string;
   images: ImageItem[];
   instructions: Instructions;
-  category: any; //
+  category: CategoryType[];
   quantity: number;
+  // related_products: [];
+  date: string;
+  views: number;
+  // recommendations: [];
 };
 
 export type SizeItem = {
-  name: any;
+  name: string;
 };
 
 export type ImageItem = {
@@ -29,7 +46,6 @@ export type ImageItem = {
 };
 
 export type Instructions = {
-  id: number;
   details: string;
   care: string;
 };
