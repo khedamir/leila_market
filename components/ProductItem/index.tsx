@@ -19,7 +19,7 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => {
       />
       <div className={styles.productDescription}>
         <h4>{product.product_name}</h4>
-        <p className={styles.productName}>{product.collection.name}</p>
+        <p className={styles.productName}>{product.collection_name ? product.collection_name : product.collection.name}</p>
         <p className={styles.productPrice}>{product.price} ₽</p>
       </div>
     </div>

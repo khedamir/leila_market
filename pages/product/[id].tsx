@@ -1,27 +1,36 @@
 import BreadCrumbs from "@/components/BreadCrumbs";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./Product.module.scss";
 import Image from "next/image";
 import FilterSelect from "@/components/FilterSelect";
 import Button from "@/components/Button";
+import { wrapper } from "@/redux/store";
+import axios from "axios";
+import { GetServerSideProps } from "next";
+import { ProductType } from "@/redux/products/types";
+import CategoryList from "@/components/CategoryList";
 
-const images = [
-  "https://dolinamod.ru/image/cache/catalog/2021_evening/DM-993-01-776x1165.jpg",
-  "https://olga-grinyuk.ru/upload/resize_cache/iblock/8ba/762_1100_0/92ae79ae_aa1a_11e9_bacf_0cc47a525ded_dd9a02d7_7fb3_11ea_bad5_0cc47a525ded.jpg",
-  "https://dolinamod.ru/image/cache/catalog/2021_evening/DM-993-01-776x1165.jpg",
-  "https://dolinamod.ru/image/cache/catalog/2021_evening/DM-993-01-776x1165.jpg",
-  "https://dolinamod.ru/image/cache/catalog/2021_evening/DM-993-01-776x1165.jpg",
-];
+type ProductParams = {
+  id: string;
+};
 
-const Product = () => {
+interface ProductProps {
+  product: ProductType & {
+    recommendations: ProductType[];
+    related_products: ProductType[];
+  };
+}
+
+const Product: FC<ProductProps> = ({ product }) => {
   const [activeImg, setActiveImg] = useState(0);
+  console.log(product);
   return (
     <div className={styles.product}>
       <BreadCrumbs />
       <div className={styles.productCard}>
         <div className={styles.productImages}>
           <div className={styles.imageListItems}>
-            {images.map((img, i) => (
+            {product.images.map((img, i) => (
               <div
                 className={`${styles.imageListItem} ${
                   i === activeImg && styles.active
@@ -29,20 +38,30 @@ const Product = () => {
                 key={i}
                 onClick={() => setActiveImg(i)}
               >
-                <img src={img} width={148} height={150} alt="product image" />
+                <img
+                  src={img.image}
+                  width={148}
+                  height={150}
+                  alt="product image"
+                />
                 <div className={styles.shadow}></div>
               </div>
             ))}
           </div>
           <div className={styles.activeImg}>
-            <img src={images[activeImg]} width={616} height={782} alt="" />
+            <img
+              src={product.images[activeImg].image}
+              width={616}
+              height={782}
+              alt=""
+            />
           </div>
         </div>
 
         <div className={styles.productCardDescription}>
-          <h3>Kenzo</h3>
-          <p className={styles.name}>Платье</p>
-          <p className={styles.price}>20 500 ₽</p>
+          <h3>{product.product_name}</h3>
+          <p className={styles.name}>{product.category[0].name}</p>
+          <p className={styles.price}>{product.price} ₽</p>
           <div className={styles.colorsBlock}>
             <div>
               <span>
@@ -59,25 +78,19 @@ const Product = () => {
           <div>
             <Button>Добавить в корзину</Button>
           </div>
-          <p className={styles.info}>
-            Мы ожидаем эту модель с 3 до 17 апреля, но уже сейчас ее можно
-            купить по предоплате, чтобы получить раньше других. Как только
-            модель поступит, свяжемся с вами и согласуем время и адрес доставки
-            — по России она будет бесплатной.
-          </p>
+          <p className={styles.info}>{product.delivery_info}</p>
         </div>
       </div>
 
       <div className={styles.descriptionBlock}>
-        <p className={styles.sku}>Артикул:</p>
-        <p className={styles.parameters}>Параметры модели:</p>
-        <p className={styles.modelSize}>На модели размер:</p>
-        <p className={styles.description}>
-          Лаконичные ботильоны Color block сочетают в себе контрастные по цвету
-          элементы. Мягкая плотная кожа отполирована до деликатного блеска и
-          меньше царапается, а подкладка из кожи шевро создает комфортный
-          микроклимат. Высокому каблуку придали устойчивую форму, чтобы
+        <p className={styles.sku}>Артикул: {product.sku}</p>
+        <p className={styles.parameters}>
+          Параметры модели: {product.model_parameters}
         </p>
+        <p className={styles.modelSize}>
+          На модели размер: {product.size_on_the_model}
+        </p>
+        <p className={styles.description}>{product.description}</p>
       </div>
       <ul>
         <li>
@@ -87,8 +100,44 @@ const Product = () => {
           <p>Состав и уход</p>
         </li>
       </ul>
+
+      <div>
+        <CategoryList
+          categoryName="Весть образ на фото"
+          products={product.related_products}
+        />
+        <CategoryList
+          categoryName="Возможно вам понравится"
+          products={product.recommendations}
+        />
+      </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<
+  ProductProps,
+  ProductParams
+> = async (context) => {
+  const { id } = context.params || {};
+  try {
+    const { data } = await axios.get(
+      `https://storefurniture.pythonanywhere.com/api/product/${id}`
+    );
+
+    return {
+      props: {
+        product: data,
+      },
+    };
+  } catch {
+    return {
+      redirect: {
+        destination: "/server-error",
+        permanent: false,
+      },
+    };
+  }
 };
 
 export default Product;

@@ -58,8 +58,8 @@ const CategoryList: FC<CategoryListProps> = ({ products, categoryName }) => {
         }}
         modules={[Autoplay, Navigation, EffectFade]}
       >
-        {products.map((product) => (
-          <SwiperSlide key={product.id}>
+        {products.map((product, id) => (
+          <SwiperSlide key={id}>
             <ProductItem product={product} />
           </SwiperSlide>
         ))}
