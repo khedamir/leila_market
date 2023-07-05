@@ -1,11 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
 import Arrow from "../../public/images/arrow.svg";
 import styles from "./BreadCrumbs.module.scss";
 import Link from "next/link";
 
-const BreadCrumbs = () => {
-  const menuItem = "Женщинам";
-  const category = "Платья";
+interface BreadCrumbsProps {
+  value1: string;
+  onClickValue1: () => void;
+  value2: string;
+}
+
+const BreadCrumbs: FC<BreadCrumbsProps> = ({
+  value1,
+  value2,
+  onClickValue1,
+}) => {
   return (
     <div className={styles.breadCrumbs}>
       <p>
@@ -14,13 +22,13 @@ const BreadCrumbs = () => {
       <span>
         <Arrow />
       </span>
-      <p>{menuItem}</p>
-      {category && (
+      <p onClick={onClickValue1}>{value1}</p>
+      {value2 && (
         <>
           <span>
             <Arrow />
           </span>
-          <p>{category}</p>
+          <p>{value2}</p>
         </>
       )}
     </div>

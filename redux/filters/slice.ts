@@ -25,7 +25,7 @@ export const filtersSlice = createSlice({
     // setCollectionValue(state, action: PayloadAction<number>) {
     //   state.collection = action.payload;
     // },
-    setCategoryValue(state, action: PayloadAction<number>) {
+    setCategoryValue(state, action: PayloadAction<number | null>) {
       state.category = action.payload;
     },
     // changeSizeValue(state, action: PayloadAction<string>) {
@@ -56,7 +56,7 @@ export const filtersSlice = createSlice({
       state.page = action.payload;
     },
     setFilters(state, action: PayloadAction<FiltersSliceState>) {
-      // state.menu = action.payload.menu;
+      state.menu = action.payload.menu;
       // state.collection = Number(action.payload.collection);
       state.category = Number(action.payload.category);
       // state.size = action.payload.size;
@@ -68,7 +68,13 @@ export const filtersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(HYDRATE as any, (state, action) => {
-      const { category, min_price, max_price, page } = action.payload.filters;
+      const { category, min_price, max_price, page, menu } =
+        action.payload.filters;
+
+      if (menu) {
+        state.menu = menu;
+      }
+
       if (category) {
         state.category = category;
       }

@@ -1,12 +1,18 @@
 .productItem {
   color: #0f0f0f;
 
+  &:hover {
+    // background-color: #0f0f0f11;
+    opacity: 0.8;
+  }
+
   .productImg {
     border-radius: 4px;
     object-fit: cover;
     display: block;
     margin-bottom: 18px;
     width: 100%;
+    background-size: 120%;
   }
 
   .productDescription {

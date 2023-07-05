@@ -5,6 +5,10 @@
   position: relative;
   border-radius: 4px;
 
+  &:hover {
+    opacity: 0.8;
+  }
+
   h4 {
     font-size: 20px;
     text-transform: uppercase;

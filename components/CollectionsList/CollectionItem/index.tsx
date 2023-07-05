@@ -1,7 +1,8 @@
-import { CollectionType } from "@/pages";
+// import { CollectionType } from "@/pages";
 import React, { FC } from "react";
 import styles from "./CollectionItem.module.scss";
 import Link from "next/link";
+import { CollectionType } from "@/redux/types";
 
 interface CollectionItem {
   collection: CollectionType;

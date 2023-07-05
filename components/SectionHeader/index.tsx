@@ -11,7 +11,7 @@ const SectionHeader: FC<SectionHeaderProps> = ({ title, link }) => {
   return (
     <header className={styles.header}>
       <h3>{title}</h3>
-      <Link href={link}>Все {">"}</Link>
+      {link && <Link href={link}>Все {">"}</Link>}
     </header>
   );
 };

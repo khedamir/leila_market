@@ -28,11 +28,13 @@ const Home = () => {
         <Slider collections={data.collections} load={true} />
         <CollectionsList collections={data.all_collections} load={true} />
         <CategoryList
-          categoryName={data.categories[0].category.name}
+          title={data.categories[0].category.name}
+          category={data.categories[0].category}
           products={data.categories[0].products}
         />
         <CategoryList
-          categoryName={data.categories[1].category.name}
+          title={data.categories[1].category.name}
+          category={data.categories[1].category}
           products={data.categories[1].products}
         />
         <CollectionBlock
@@ -41,11 +43,13 @@ const Home = () => {
           version="one"
         />
         <CategoryList
-          categoryName={data.categories[2].category.name}
+          title={data.categories[2].category.name}
+          category={data.categories[2].category}
           products={data.categories[2].products}
         />
         <CategoryList
-          categoryName={data.categories[3].category.name}
+          title={data.categories[3].category.name}
+          category={data.categories[3].category}
           products={data.categories[3].products}
         />
         <CollectionBlock
@@ -54,11 +58,13 @@ const Home = () => {
           version="two"
         />
         <CategoryList
-          categoryName={data.categories[4].category.name}
+          title={data.categories[4].category.name}
+          category={data.categories[4].category}
           products={data.categories[4].products}
         />
         <CategoryList
-          categoryName={data.categories[5].category.name}
+          title={data.categories[5].category.name}
+          category={data.categories[5].category}
           products={data.categories[5].products}
         />
         <CollectionBlock
@@ -67,11 +73,13 @@ const Home = () => {
           version="three"
         />
         <CategoryList
-          categoryName={data.categories[6].category.name}
+          title={data.categories[6].category.name}
+          category={data.categories[6].category}
           products={data.categories[6].products}
         />
         <CategoryList
-          categoryName={data.categories[7].category.name}
+          title={data.categories[7].category.name}
+          category={data.categories[7].category}
           products={data.categories[7].products}
         />
       </div>
@@ -79,11 +87,13 @@ const Home = () => {
   );
 };
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
-  await store.dispatch(fetchHomeData());
-  return {
-    props: {},
-  };
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    await store.dispatch(fetchHomeData());
+    return {
+      props: {},
+    };
+  }
+);
 
 export default Home;

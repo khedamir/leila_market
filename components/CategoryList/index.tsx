@@ -8,19 +8,24 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import { ProductType } from "@/redux/products/types";
+import { CategoryType } from "@/redux/types";
 
 interface CategoryListProps {
+  title: string;
   products: ProductType[];
-  categoryName: string;
+  category?: CategoryType;
 }
 
-const CategoryList: FC<CategoryListProps> = ({ products, categoryName }) => {
+const CategoryList: FC<CategoryListProps> = ({ title, products, category }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
   return (
     <div className={styles.categoryList}>
-      <SectionHeader title={categoryName} link="/catalog" />
+      <SectionHeader
+        title={title}
+        link={category ? `/catalog/?category=${category.id}` : ""}
+      />
       <Swiper
         spaceBetween={9.8}
         effect="coverflow"
@@ -58,7 +63,7 @@ const CategoryList: FC<CategoryListProps> = ({ products, categoryName }) => {
         }}
         modules={[Autoplay, Navigation, EffectFade]}
       >
-        {products.map((product, id) => (
+        {products?.map((product, id) => (
           <SwiperSlide key={id}>
             <ProductItem product={product} />
           </SwiperSlide>

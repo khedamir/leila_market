@@ -38,7 +38,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                 key={i}
                 onClick={() => setActiveImg(i)}
               >
-                <img
+                <Image
                   src={img.image}
                   width={148}
                   height={150}
@@ -103,11 +103,11 @@ const Product: FC<ProductProps> = ({ product }) => {
 
       <div>
         <CategoryList
-          categoryName="Весть образ на фото"
+          title="Весь образ на фото"
           products={product.related_products}
         />
         <CategoryList
-          categoryName="Возможно вам понравится"
+          title="Возможно вам понравится"
           products={product.recommendations}
         />
       </div>

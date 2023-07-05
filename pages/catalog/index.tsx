@@ -1,7 +1,7 @@
 import ProductItem from "@/components/ProductItem";
 import { fetchProducts } from "@/redux/products/asyncAction";
 import { selectProducts } from "@/redux/products/slice";
-import { useAppDispatch, wrapper } from "@/redux/store";
+import { AppState, useAppDispatch, wrapper } from "@/redux/store";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styles from "./Catalog.module.scss";
@@ -10,50 +10,30 @@ import Sidebar from "@/components/Sidebar";
 import FilterSelect from "@/components/FilterSelect";
 import MobileFilters from "@/components/MobileFilters";
 import Link from "next/link";
-import {
-  setCategoryValue,
-  setFilters,
-  setPriceValue,
-} from "@/redux/filters/slice";
-import QueryString from "qs";
+import { setCategoryValue, setFilters, setPriceValue } from "@/redux/filters/slice";
 import selectFilters from "@/redux/filters/selectMenu";
 import { useRouter } from "next/router";
 import { FetchProductsArgs } from "@/redux/products/types";
+import selectMenu, { getMenuById } from "@/redux/menu/selectMenu";
 
 const Catalog = () => {
   const products = useSelector(selectProducts);
   const { category, min_price, max_price, page, menu } =
     useSelector(selectFilters);
 
-  const items = useSelector(selectFilters);
+  const activeMenu = useSelector((state: AppState) => getMenuById(state, menu));
+
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   if (window.location.search) {
-  //     const params = QueryString.parse(window.location.search.substring(1));
-
-  // dispatch(
-  //   setFilters({
-  //     category: params.category ? Number(params.category) : null,
-  //     min_price: params.min_price ? Number(params.min_price) : 0,
-  //     max_price: params.max_price ? Number(params.max_price) : 0,
-  //     page: params.page ? Number(params.page) : 0,
-  //   })
-  // );
-  //   }
-  // }, []);
 
   const router = useRouter();
 
   useEffect(() => {
     const updateQueryParams = () => {
       const queryParams: FetchProductsArgs = {};
-      console.log(items);
 
-      // if (menu) {
+      // if (menu !== null) {
       //   queryParams.menu = menu;
       // }
-
       if (category !== null) {
         queryParams.category = category;
       }
@@ -79,7 +59,13 @@ const Catalog = () => {
   return (
     <div className={styles.catalog}>
       <div className={styles.breadcrumbs}>
-        <BreadCrumbs />
+        <BreadCrumbs
+          value1={activeMenu?.name || ""}
+          value2={
+            activeMenu?.categories.find((v) => v.id === category)?.name || ""
+          }
+          onClickValue1={() => dispatch(setCategoryValue(null))}
+        />
       </div>
       <div className={styles.wrapper}>
         <div className={styles.sidebar}>
@@ -95,19 +81,10 @@ const Catalog = () => {
           <div className={styles.mobileFilters}>
             <MobileFilters />
           </div>
-          <p
-            onClick={() =>
-              dispatch(setPriceValue({ min_price: 2000, max_price: 4000 }))
-            }
-          >
-            Click
-          </p>
           <ul className={styles.productList}>
             {products.items.map((product) => (
               <li key={product.id}>
-                <Link href={`/product/${product.id}`}>
-                  <ProductItem product={product} />
-                </Link>
+                <ProductItem product={product} />
               </li>
             ))}
           </ul>
@@ -131,7 +108,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     store.dispatch(
       setFilters({
-        menu: query.menu !== null ? Number(query.menu) : 1,
+        menu: query.menu !== null ? Number(query.menu) : 3,
         category: query.category !== null ? Number(query.category) : null,
         min_price: Number(query.min_price) ? Number(query.min_price) : 0,
         max_price: Number(query.max_price) ? Number(query.max_price) : 0,
