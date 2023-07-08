@@ -10,7 +10,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { CollectionType } from "@/redux/types";
 
 interface SliderProps {
-  collections: CollectionType[]
+  collections: CollectionType[];
   load: boolean;
 }
 
@@ -44,11 +44,13 @@ const Slider: FC<SliderProps> = ({ collections, load }) => {
               <div
                 className={`${style.slider}`}
                 style={{
-                  backgroundImage: `url(${collection.images[0].image})`,
+                  backgroundImage: `url(${collection.image})`,
                 }}
               >
                 <div className={style.center}>
-                  <div className={style.title}>{collection.name}</div>
+                  <div className={style.title}>
+                    {collection.collection_name}
+                  </div>
                 </div>
               </div>
             </SwiperSlide>

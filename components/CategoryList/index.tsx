@@ -65,7 +65,13 @@ const CategoryList: FC<CategoryListProps> = ({ title, products, category }) => {
       >
         {products?.map((product, id) => (
           <SwiperSlide key={id}>
-            <ProductItem product={product} />
+            <ProductItem
+              id={product.id}
+              name={product.product_name}
+              collection_name={product.collection_name}
+              image={product.image}
+              price={product.price}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

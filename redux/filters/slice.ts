@@ -6,8 +6,8 @@ const initialState: FiltersSliceState = {
   menu: 1,
   // collection: null,
   category: null,
-  // size: [],
-  // color: [],
+  sizes: [],
+  colors: [],
   min_price: 0,
   max_price: 0,
   // sort: {}, //
@@ -28,20 +28,20 @@ export const filtersSlice = createSlice({
     setCategoryValue(state, action: PayloadAction<number | null>) {
       state.category = action.payload;
     },
-    // changeSizeValue(state, action: PayloadAction<string>) {
-    //   if (state.size.includes(action.payload)) {
-    //     state.size = state.size.filter((i) => i !== action.payload);
-    //   } else {
-    //     state.size = [...state.size, action.payload];
-    //   }
-    // },
-    // changeColorsValue(state, action: PayloadAction<string>) {
-    //   if (state.color.includes(action.payload)) {
-    //     state.color = state.color.filter((i) => i !== action.payload);
-    //   } else {
-    //     state.color = [...state.color, action.payload];
-    //   }
-    // },
+    changeSizesValue(state, action: PayloadAction<number>) {
+      if (state.sizes.includes(action.payload)) {
+        state.sizes = state.sizes.filter((i) => i !== action.payload);
+      } else {
+        state.sizes = [...state.sizes, action.payload];
+      }
+    },
+    changeColorsValue(state, action: PayloadAction<number>) {
+      if (state.colors.includes(action.payload)) {
+        state.colors = state.colors.filter((i) => i !== action.payload);
+      } else {
+        state.colors = [...state.colors, action.payload];
+      }
+    },
     setPriceValue(
       state,
       action: PayloadAction<{ min_price: number; max_price: number }>
@@ -94,7 +94,7 @@ export const filtersSlice = createSlice({
   },
 });
 
-export const { setCurrentPage, setFilters, setCategoryValue, setPriceValue } =
+export const { setCurrentPage, setFilters, setCategoryValue, setPriceValue, changeSizesValue, changeColorsValue } =
   filtersSlice.actions;
 
 export default filtersSlice.reducer;

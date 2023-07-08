@@ -4,42 +4,43 @@ import styles from "./Product.module.scss";
 import Image from "next/image";
 import FilterSelect from "@/components/FilterSelect";
 import Button from "@/components/Button";
-import { wrapper } from "@/redux/store";
 import axios from "axios";
 import { GetServerSideProps } from "next";
-import { ProductType } from "@/redux/products/types";
 import CategoryList from "@/components/CategoryList";
+import ToggleColor from "@/components/ToggleColor";
+import { FullProductType } from "@/redux/types";
 
 type ProductParams = {
   id: string;
 };
 
 interface ProductProps {
-  product: ProductType & {
-    recommendations: ProductType[];
-    related_products: ProductType[];
-  };
+  product: FullProductType;
 }
 
 const Product: FC<ProductProps> = ({ product }) => {
-  const [activeImg, setActiveImg] = useState(0);
+  // const [activeImg, setActiveImg] = useState(product.colors[0].id);
   console.log(product);
   return (
     <div className={styles.product}>
-      <BreadCrumbs />
+      <BreadCrumbs
+        value1={product.category[0].category_name}
+        onClickValue1={() => {}}
+        value2={product.product_name}
+      />
       <div className={styles.productCard}>
-        <div className={styles.productImages}>
+        {/* <div className={styles.productImages}>
           <div className={styles.imageListItems}>
-            {product.images.map((img, i) => (
+            {product.colors.map((color) => (
               <div
                 className={`${styles.imageListItem} ${
-                  i === activeImg && styles.active
+                  color.id === activeImg && styles.active
                 }`}
-                key={i}
-                onClick={() => setActiveImg(i)}
+                key={color.id}
+                onClick={() => setActiveImg(color.id)}
               >
                 <Image
-                  src={img.image}
+                  src={color.images[0].image}
                   width={148}
                   height={150}
                   alt="product image"
@@ -50,31 +51,26 @@ const Product: FC<ProductProps> = ({ product }) => {
           </div>
           <div className={styles.activeImg}>
             <img
-              src={product.images[activeImg].image}
+              src={
+                product.colors.find((color) => color.id === activeImg)
+                  ?.images[0].image
+              }
               width={616}
               height={782}
               alt=""
             />
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.productCardDescription}>
-          <h3>{product.product_name}</h3>
-          <p className={styles.name}>{product.category[0].name}</p>
+          <h3>{product.collection.collection_name}</h3>
+          <p className={styles.name}>{product.product_name}</p>
           <p className={styles.price}>{product.price} ₽</p>
           <div className={styles.colorsBlock}>
-            <div>
-              <span>
-                <span></span>
-              </span>
-              <span>
-                <span></span>
-              </span>
-            </div>
-            <p className={styles.activeColor}>Black</p>
+            <ToggleColor />
           </div>
 
-          <FilterSelect />
+          {/* <FilterSelect items={[{ id: 1, name: "a" }]} /> */}
           <div>
             <Button>Добавить в корзину</Button>
           </div>

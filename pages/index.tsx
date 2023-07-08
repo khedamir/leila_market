@@ -28,12 +28,12 @@ const Home = () => {
         <Slider collections={data.collections} load={true} />
         <CollectionsList collections={data.all_collections} load={true} />
         <CategoryList
-          title={data.categories[0].category.name}
+          title={data.categories[0].category.category_name}
           category={data.categories[0].category}
           products={data.categories[0].products}
         />
-        <CategoryList
-          title={data.categories[1].category.name}
+        {/* <CategoryList
+          title={data.categories[1].category.category_name}
           category={data.categories[1].category}
           products={data.categories[1].products}
         />
@@ -43,12 +43,12 @@ const Home = () => {
           version="one"
         />
         <CategoryList
-          title={data.categories[2].category.name}
+          title={data.categories[2].category.category_name}
           category={data.categories[2].category}
           products={data.categories[2].products}
         />
         <CategoryList
-          title={data.categories[3].category.name}
+          title={data.categories[3].category.category_name}
           category={data.categories[3].category}
           products={data.categories[3].products}
         />
@@ -58,12 +58,12 @@ const Home = () => {
           version="two"
         />
         <CategoryList
-          title={data.categories[4].category.name}
+          title={data.categories[4].category.category_name}
           category={data.categories[4].category}
           products={data.categories[4].products}
         />
         <CategoryList
-          title={data.categories[5].category.name}
+          title={data.categories[5].category.category_name}
           category={data.categories[5].category}
           products={data.categories[5].products}
         />
@@ -73,15 +73,15 @@ const Home = () => {
           version="three"
         />
         <CategoryList
-          title={data.categories[6].category.name}
+          title={data.categories[6].category.category_name}
           category={data.categories[6].category}
           products={data.categories[6].products}
         />
         <CategoryList
-          title={data.categories[7].category.name}
+          title={data.categories[7].category.category_name}
           category={data.categories[7].category}
           products={data.categories[7].products}
-        />
+        /> */}
       </div>
     </>
   );

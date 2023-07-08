@@ -5,29 +5,37 @@ import { ProductType } from "@/redux/products/types";
 import Link from "next/link";
 
 interface ProductItemProps {
-  product: ProductType;
+  id: number;
+  name: string;
+  collection_name: string;
+  image: string;
+  price: string;
 }
 
-const ProductItem: FC<ProductItemProps> = ({ product }) => {
+const ProductItem: FC<ProductItemProps> = ({
+  id,
+  name,
+  collection_name,
+  image,
+  price
+}) => {
   return (
-    <Link href={`/product/${product.id}`}>
+    <Link href={`/product/${id}`}>
       <div className={styles.productItem}>
         <Image
           unoptimized
-          src={product.images[0].image}
+          src={image}
           width={289}
           height={350}
-          alt={product.product_name}
+          alt={name}
           className={styles.productImg}
         />
         <div className={styles.productDescription}>
-          <h4>{product.product_name}</h4>
+          <h4>{name}</h4>
           <p className={styles.productName}>
-            {product.collection_name
-              ? product.collection_name
-              : product.collection.name}
+            {collection_name ? collection_name : collection_name}
           </p>
-          <p className={styles.productPrice}>{product.price} ₽</p>
+          <p className={styles.productPrice}>{price} ₽</p>
         </div>
       </div>
     </Link>

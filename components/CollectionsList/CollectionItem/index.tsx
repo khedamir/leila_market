@@ -10,15 +10,11 @@ interface CollectionItem {
 
 const CollectionItem: FC<CollectionItem> = ({ collection }) => {
   const backgroundStyle = {
-    background: `linear-gradient(180deg, rgba(31, 27, 22, 0) 0%, rgba(31, 27, 22, 0.6) 100%), url(${collection.images[0].image}) center/cover`,
+    background: `linear-gradient(180deg, rgba(31, 27, 22, 0) 0%, rgba(31, 27, 22, 0.6) 100%), url(${collection.image}) center/cover`,
   };
   return (
-    <Link
-      href={"/"}
-      style={backgroundStyle}
-      className={styles.collectionItem}
-    >
-      <h4>{collection.name}</h4>
+    <Link href={"/"} style={backgroundStyle} className={styles.collectionItem}>
+      <h4>{collection.collection_name}</h4>
     </Link>
   );
 };

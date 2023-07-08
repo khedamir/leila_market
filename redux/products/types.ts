@@ -15,23 +15,10 @@ export type FetchProductsArgs = {
 
 export type ProductType = {
   id: number;
-  collection: CollectionType;
+  image: string;
+  collection_name: string;
   product_name: string;
   price: string;
-  size: SizeItem[];
-  delivery_info: string;
-  sku: string;
-  model_parameters: string;
-  size_on_the_model: string;
-  description: string;
-  images: ImageItem[];
-  instructions: Instructions;
-  category: CategoryType[];
-  quantity: number;
-  // related_products: [];
-  date: string;
-  views: number;
-  // recommendations: [];
 };
 
 export type SizeItem = {

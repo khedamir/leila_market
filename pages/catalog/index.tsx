@@ -10,11 +10,16 @@ import Sidebar from "@/components/Sidebar";
 import FilterSelect from "@/components/FilterSelect";
 import MobileFilters from "@/components/MobileFilters";
 import Link from "next/link";
-import { setCategoryValue, setFilters, setPriceValue } from "@/redux/filters/slice";
+import {
+  setCategoryValue,
+  setFilters,
+  setPriceValue,
+} from "@/redux/filters/slice";
 import selectFilters from "@/redux/filters/selectMenu";
 import { useRouter } from "next/router";
 import { FetchProductsArgs } from "@/redux/products/types";
 import selectMenu, { getMenuById } from "@/redux/menu/selectMenu";
+import Filters from "@/components/Filters";
 
 const Catalog = () => {
   const products = useSelector(selectProducts);
@@ -62,7 +67,8 @@ const Catalog = () => {
         <BreadCrumbs
           value1={activeMenu?.name || ""}
           value2={
-            activeMenu?.categories.find((v) => v.id === category)?.name || ""
+            activeMenu?.categories.find((v) => v.id === category)
+              ?.category_name || ""
           }
           onClickValue1={() => dispatch(setCategoryValue(null))}
         />
@@ -72,19 +78,20 @@ const Catalog = () => {
           <Sidebar />
         </div>
         <div>
-          <div className={styles.filters}>
-            <FilterSelect />
-            <FilterSelect />
-            <FilterSelect />
-            <FilterSelect />
-          </div>
+          <Filters />
           <div className={styles.mobileFilters}>
             <MobileFilters />
           </div>
           <ul className={styles.productList}>
             {products.items.map((product) => (
               <li key={product.id}>
-                <ProductItem product={product} />
+                <ProductItem
+                  id={product.id}
+                  name={product.product_name}
+                  collection_name={product.collection.collection_name}
+                  price={product.price}
+                  image={product.images[0].image[0].image}
+                />
               </li>
             ))}
           </ul>
@@ -113,6 +120,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         min_price: Number(query.min_price) ? Number(query.min_price) : 0,
         max_price: Number(query.max_price) ? Number(query.max_price) : 0,
         page: query.page ? Number(query.page) : 1,
+        sizes: [],
+        colors: [],
       })
     );
 

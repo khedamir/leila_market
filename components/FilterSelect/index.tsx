@@ -1,31 +1,48 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./FilterSelect.module.scss";
 import Popup from "../Popup";
 import PopupItem from "../PopupItem";
 
-const FilterSelect = () => {
-  const [activeItems, setActiveItems] = useState<string[]>([]);
-  const items: string[] = ["a", "b", "c", "d"];
+interface FilterSelectProps {
+  title: string;
+  items: { id: number; name: string; color?: string }[];
+  activeItems: number[];
+  setActiveItems: (id: number) => void;
+}
 
-  const handleActiveItems = (item: string) => {
-    if (activeItems.find((i) => i === item)) {
-      const newItems = [...activeItems].filter((i) => i !== item);
-      setActiveItems([...newItems]);
-      return;
-    }
-    setActiveItems((prev) => [...prev, item]);
-  };
+const FilterSelect: FC<FilterSelectProps> = ({
+  title,
+  items,
+  activeItems,
+  setActiveItems,
+}) => {
+  // const handleActiveItems = (id: number) => {
+  //   if (activeItems.find((i) => i === id)) {
+  //     const newItems = [...activeItems].filter((i) => i !== id);
+  //     setActiveItems([...newItems]);
+  //     return;
+  //   }
+  //   const newItems = [...activeItems, id];
+  //   setActiveItems(newItems);
+  // };
 
-  const title = "Размер одежды";
   return (
     <Popup preview={title} countSelectItems={activeItems.length}>
-      {items.map((item, id) => (
+      {items.map((item) => (
         <PopupItem
-          key={id}
-          onClick={() => handleActiveItems(item)}
-          isActive={activeItems.includes(item)}
+          key={item.id}
+          onClick={() => setActiveItems(item.id)}
+          isActive={activeItems.includes(item.id)}
         >
-          {item}
+          <span className={styles.item}>
+            {item.color && (
+              <span
+                className={styles.color}
+                style={{ backgroundColor: item.color }}
+              ></span>
+            )}
+            {item.name}
+          </span>
         </PopupItem>
       ))}
     </Popup>
