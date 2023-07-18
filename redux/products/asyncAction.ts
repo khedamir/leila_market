@@ -11,6 +11,6 @@ export const fetchProducts = createAsyncThunk<ProductType[], FetchProductsArgs>(
         params,
       }
     );
-    return data.results;
+    return data;
   }
 );

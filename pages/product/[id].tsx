@@ -1,14 +1,15 @@
 import BreadCrumbs from "@/components/BreadCrumbs";
 import React, { FC, useState } from "react";
 import styles from "./Product.module.scss";
-import Image from "next/image";
-import FilterSelect from "@/components/FilterSelect";
 import Button from "@/components/Button";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import CategoryList from "@/components/CategoryList";
 import ToggleColor from "@/components/ToggleColor";
 import { FullProductType } from "@/redux/types";
+import SelectSize from "@/components/SelectSize";
+import ProductImages from "@/components/ProductImages";
+import FavoritesIcon from "@/components/FavoritesIcon";
 
 type ProductParams = {
   id: string;
@@ -19,60 +20,40 @@ interface ProductProps {
 }
 
 const Product: FC<ProductProps> = ({ product }) => {
-  // const [activeImg, setActiveImg] = useState(product.colors[0].id);
-  console.log(product);
+  const [activeColor, setActiveColor] = useState(0);
+  const [activeSize, setActiveSize] = useState<string>();
   return (
     <div className={styles.product}>
       <BreadCrumbs
-        value1={product.category[0].category_name}
+        value1={product.category[activeColor].category_name}
         onClickValue1={() => {}}
         value2={product.product_name}
       />
       <div className={styles.productCard}>
-        {/* <div className={styles.productImages}>
-          <div className={styles.imageListItems}>
-            {product.colors.map((color) => (
-              <div
-                className={`${styles.imageListItem} ${
-                  color.id === activeImg && styles.active
-                }`}
-                key={color.id}
-                onClick={() => setActiveImg(color.id)}
-              >
-                <Image
-                  src={color.images[0].image}
-                  width={148}
-                  height={150}
-                  alt="product image"
-                />
-                <div className={styles.shadow}></div>
-              </div>
-            ))}
-          </div>
-          <div className={styles.activeImg}>
-            <img
-              src={
-                product.colors.find((color) => color.id === activeImg)
-                  ?.images[0].image
-              }
-              width={616}
-              height={782}
-              alt=""
-            />
-          </div>
-        </div> */}
+        <ProductImages images={product.colors[0].images} />
 
         <div className={styles.productCardDescription}>
           <h3>{product.collection.collection_name}</h3>
           <p className={styles.name}>{product.product_name}</p>
           <p className={styles.price}>{product.price} ₽</p>
-          <div className={styles.colorsBlock}>
-            <ToggleColor />
-          </div>
 
-          {/* <FilterSelect items={[{ id: 1, name: "a" }]} /> */}
-          <div>
+          <ToggleColor
+            colors={product.colors}
+            activeColor={activeColor}
+            setActiveColor={setActiveColor}
+          />
+          <SelectSize
+            title={activeSize ? activeSize : "Выберите размер"}
+            activeItem={activeSize}
+            items={product.size}
+            setActiveItem={setActiveSize}
+          />
+
+          <div className={styles.buttons}>
             <Button>Добавить в корзину</Button>
+            <div className={styles.favoritesIcon}>
+              <FavoritesIcon />
+            </div>
           </div>
           <p className={styles.info}>{product.delivery_info}</p>
         </div>
@@ -88,7 +69,7 @@ const Product: FC<ProductProps> = ({ product }) => {
         </p>
         <p className={styles.description}>{product.description}</p>
       </div>
-      <ul>
+      <ul className={styles.details}>
         <li>
           <p>Обмеры изделия</p>
         </li>

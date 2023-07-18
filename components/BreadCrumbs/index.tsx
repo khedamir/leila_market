@@ -5,8 +5,8 @@ import Link from "next/link";
 
 interface BreadCrumbsProps {
   value1: string;
-  onClickValue1: () => void;
-  value2: string;
+  onClickValue1?: () => void;
+  value2?: string;
 }
 
 const BreadCrumbs: FC<BreadCrumbsProps> = ({

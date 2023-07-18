@@ -1,38 +1,32 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import styles from "./FilterSelect.module.scss";
 import Popup from "../Popup";
 import PopupItem from "../PopupItem";
 
 interface FilterSelectProps {
   title: string;
-  items: { id: number; name: string; color?: string }[];
-  activeItems: number[];
-  setActiveItems: (id: number) => void;
+  items: any;
+  activeItems: string[];
+  setActiveItem: (i: string) => void;
 }
 
 const FilterSelect: FC<FilterSelectProps> = ({
   title,
   items,
   activeItems,
-  setActiveItems,
+  setActiveItem,
 }) => {
-  // const handleActiveItems = (id: number) => {
-  //   if (activeItems.find((i) => i === id)) {
-  //     const newItems = [...activeItems].filter((i) => i !== id);
-  //     setActiveItems([...newItems]);
-  //     return;
-  //   }
-  //   const newItems = [...activeItems, id];
-  //   setActiveItems(newItems);
-  // };
-
   return (
     <Popup preview={title} countSelectItems={activeItems.length}>
-      {items.map((item) => (
+      {items.map((item: any) => (
         <PopupItem
           key={item.id}
-          onClick={() => setActiveItems(item.id)}
-          isActive={activeItems.includes(item.id)}
+          onClick={() =>
+            setActiveItem(item.color ? item.color_name : String(item.id))
+          }
+          isActive={activeItems.includes(
+            item.color ? item.color_name : String(item.id)
+          )}
         >
           <span className={styles.item}>
             {item.color && (
@@ -41,7 +35,7 @@ const FilterSelect: FC<FilterSelectProps> = ({
                 style={{ backgroundColor: item.color }}
               ></span>
             )}
-            {item.name}
+            {item.color_name || item.name}
           </span>
         </PopupItem>
       ))}

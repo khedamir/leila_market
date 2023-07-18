@@ -1,4 +1,5 @@
 .filters {
+  display: none;
   .filtersHeader {
     display: flex;
     justify-content: space-between;
@@ -12,6 +13,10 @@
     .filterIcon {
       cursor: pointer;
     }
+  }
+
+  @media (max-width: 1296px) {
+    display: block;
   }
 }
 

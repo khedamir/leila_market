@@ -1,0 +1,10 @@
+.orderSelect {
+  & > div {
+    & > div {
+      width: 220px;
+    }
+  }
+  ul {
+    width: 100% !important;
+  }
+}

@@ -1,16 +1,17 @@
+import { OrderType } from "../filters/types";
 import { CategoryType, CollectionType, Status } from "../types";
 
 export type FetchProductsArgs = {
-  menu?: number;
+  menu?: string;
   // collection?: string;
-  category?: number;
-  // size?: string;
-  // color?: string;
-  min_price?: number;
-  max_price?: number;
-  // sort?: any; //
+  category?: string;
+  size?: string;
+  color?: string;
+  min_price?: string;
+  max_price?: string;
+  ordering?: OrderType;
   // search?: string;
-  page?: number;
+  page?: string;
 };
 
 export type ProductType = {

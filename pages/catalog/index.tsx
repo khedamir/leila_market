@@ -7,23 +7,21 @@ import { useSelector } from "react-redux";
 import styles from "./Catalog.module.scss";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import Sidebar from "@/components/Sidebar";
-import FilterSelect from "@/components/FilterSelect";
 import MobileFilters from "@/components/MobileFilters";
-import Link from "next/link";
-import {
-  setCategoryValue,
-  setFilters,
-  setPriceValue,
-} from "@/redux/filters/slice";
+import { setCategoryValue, setFilters } from "@/redux/filters/slice";
 import selectFilters from "@/redux/filters/selectMenu";
 import { useRouter } from "next/router";
 import { FetchProductsArgs } from "@/redux/products/types";
-import selectMenu, { getMenuById } from "@/redux/menu/selectMenu";
+import { getMenuById } from "@/redux/menu/selectMenu";
 import Filters from "@/components/Filters";
+import { OrderType } from "@/redux/filters/types";
+import { isEqual } from "@/utils/isEqual";
+import { fetchCatalogData } from "@/redux/catalog/asyncAction";
+import { Status } from "@/redux/types";
 
 const Catalog = () => {
   const products = useSelector(selectProducts);
-  const { category, min_price, max_price, page, menu } =
+  const { category, min_price, max_price, page, menu, size, color, ordering } =
     useSelector(selectFilters);
 
   const activeMenu = useSelector((state: AppState) => getMenuById(state, menu));
@@ -36,39 +34,49 @@ const Catalog = () => {
     const updateQueryParams = () => {
       const queryParams: FetchProductsArgs = {};
 
-      // if (menu !== null) {
-      //   queryParams.menu = menu;
-      // }
       if (category !== null) {
-        queryParams.category = category;
+        queryParams.category = String(category);
       }
       if (min_price > 0) {
-        queryParams.min_price = min_price;
+        queryParams.min_price = String(min_price);
       }
       if (max_price > 0) {
-        queryParams.max_price = max_price;
+        queryParams.max_price = String(max_price);
       }
-      if (page !== null) {
-        queryParams.page = page;
+      if (page !== null && page !== 1) {
+        queryParams.page = String(page);
+      }
+      if (size.length) {
+        queryParams.size = size.join(";");
+      }
+      if (color.length) {
+        queryParams.color = color.join(";");
+      }
+      if (ordering !== OrderType.default) {
+        queryParams.ordering = ordering;
       }
 
-      router.push({
-        pathname: router.pathname,
-        query: queryParams,
-      });
+      const currentQueryParams = router.query;
+
+      console.log(queryParams, currentQueryParams);
+      if (!isEqual(queryParams, currentQueryParams)) {
+        router.push({
+          pathname: router.pathname,
+          query: queryParams,
+        });
+      }
     };
 
     updateQueryParams();
-  }, [category, min_price, max_price, page]);
+  }, [category, min_price, max_price, page, size, color, ordering]);
 
   return (
     <div className={styles.catalog}>
       <div className={styles.breadcrumbs}>
         <BreadCrumbs
-          value1={activeMenu?.name || ""}
+          value1={activeMenu?.menu_name || ""}
           value2={
-            activeMenu?.categories.find((v) => v.id === category)
-              ?.category_name || ""
+            activeMenu?.categories.find((v) => v.id === category)?.name || ""
           }
           onClickValue1={() => dispatch(setCategoryValue(null))}
         />
@@ -79,18 +87,16 @@ const Catalog = () => {
         </div>
         <div>
           <Filters />
-          <div className={styles.mobileFilters}>
-            <MobileFilters />
-          </div>
+          <MobileFilters />
           <ul className={styles.productList}>
             {products.items.map((product) => (
               <li key={product.id}>
                 <ProductItem
                   id={product.id}
-                  name={product.product_name}
-                  collection_name={product.collection.collection_name}
+                  product_name={product.product_name}
+                  collection_name={product.collection_name}
                   price={product.price}
-                  image={product.images[0].image[0].image}
+                  image={product.image}
                 />
               </li>
             ))}
@@ -105,7 +111,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     const { query } = context;
 
-    console.log(query);
+    const isCatalogDataFetched = store.getState().catalog.status;
+
+    if (isCatalogDataFetched === Status.LOADING) {
+      await store.dispatch(fetchCatalogData());
+    }
 
     await store.dispatch(
       fetchProducts({
@@ -120,8 +130,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
         min_price: Number(query.min_price) ? Number(query.min_price) : 0,
         max_price: Number(query.max_price) ? Number(query.max_price) : 0,
         page: query.page ? Number(query.page) : 1,
-        sizes: [],
-        colors: [],
+        size: query.size ? String(query.size).split(";") : [],
+        color: query.color ? String(query.color).split(";") : [],
+        ordering: query.ordering
+          ? (query.ordering as OrderType)
+          : OrderType.default,
       })
     );
 

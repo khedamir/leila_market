@@ -1,0 +1,40 @@
+.filterPrice {
+  li {
+    padding: 0;
+    cursor: default;
+  }
+
+  ul {
+    width: 283px !important;
+  }
+
+  .wrapper {
+    background-color: #fff;
+    padding: 12px 10px;
+    width: 283px;
+
+    &:hover {
+      background-color: #fff;
+    }
+
+    .inputs {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      width: 100%;
+
+      input {
+        width: 109px;
+      }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    }
+  }
+}

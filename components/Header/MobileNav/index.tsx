@@ -45,13 +45,13 @@ const MobileNav = () => {
         <span className={styles.navItem}>
           <Link href={""}>Войти в профиль</Link>
         </span>
-        {items.map(({ id, name, categories }) => (
+        {items.map(({ id, menu_name, categories }) => (
           <NavItem
             key={id}
             activeItems={activeItems}
             change={setActiveItems}
             id={id}
-            name={name}
+            name={menu_name}
             submenu={categories}
           />
         ))}

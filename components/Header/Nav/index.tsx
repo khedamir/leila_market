@@ -33,13 +33,13 @@ const Nav = () => {
   return (
     <>
       <nav onMouseOut={MouseOut} className={styles.mainNav}>
-        {items.map(({ id, name, categories }) => (
+        {items.map(({ id, menu_name, categories }) => (
           <NavItem
             key={id}
             change={setIndex}
             activeMenuIndex={index}
             id={id}
-            name={name}
+            name={menu_name}
             submenu={categories}
           />
         ))}

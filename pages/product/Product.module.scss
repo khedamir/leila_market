@@ -17,6 +17,28 @@
     flex-direction: column;
     gap: 16px;
 
+    .buttons {
+      display: flex;
+      height: 48px;
+      gap: 6px;
+
+      .favoritesIcon {
+        width: 56px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.04);
+        border: 1px solid #ced3d6;
+        border-radius: 8px;
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.6;
+        }
+      }
+    }
+
     .price {
       font-family: "Poppins", sans-serif;
       font-weight: 500;
@@ -47,55 +69,41 @@
   }
 }
 
-.productImages {
-  display: flex;
-  gap: 20px;
-
-  .activeImg {
-    border-radius: 4px;
-    overflow: hidden;
-    img {
-      object-fit: cover;
-      display: block;
-    }
+@media (max-width: 1440px) {
+  .product {
+    padding: 0 24px;
   }
 
-  .imageListItems {
-    display: flex;
+  .productCard {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
 
-  .imageListItem {
-    cursor: pointer;
-    position: relative;
-    border-radius: 4px;
-    overflow: hidden;
+    .productCardDescription {
+      align-items: center;
+      width: 100%;
 
-    &.active {
-      .shadow {
-        display: none;
+      .buttons {
+        width: 100%;
       }
     }
-    img {
-      display: block;
-      object-fit: cover;
-    }
+  }
 
-    .shadow {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-      background-color: rgba(211, 211, 211, 0.5);
-    }
+  .descriptionBlock {
+    width: 100%;
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1012px) {
   .product {
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .productCardDescription {
+    padding: 0 24px;
+  }
+
+  .descriptionBlock,
+  .details {
     padding: 0 24px;
   }
 }

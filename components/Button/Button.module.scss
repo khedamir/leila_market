@@ -8,7 +8,12 @@
   font-size: 16px;
 
   &:hover {
-    background-color: #0f0f0fee;
+    background-color: #0f0f0faa;
     cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: #0f0f0faa;
   }
 }

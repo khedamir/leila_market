@@ -11,12 +11,18 @@ const Sidebar = () => {
   const menu = useSelector((state: AppState) => getMenuById(state, menuId));
   const dispatch = useAppDispatch();
 
+  const { category } = useSelector(selectFilters);
+
   return (
     <div className={styles.sidebar}>
-      <h3>{menu?.name}</h3>
+      <h3>{menu?.menu_name}</h3>
       <ul>
         {menu?.categories.map(({ name, id }) => (
-          <li onClick={() => dispatch(setCategoryValue(id))} key={id}>
+          <li
+            className={`${category === id && styles.active}`}
+            onClick={() => dispatch(setCategoryValue(id))}
+            key={id}
+          >
             {name}
           </li>
         ))}

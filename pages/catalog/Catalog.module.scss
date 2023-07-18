@@ -8,10 +8,6 @@
   gap: 44px;
 }
 
-.mobileFilters {
-  display: none;
-}
-
 .wrapper {
   display: flex;
   gap: 20px;
@@ -58,10 +54,6 @@
   .filters,
   .breadcrumbs {
     display: none;
-  }
-
-  .mobileFilters {
-    display: block;
   }
   .catalog {
     padding: 0 24px;

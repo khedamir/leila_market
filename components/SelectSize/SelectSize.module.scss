@@ -1,0 +1,18 @@
+.selectSize {
+  width: 100%;
+  & > div {
+    & > div:first-child {
+      border: 1px solid #ced3d6;
+      padding: 12px 16px;
+    }
+
+    & > div:last-child {
+      margin-top: 20px;
+      width: 100%;
+
+      ul {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,151 @@
+.cart {
+  margin: 24px auto;
+  max-width: 1216px;
+  min-width: 393px;
+
+  header {
+    text-align: center;
+
+    h2 {
+      font-size: 32px;
+      font-weight: 400;
+    }
+
+    p {
+      font-size: 16px;
+      color: #5b5b5b;
+      margin: 16px 0;
+    }
+  }
+}
+
+.cartItems {
+  margin: 16px 0;
+  border-bottom: 1px solid #ced3d6;
+
+  .removeAll {
+    p {
+      text-align: right;
+      margin: 32px 11px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+.cartItem {
+  display: flex;
+  padding: 24px 0;
+  border-top: 1px solid #ced3d6;
+
+  .cartItemImg {
+    border-radius: 4px;
+    margin-right: 24px;
+
+    img {
+      width: 109px;
+      height: 133px;
+      object-fit: cover;
+    }
+  }
+
+  .description {
+    display: flex;
+    gap: 93px;
+    justify-content: space-between;
+    width: 100%;
+
+    .sku {
+      font-size: 16px;
+      font-weight: 400;
+      color: #a9a9a9;
+      margin-bottom: 12px;
+    }
+
+    .name {
+      font-size: 20px;
+    }
+
+    .size {
+      width: 114px;
+    }
+
+    .quantity {
+      text-align: center;
+
+      span {
+        display: block;
+        color: #a9a9a9;
+        font-size: 12px;
+        font-family: "Poppins", sans-serif;
+        margin-top: 7px;
+      }
+    }
+
+    .color {
+      width: 114px;
+      height: 48px;
+      border-radius: 4px;
+    }
+
+    .price {
+      font-size: 16px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .removeItem {
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+.checkout {
+  .wrapper {
+    display: flex;
+    gap: 48px;
+
+    .checkoutBLock {
+      width: 392px;
+      h3 {
+        font-size: 32px;
+        font-weight: 400;
+      }
+
+      div {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+      }
+      .quantityCheckout {
+        border-bottom: 1px solid #ced3d6;
+      }
+
+      button {
+        padding: 12px 24px;
+        margin-top: 33px;
+      }
+    }
+  }
+  h2 {
+    font-size: 32px;
+    font-weight: 400;
+    margin: 48px 0;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    .formItem {
+      display: grid;
+      grid-template-columns: 180px 559px;
+      align-items: center;
+    }
+  }
+}

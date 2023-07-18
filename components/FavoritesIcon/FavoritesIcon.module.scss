@@ -1,0 +1,11 @@
+.favorites {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    svg > * {
+      fill: rgb(193, 27, 27);
+    }
+  }
+}

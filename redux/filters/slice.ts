@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FiltersSliceState } from "./types";
+import { FiltersSliceState, OrderType } from "./types";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState: FiltersSliceState = {
   menu: 1,
   // collection: null,
   category: null,
-  sizes: [],
-  colors: [],
+  size: [],
+  color: [],
   min_price: 0,
   max_price: 0,
-  // sort: {}, //
+  ordering: OrderType.default,
   // search: "",
   page: 1,
 };
@@ -28,21 +28,21 @@ export const filtersSlice = createSlice({
     setCategoryValue(state, action: PayloadAction<number | null>) {
       state.category = action.payload;
     },
-    changeSizesValue(state, action: PayloadAction<number>) {
-      if (state.sizes.includes(action.payload)) {
-        state.sizes = state.sizes.filter((i) => i !== action.payload);
+    changeSizeValue(state, action: PayloadAction<string>) {
+      if (state.size.includes(action.payload)) {
+        state.size = state.size.filter((i) => i !== action.payload);
       } else {
-        state.sizes = [...state.sizes, action.payload];
+        state.size = [...state.size, action.payload];
       }
     },
-    changeColorsValue(state, action: PayloadAction<number>) {
-      if (state.colors.includes(action.payload)) {
-        state.colors = state.colors.filter((i) => i !== action.payload);
+    changeColorValue(state, action: PayloadAction<string>) {
+      if (state.color.includes(action.payload)) {
+        state.color = state.color.filter((i) => i !== action.payload);
       } else {
-        state.colors = [...state.colors, action.payload];
+        state.color = [...state.color, action.payload];
       }
     },
-    setPriceValue(
+    setPriceValues(
       state,
       action: PayloadAction<{ min_price: number; max_price: number }>
     ) {
@@ -52,6 +52,9 @@ export const filtersSlice = createSlice({
     // setSearchValue(state, action: PayloadAction<string>) {
     //   state.search = action.payload;
     // },
+    setOrderValue(state, action: PayloadAction<OrderType>) {
+      state.ordering = action.payload;
+    },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.page = action.payload;
     },
@@ -59,42 +62,63 @@ export const filtersSlice = createSlice({
       state.menu = action.payload.menu;
       // state.collection = Number(action.payload.collection);
       state.category = Number(action.payload.category);
-      // state.size = action.payload.size;
-      // state.color = action.payload.color;
+      state.size = action.payload.size;
+      state.color = action.payload.color;
       state.min_price = Number(action.payload.min_price);
       state.max_price = Number(action.payload.max_price);
       state.page = Number(action.payload.page);
+      state.ordering = action.payload.ordering;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(HYDRATE as any, (state, action) => {
-      const { category, min_price, max_price, page, menu } =
-        action.payload.filters;
+      const {
+        category,
+        min_price,
+        max_price,
+        page,
+        menu,
+        ordering,
+        size,
+        color,
+      } = action.payload.filters;
 
       if (menu) {
         state.menu = menu;
       }
-
+      if (size) {
+        state.size = size;
+      }
+      if (size) {
+        state.color = color;
+      }
       if (category) {
         state.category = category;
       }
-
       if (min_price) {
         state.min_price = min_price;
       }
-
       if (max_price) {
         state.max_price = max_price;
       }
-
       if (page) {
         state.page = page;
+      }
+      if (ordering) {
+        state.ordering = ordering;
       }
     });
   },
 });
 
-export const { setCurrentPage, setFilters, setCategoryValue, setPriceValue, changeSizesValue, changeColorsValue } =
-  filtersSlice.actions;
+export const {
+  setCurrentPage,
+  setFilters,
+  setCategoryValue,
+  setPriceValues,
+  changeSizeValue,
+  changeColorValue,
+  setOrderValue,
+} = filtersSlice.actions;
 
 export default filtersSlice.reducer;

@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./ToggleColor.module.scss";
+import { ColorItem } from "@/redux/types";
 
-const colors = [
-  {
-    id: 1,
-    name: "Черный",
-    color: "#0F0F0F",
-  },
-  {
-    id: 2,
-    name: "Коричневый",
-    color: "#988066",
-  },
-];
+interface ToggleColorProps {
+  colors: ColorItem[];
+  activeColor: number;
+  setActiveColor: (i: number) => void;
+}
 
-const ToggleColor = () => {
-  const [activeColor, setActiveColor] = useState(0);
+const ToggleColor: FC<ToggleColorProps> = ({
+  colors,
+  activeColor,
+  setActiveColor,
+}) => {
   return (
     <div className={styles.toggleColor}>
       <div className={styles.colorsList}>
@@ -36,7 +33,7 @@ const ToggleColor = () => {
           </div>
         ))}
       </div>
-      <span>{colors[activeColor].name}</span>
+      <span>{colors[activeColor].color_name}</span>
     </div>
   );
 };

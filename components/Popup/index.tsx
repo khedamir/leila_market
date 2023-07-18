@@ -6,7 +6,7 @@ import Mark from "../../public/images/mark.svg";
 interface PopupProps {
   preview: string;
   children: ReactNode;
-  countSelectItems: number;
+  countSelectItems?: number;
 }
 
 const Popup: FC<PopupProps> = ({ preview, children, countSelectItems }) => {
@@ -41,7 +41,11 @@ const Popup: FC<PopupProps> = ({ preview, children, countSelectItems }) => {
         className={styles.preview}
       >
         <span>{preview}</span>
-        {countSelectItems > 0 && <span className={styles.countSelect}>{countSelectItems}</span>}
+        {countSelectItems && countSelectItems > 0 ? (
+          <span className={styles.countSelect}>{countSelectItems}</span>
+        ) : (
+          ""
+        )}
         <span className={styles.arrow}>
           <Arrow />
         </span>

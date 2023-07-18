@@ -4,6 +4,7 @@ import productReducer from "./products/slice";
 import menuReducer from "./menu/slice";
 import homeReducer from "./home/slice";
 import filtersReducer from "./filters/slice";
+import catalogReducer from "./catalog/slice";
 import { useDispatch } from "react-redux";
 
 const store = () =>
@@ -11,6 +12,7 @@ const store = () =>
     reducer: {
       home: homeReducer,
       products: productReducer,
+      catalog: catalogReducer,
       menu: menuReducer,
       filters: filtersReducer,
     },

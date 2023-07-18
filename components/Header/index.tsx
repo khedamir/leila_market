@@ -43,7 +43,7 @@ const Header = () => {
           </Link>
         </li>
         <li className={styles.basket}>
-          <Link href={"/basket"}>
+          <Link href={"/cart"}>
             <Image
               width={24}
               height={24}

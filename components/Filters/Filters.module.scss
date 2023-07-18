@@ -2,5 +2,13 @@
   display: flex;
   justify-content: flex-start;
   gap: 24px;
-  margin-bottom: 36px;
+  margin-bottom: 34px;
+
+  .order {
+    margin-left: auto;
+    margin-right: 30px;
+  }
+  @media (max-width: 1296px) {
+    display: none;
+  }
 }

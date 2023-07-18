@@ -47,7 +47,7 @@ export type ColorItem = {
 
 export type ImageItem = {
   id: number;
-  image: string;
+  image_url: string;
 };
 
 export type Instructions = {

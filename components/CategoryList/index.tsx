@@ -67,7 +67,7 @@ const CategoryList: FC<CategoryListProps> = ({ title, products, category }) => {
           <SwiperSlide key={id}>
             <ProductItem
               id={product.id}
-              name={product.product_name}
+              product_name={product.product_name}
               collection_name={product.collection_name}
               image={product.image}
               price={product.price}
