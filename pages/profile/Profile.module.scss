@@ -1,0 +1,28 @@
+.profile {
+  max-width: 1428px;
+  min-width: 393px;
+  margin: 24px auto;
+
+  display: flex;
+  gap: 48px;
+}
+
+.content {
+    margin: 60px 0;
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+  .formItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 598px;
+    gap: 32px;
+
+    input {
+        width: 481px;
+    }
+  }
+}

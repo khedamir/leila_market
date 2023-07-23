@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./Header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import Nav from "./Nav";
 import MobileNav from "./MobileNav";
+import { useSelector } from "react-redux";
+import { cartFullItemsCount, cartSelector } from "@/redux/cart/selector";
+import { useAppDispatch } from "@/redux/store";
+import { setCartItems } from "@/redux/cart/slice";
+import { getCartFronLS } from "@/utils/getCartFronLS";
 
 const Header = () => {
+  const { items } = useSelector(cartSelector);
+  const ItemsCount = useSelector(cartFullItemsCount);
+  const isMounted = useRef(false);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setCartItems(getCartFronLS()));
+  }, []);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items);
+      localStorage.setItem("cartItems", json);
+    }
+    isMounted.current = true;
+  }, [items]);
+
   return (
     <header className={styles.header}>
       <Nav />
@@ -51,6 +74,7 @@ const Header = () => {
               alt="basket"
             />
           </Link>
+          {ItemsCount}
         </li>
       </ul>
     </header>

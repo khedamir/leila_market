@@ -5,6 +5,7 @@ import menuReducer from "./menu/slice";
 import homeReducer from "./home/slice";
 import filtersReducer from "./filters/slice";
 import catalogReducer from "./catalog/slice";
+import cartReducer from "./cart/slice";
 import { useDispatch } from "react-redux";
 
 const store = () =>
@@ -15,6 +16,7 @@ const store = () =>
       catalog: catalogReducer,
       menu: menuReducer,
       filters: filtersReducer,
+      cart: cartReducer,
     },
   });
 

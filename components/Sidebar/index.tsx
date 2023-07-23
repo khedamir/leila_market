@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./Sidebar.module.scss";
 import { useSelector } from "react-redux";
 import selectFilters from "@/redux/filters/selectMenu";
@@ -6,21 +6,25 @@ import { getMenuById } from "@/redux/menu/selectMenu";
 import { AppState, useAppDispatch } from "@/redux/store";
 import { setCategoryValue } from "@/redux/filters/slice";
 
-const Sidebar = () => {
-  const { menu: menuId } = useSelector(selectFilters);
-  const menu = useSelector((state: AppState) => getMenuById(state, menuId));
-  const dispatch = useAppDispatch();
+interface SidebarProps {
+  items: { id: number; name: string }[];
+  activeItem: number | null;
+  onClickFn: (id: number) => void;
+  title: string;
+}
 
-  const { category } = useSelector(selectFilters);
+const Sidebar: FC<SidebarProps> = ({ items, activeItem, onClickFn, title }) => {
+  const { menu: menuId } = useSelector(selectFilters);
+
 
   return (
     <div className={styles.sidebar}>
-      <h3>{menu?.menu_name}</h3>
+      <h3>{title}</h3>
       <ul>
-        {menu?.categories.map(({ name, id }) => (
+        {items?.map(({ name, id }) => (
           <li
-            className={`${category === id && styles.active}`}
-            onClick={() => dispatch(setCategoryValue(id))}
+            className={`${activeItem === id && styles.active}`}
+            onClick={() => onClickFn(id)}
             key={id}
           >
             {name}

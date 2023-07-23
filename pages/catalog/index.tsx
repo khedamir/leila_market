@@ -83,7 +83,12 @@ const Catalog = () => {
       </div>
       <div className={styles.wrapper}>
         <div className={styles.sidebar}>
-          <Sidebar />
+          <Sidebar
+            items={activeMenu?.categories}
+            activeItem={category}
+            onClickFn={(id: number) => dispatch(setCategoryValue(id))}
+            title={activeMenu?.menu_name}
+          />
         </div>
         <div>
           <Filters />

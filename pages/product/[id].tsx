@@ -10,6 +10,9 @@ import { FullProductType } from "@/redux/types";
 import SelectSize from "@/components/SelectSize";
 import ProductImages from "@/components/ProductImages";
 import FavoritesIcon from "@/components/FavoritesIcon";
+import { CartItemType } from "@/redux/cart/types";
+import { useAppDispatch } from "@/redux/store";
+import { addItem } from "@/redux/cart/slice";
 
 type ProductParams = {
   id: string;
@@ -20,12 +23,29 @@ interface ProductProps {
 }
 
 const Product: FC<ProductProps> = ({ product }) => {
-  const [activeColor, setActiveColor] = useState(0);
+  const [activeColor, setActiveColor] = useState<string>(
+    product.colors[0].color_name
+  );
   const [activeSize, setActiveSize] = useState<string>();
+
+  const dispatch = useAppDispatch();
+
+  const addCart = () => {
+    const item: CartItemType = {
+      id: product.id,
+      size: activeSize || product.size[0],
+      color: activeColor,
+      price: Number(product.price),
+      count: 1,
+    };
+
+    dispatch(addItem(item));
+  };
+
   return (
     <div className={styles.product}>
       <BreadCrumbs
-        value1={product.category[activeColor].category_name}
+        value1={product.category[0].category_name}
         onClickValue1={() => {}}
         value2={product.product_name}
       />
@@ -50,7 +70,7 @@ const Product: FC<ProductProps> = ({ product }) => {
           />
 
           <div className={styles.buttons}>
-            <Button>Добавить в корзину</Button>
+            <Button onClick={addCart}>Добавить в корзину</Button>
             <div className={styles.favoritesIcon}>
               <FavoritesIcon />
             </div>
