@@ -16,6 +16,31 @@
   align-items: center;
   gap: 32px;
   justify-self: end;
+
+  li {
+    position: relative;
+  }
+
+  .count {
+    border-radius: 50%;
+    background-color: #0f0f0f;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    position: absolute;
+    right: -10px;
+    bottom: -5px;
+
+    span {
+      font-family: "Poppins", sans-serif;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 20px;
+    }
+  }
 }
 
 @media (max-width: 1440px) {
@@ -49,7 +74,7 @@
     li {
       img {
         width: 21px;
-        height:  21px;
+        height: 21px;
       }
     }
   }

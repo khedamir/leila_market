@@ -2,8 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import styles from "./Footer.module.scss";
+import { useSelector } from "react-redux";
+import selectMenu from "@/redux/menu/selectMenu";
 
 const Footer = () => {
+  const { items } = useSelector(selectMenu);
+
   return (
     <footer className={styles.footer}>
       <div className={styles.wrapper}>
@@ -17,13 +21,9 @@ const Footer = () => {
             />
           </li>
           <li className={styles.menuItems}>
-            <Link href={""}>Каталог</Link>
-            <Link href={""}>На хадж</Link>
-            <Link href={""}>Новинки</Link>
-          </li>
-          <li className={styles.menuItems}>
-            <Link href={""}>Женщинам</Link>
-            <Link href={""}>Коллекции</Link>
+            {items.map((item) => (
+              <Link href={""}>{item.menu_name}</Link>
+            ))}
             <Link href={""}>Покупателям</Link>
           </li>
           <li className={styles.contacts}>

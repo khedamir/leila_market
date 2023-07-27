@@ -29,10 +29,10 @@ const FilterSelect: FC<FilterSelectProps> = ({
           )}
         >
           <span className={styles.item}>
-            {item.color && (
+            {item.color_name && (
               <span
                 className={styles.color}
-                style={{ backgroundColor: item.color }}
+                style={{ backgroundColor: item.color_hex }}
               ></span>
             )}
             {item.color_name || item.name}

@@ -15,6 +15,12 @@
     margin: auto;
     justify-content: space-between;
 
+    .menuItems {
+      display: grid;
+      grid-template-columns: 270px 270px;
+      gap: 24px;
+    }
+
     li {
       gap: 20px;
       font-size: 20px;
@@ -45,6 +51,16 @@
       min-width: 393px;
       margin: auto;
       padding: 0 24px;
+    }
+  }
+}
+
+@media (max-width: 1212px) {
+  .footer {
+    .listItems {
+      .menuItems {
+        grid-template-columns: 200px 200px;
+      }
     }
   }
 }

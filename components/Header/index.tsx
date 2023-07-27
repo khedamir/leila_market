@@ -64,6 +64,11 @@ const Header = () => {
               alt="favorites"
             />
           </Link>
+          {0 > 0 && (
+            <span className={styles.count}>
+              <span></span>
+            </span>
+          )}
         </li>
         <li className={styles.basket}>
           <Link href={"/cart"}>
@@ -74,7 +79,15 @@ const Header = () => {
               alt="basket"
             />
           </Link>
-          {ItemsCount}
+          {ItemsCount > 0 && (
+            <span className={styles.count}>
+              {ItemsCount > 99 ? (
+                <span>&#8734;</span>
+              ) : (
+                <span>{ItemsCount}</span>
+              )}
+            </span>
+          )}
         </li>
       </ul>
     </header>

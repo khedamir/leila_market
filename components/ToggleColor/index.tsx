@@ -4,8 +4,8 @@ import { ColorItem } from "@/redux/types";
 
 interface ToggleColorProps {
   colors: ColorItem[];
-  activeColor: string;
-  setActiveColor: (i: string) => void;
+  activeColor: number;
+  setActiveColor: (i: number) => void;
 }
 
 const ToggleColor: FC<ToggleColorProps> = ({
@@ -20,20 +20,20 @@ const ToggleColor: FC<ToggleColorProps> = ({
           <div
             key={color.id}
             className={`${styles.colorItem} ${
-              activeColor === color.color_name && styles.active
+              activeColor === id && styles.active
             }`}
           >
             <span
-              style={{ backgroundColor: color.color }}
+              style={{ backgroundColor: color.color.color_hex }}
               className={styles.color}
-              onClick={() => setActiveColor(color.color_name)}
+              onClick={() => setActiveColor(id)}
             >
               <span></span>
             </span>
           </div>
         ))}
       </div>
-      <span>{activeColor}</span>
+      <span>{colors[activeColor].color.color_name}</span>
     </div>
   );
 };

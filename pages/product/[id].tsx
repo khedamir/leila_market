@@ -23,9 +23,7 @@ interface ProductProps {
 }
 
 const Product: FC<ProductProps> = ({ product }) => {
-  const [activeColor, setActiveColor] = useState<string>(
-    product.colors[0].color_name
-  );
+  const [activeColor, setActiveColor] = useState<number>(0);
   const [activeSize, setActiveSize] = useState<string>();
 
   const dispatch = useAppDispatch();
@@ -33,8 +31,8 @@ const Product: FC<ProductProps> = ({ product }) => {
   const addCart = () => {
     const item: CartItemType = {
       id: product.id,
-      size: activeSize || product.size[0],
-      color: activeColor,
+      size: activeSize || product.colors[activeColor].size[0].name,
+      color: product.colors[activeColor].color.color_name,
       price: Number(product.price),
       count: 1,
     };
@@ -50,7 +48,7 @@ const Product: FC<ProductProps> = ({ product }) => {
         value2={product.product_name}
       />
       <div className={styles.productCard}>
-        <ProductImages images={product.colors[0].images} />
+        <ProductImages images={product.colors[activeColor].color.images} />
 
         <div className={styles.productCardDescription}>
           <h3>{product.collection.collection_name}</h3>
@@ -63,9 +61,9 @@ const Product: FC<ProductProps> = ({ product }) => {
             setActiveColor={setActiveColor}
           />
           <SelectSize
-            title={activeSize ? activeSize : "Выберите размер"}
+            title={"Выберите размер"}
             activeItem={activeSize}
-            items={product.size}
+            items={product.colors[activeColor].size}
             setActiveItem={setActiveSize}
           />
 
