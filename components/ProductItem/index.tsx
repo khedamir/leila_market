@@ -5,14 +5,6 @@ import { ProductType } from "@/redux/products/types";
 import Link from "next/link";
 import FavoritesIcon from "../FavoritesIcon";
 
-interface ProductItemProps {
-  id: number;
-  product_name: string;
-  collection_name: string;
-  image: string;
-  price: string;
-}
-
 const ProductItem: FC<ProductType> = ({
   id,
   product_name,

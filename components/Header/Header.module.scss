@@ -1,9 +1,11 @@
+@import "../../styles/veriables";
+
 .header {
   display: grid;
   grid-template-columns: 1fr 162px 1fr;
   padding: 12px 24px;
-  max-width: 1922px;
-  min-width: 393px;
+  max-width: $window-width;
+  min-width: $mobile-width;
   margin: auto;
 }
 
@@ -24,7 +26,6 @@
   .count {
     border-radius: 50%;
     background-color: #0f0f0f;
-    color: #fff;
     width: 18px;
     height: 18px;
     display: flex;
@@ -39,11 +40,12 @@
       display: inline-block;
       vertical-align: middle;
       line-height: 20px;
+      color: $white;
     }
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: $desktop-width) {
   .logo {
     img {
       width: 111px;
@@ -58,7 +60,10 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $tablet-width) {
+  .header {
+    padding: 12px 20px;
+  }
   .logo {
     img {
       width: 90px;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./MobileNav.module.scss";
 import { useSelector } from "react-redux";
@@ -36,36 +36,46 @@ const MobileNav = () => {
   const [activeItems, setActiveItems] = useState<number[]>([]);
   const [activeStaticItems, setActiveStaticItems] = useState<number[]>([]);
 
+  useEffect(() => {
+    if (active) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [active]);
+
   return (
     <div className={styles.mobileNav}>
       <div className={styles.burger}>
         <Burger setMenuOpen={setActive} menuOpen={active} />
       </div>
       <nav className={`${styles.mainNav} ${active && styles.active}`}>
-        <span className={styles.navItem}>
-          <Link href={""}>Войти в профиль</Link>
-        </span>
-        {items.map(({ id, menu_name, categories }) => (
-          <NavItem
-            key={id}
-            activeItems={activeItems}
-            change={setActiveItems}
-            id={id}
-            name={menu_name}
-            submenu={categories}
-          />
-        ))}
-        {MenuItems.map(({ id, name, path, submenu }) => (
-          <NavItem
-            key={id}
-            activeItems={activeStaticItems}
-            change={setActiveStaticItems}
-            id={id}
-            name={name}
-            path={path}
-            submenu={submenu}
-          />
-        ))}
+        <div className={styles.wrapper}>
+          <span className={styles.navItem}>
+            <Link href={""}>Войти в профиль</Link>
+          </span>
+          {items.map(({ id, menu_name, categories }) => (
+            <NavItem
+              key={id}
+              activeItems={activeItems}
+              change={setActiveItems}
+              id={id}
+              name={menu_name}
+              submenu={categories}
+            />
+          ))}
+          {MenuItems.map(({ id, name, path, submenu }) => (
+            <NavItem
+              key={id}
+              activeItems={activeStaticItems}
+              change={setActiveStaticItems}
+              id={id}
+              name={name}
+              path={path}
+              submenu={submenu}
+            />
+          ))}
+        </div>
       </nav>
     </div>
   );

@@ -92,7 +92,7 @@ const Cart = () => {
                       <SelectSize
                         title="X"
                         activeItem="X"
-                        items={["X", "Y"]}
+                        items={[]}
                         setActiveItem={(i: string) => {}}
                       />
                     </div>

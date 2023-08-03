@@ -1,3 +1,5 @@
+@import "@/styles/veriables.scss";
+
 .wrapper {
   position: relative;
 
@@ -55,10 +57,8 @@
   }
 }
 
-@media (max-width: 1260px) {
+@media (max-width: $desktop-width) {
   .productItem {
-    width: 229px;
-
     .productImg {
       height: 277px;
       margin-bottom: 12px;
@@ -78,10 +78,9 @@
   }
 }
 
-@media (max-width: 512px) {
+@media (max-width: $mobile-width) {
   .productItem {
-    width: 100%;
-    min-width: 139px;
+    // min-width: 139px;
 
     .productImg {
       height: 168px;

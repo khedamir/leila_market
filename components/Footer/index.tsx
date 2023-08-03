@@ -22,7 +22,9 @@ const Footer = () => {
           </li>
           <li className={styles.menuItems}>
             {items.map((item) => (
-              <Link href={""}>{item.menu_name}</Link>
+              <Link key={item.id} href={""}>
+                {item.menu_name}
+              </Link>
             ))}
             <Link href={""}>Покупателям</Link>
           </li>

@@ -1,0 +1,34 @@
+@import "@/styles/veriables.scss";
+
+.sliderContainer {
+  width: $content-width;
+  min-width: $mobile-width;
+  margin: auto;
+}
+
+@media (max-width: $desktop-width) {
+  .sliderContainer {
+    width: $tablet-width;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: $tablet-width) {
+  .sliderContainer {
+    width: 478px;
+  }
+}
+
+@media (max-width: 540px) {
+  .sliderContainer {
+    zoom: 0.8;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .sliderContainer {
+    zoom: 1;
+    width: 100%;
+    padding-right: 0;
+  }
+}

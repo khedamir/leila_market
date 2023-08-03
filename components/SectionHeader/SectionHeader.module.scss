@@ -1,8 +1,11 @@
+@import "@/styles/veriables.scss";
+
 .header {
-  margin-bottom: 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: $content-width;
+  margin: 32px auto;
   h3,
   a {
     font-size: 20px;
@@ -16,10 +19,29 @@
   }
 }
 
-@media (max-width: 512px) {
+@media (max-width: $desktop-width) {
   .header {
-    padding-right: 20px;
+    width: $tablet-width;
+    padding: 0 20px;
+  }
+}
 
+@media (max-width: $tablet-width) {
+  .header {
+    width: 478px;
+  }
+}
+
+@media (max-width: 540px) {
+  .header {
+    zoom: 0.8;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .header {
+    zoom: 1;
+    width: 353px;
     a,
     h3 {
       font-size: 16px;

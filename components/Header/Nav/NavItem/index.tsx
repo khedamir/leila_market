@@ -27,16 +27,16 @@ const NavItem: FC<NavItemProps> = ({
       >
         {name}
       </Link>
-      <div
-        onMouseOver={() => change(activeMenuIndex)}
-        className={`${styles.submenu} ${
-          id === activeMenuIndex && styles.active
-        }`}
-      >
-        <div className={styles.wrapper}>
-          <ul>
-            {submenu &&
-              submenu.map((item) => (
+      {submenu && (
+        <div
+          onMouseOver={() => change(activeMenuIndex)}
+          className={`${styles.submenu} ${
+            id === activeMenuIndex && styles.active
+          }`}
+        >
+          <div className={styles.wrapper}>
+            <ul>
+              {submenu.map((item) => (
                 <li key={item.id}>
                   <Link
                     href={
@@ -49,9 +49,10 @@ const NavItem: FC<NavItemProps> = ({
                   </Link>
                 </li>
               ))}
-          </ul>
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </span>
   );
 };

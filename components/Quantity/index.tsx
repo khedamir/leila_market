@@ -5,11 +5,10 @@ import MinusIcon from "../../public/images/minus.svg";
 
 const Quantity = () => {
   const [quantity, setQuantity] = useState<number>(1);
-  const changeQuantity = () => {
-    if (quantity === 1) {
-      return;
+  const changeQuantity = (i: string) => {
+    if (Number(i) >= 1) {
+      setQuantity(Number(i));
     }
-    setQuantity(quantity - 1);
   };
   return (
     <div className={styles.quantity}>
@@ -20,7 +19,12 @@ const Quantity = () => {
       >
         <MinusIcon />
       </button>
-      <input value={quantity} type="number" />
+      <input
+        value={quantity}
+        min={1}
+        onChange={(e) => changeQuantity(e.target.value)}
+        type="number"
+      />
       <button
         className={`${styles.button}`}
         onClick={() => setQuantity(quantity + 1)}

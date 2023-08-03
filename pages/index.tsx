@@ -25,7 +25,7 @@ const Home = () => {
         <title>Главная</title>
       </Head>
       <div>
-        <Slider collections={data.collections} load={true} />
+        <Slider items={data.collections} load={true} />
         <CollectionsList collections={data.all_collections} load={true} />
         <CategoryList
           title={data.categories[0].category.category_name}

@@ -39,11 +39,12 @@ const ProductImages: FC<ProductImagesProps> = ({ images }) => {
             width={616}
             height={782}
             alt=""
+            unoptimized
           />
         </div>
       </div>
       <div className={styles.slider}>
-        <Slider collections={images} load={true} />
+        <Slider items={images} load={true} />
       </div>
     </>
   );
