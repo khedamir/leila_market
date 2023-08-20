@@ -1,8 +1,17 @@
+import { SizeItem } from "../types";
+
 export type CartItemType = {
-  id: number;
+  product: {
+    id: number;
+    product_name: string;
+    image: string;
+    sku: string;
+    sizes: SizeItem[];
+    color_hex: string;
+  };
   size: string;
   color: string;
-  count: number;
+  current: number;
   price: number;
 };
 

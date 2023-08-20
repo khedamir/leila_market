@@ -17,34 +17,34 @@ const CollectionBlock: FC<CollectionBlockProps> = ({
 }) => {
   return (
     <div className={styles.collection}>
-      <h3 className={styles.mobileTitle}>{collection.name}</h3>
+      <h3 className={styles.mobileTitle}>{collection.collection_name}</h3>
       <div className={`${styles.collectionBlock} ${styles[version]}`}>
         <div
-          style={{ backgroundImage: `url("${collection.images[0].image}")` }}
+          style={{ backgroundImage: `url("${collection.image}")` }}
           className={styles.collectionPoster}
         >
-          <h3>{collection.name}</h3>
+          <h3>{collection.collection_name}</h3>
         </div>
         <div className={styles.collectionSecondBlock}>
           <div
-            style={{ backgroundImage: `url("${collection.images[0].image}")` }}
+            style={{ backgroundImage: `url("${collection.image}")` }}
             className={styles.collectionMiniPoster}
           ></div>
           <ul>
             <li>
-              <ProductItem product={products[0]} />
+              {/* <ProductItem product={products[0]} /> */}
             </li>
             <li>
               <div className={styles.collectionDescription}>
                 Мы занимаемся дизайном и пошивом одежды с 2020 года. Каждое наше
                 изделие изготовлено
               </div>
-              <ProductItem product={products[0]} />
+              {/* <ProductItem product={products[0]} /> */}
             </li>
           </ul>
         </div>
         <div
-          style={{ backgroundImage: `url("${collection.images[0].image}")` }}
+          style={{ backgroundImage: `url("${collection.image}")` }}
           className={styles.collectionMiniPosterMobile}
         ></div>
       </div>

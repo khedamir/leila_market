@@ -9,7 +9,7 @@ import Image from "next/image";
 const Contacts = () => {
   return (
     <div className={styles.contacts}>
-      <BreadCrumbs />
+      <BreadCrumbs value1="" />
       <h2>Связаться с нами</h2>
       <div className={styles.contactsList}>
         <div className={styles.socials}>

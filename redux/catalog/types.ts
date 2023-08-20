@@ -7,7 +7,7 @@ export type CatalogDataType = {
 
 export type ColorItem = {
   id: number;
-  color: string;
+  color_hex: string;
   color_name: string;
 };
 

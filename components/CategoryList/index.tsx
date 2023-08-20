@@ -2,8 +2,7 @@ import React, { FC, useRef } from "react";
 import styles from "./CategoryList.module.scss";
 import SectionHeader from "../SectionHeader";
 import ProductItem from "../ProductItem";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, EffectFade, Autoplay } from "swiper";
+import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
@@ -25,105 +24,6 @@ const CategoryList: FC<CategoryListProps> = ({ title, products, category }) => {
         link={category ? `/catalog/?category=${category.id}` : ""}
       />
       <SliderContainer>
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
         {products?.map((product, id) => (
           <SwiperSlide key={id}>
             <ProductItem

@@ -22,11 +22,11 @@ const Footer = () => {
           </li>
           <li className={styles.menuItems}>
             {items.map((item) => (
-              <Link key={item.id} href={""}>
+              <Link key={item.id} href={"/catalog"}>
                 {item.menu_name}
               </Link>
             ))}
-            <Link href={""}>Покупателям</Link>
+            <Link href={"/delivery"}>Покупателям</Link>
           </li>
           <li className={styles.contacts}>
             <h3>Контакты</h3>

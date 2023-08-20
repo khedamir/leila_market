@@ -1,0 +1,27 @@
+.checkoutBLock {
+  width: 392px;
+  h3 {
+    font-size: 32px;
+    font-weight: 400;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+  }
+  .quantityCheckout {
+    border-bottom: 1px solid #ced3d6;
+  }
+
+  button {
+    padding: 12px 24px;
+    margin-top: 33px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .checkoutBLock {
+    width: 100%;
+  }
+}

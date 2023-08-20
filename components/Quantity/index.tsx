@@ -1,33 +1,35 @@
-import React, { useState } from "react";
+import React, { FC } from "react";
 import styles from "./Quantity.module.scss";
 import PlusIcon from "../../public/images/plus.svg";
 import MinusIcon from "../../public/images/minus.svg";
 
-const Quantity = () => {
-  const [quantity, setQuantity] = useState<number>(1);
-  const changeQuantity = (i: string) => {
-    if (Number(i) >= 1) {
-      setQuantity(Number(i));
-    }
-  };
+interface QuantityProps {
+  maxCurrent: number | undefined;
+  current: number;
+  onClickPlus: () => void;
+  onClickMinus: () => void;
+}
+
+const Quantity: FC<QuantityProps> = ({
+  maxCurrent,
+  current,
+  onClickMinus,
+  onClickPlus,
+}) => {
   return (
     <div className={styles.quantity}>
       <button
-        disabled={quantity === 1}
+        disabled={current === 1}
         className={styles.button}
-        onClick={() => setQuantity(quantity - 1)}
+        onClick={onClickMinus}
       >
         <MinusIcon />
       </button>
-      <input
-        value={quantity}
-        min={1}
-        onChange={(e) => changeQuantity(e.target.value)}
-        type="number"
-      />
+      <input value={current} min={1} max={maxCurrent} readOnly type="number" />
       <button
+        disabled={current === maxCurrent}
         className={`${styles.button}`}
-        onClick={() => setQuantity(quantity + 1)}
+        onClick={onClickPlus}
       >
         <PlusIcon />
       </button>

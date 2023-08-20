@@ -1,5 +1,10 @@
-import React, { ChangeEvent, forwardRef, InputHTMLAttributes, Ref, useContext } from 'react';
-import styles from './Index.module.scss';
+import React, {
+  ChangeEvent,
+  forwardRef,
+  InputHTMLAttributes,
+  Ref,
+} from "react";
+import styles from "./Index.module.scss";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string | number;
@@ -21,6 +26,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   );
 });
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export default Input;

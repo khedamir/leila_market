@@ -7,16 +7,7 @@ import selectFilters from "@/redux/filters/selectMenu";
 import { useAppDispatch } from "@/redux/store";
 import { setOrderValue } from "@/redux/filters/slice";
 import styles from "./OrderSelect.module.scss";
-
-const OrderItems = [
-  { name: "По умолчанию", value: OrderType.default },
-  { name: "По возрастанию цены", value: OrderType.price },
-  { name: "По убыванию цены", value: OrderType.price_desc },
-  //   { name: "", value: OrderType.date_dec },
-  { name: "По популярности", value: OrderType.views },
-  { name: "По новизне", value: OrderType.date },
-  //   { name: "", value: OrderType.views_dec },
-];
+import { OrderItems } from "./OrderItem";
 
 const OrderSelect = () => {
   const { ordering } = useSelector(selectFilters);

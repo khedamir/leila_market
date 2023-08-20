@@ -78,16 +78,16 @@ const Header = () => {
               src={"/images/basket.svg"}
               alt="basket"
             />
+            {ItemsCount > 0 && (
+              <span className={styles.count}>
+                {ItemsCount > 99 ? (
+                  <span>&#8734;</span>
+                ) : (
+                  <span>{ItemsCount}</span>
+                )}
+              </span>
+            )}
           </Link>
-          {ItemsCount > 0 && (
-            <span className={styles.count}>
-              {ItemsCount > 99 ? (
-                <span>&#8734;</span>
-              ) : (
-                <span>{ItemsCount}</span>
-              )}
-            </span>
-          )}
         </li>
       </ul>
     </header>

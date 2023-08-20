@@ -35,55 +35,7 @@ const Slider: FC<SliderProps> = ({ items, load }) => {
           modules={[Autoplay, Navigation]}
         >
           {items.map((item: any) => (
-            <SwiperSlide>
-              <div
-                className={`${style.slide}`}
-                style={{
-                  backgroundImage: `url(${
-                    item.image ? item.image : item.image_url
-                  })`,
-                }}
-              >
-                {item.collection_name && (
-                  <h1 className={style.title}>{item.collection_name}</h1>
-                )}
-              </div>
-            </SwiperSlide>
-          ))}
-          {items.map((item: any) => (
-            <SwiperSlide>
-              <div
-                className={`${style.slide}`}
-                style={{
-                  backgroundImage: `url(${
-                    item.image ? item.image : item.image_url
-                  })`,
-                }}
-              >
-                {item.collection_name && (
-                  <h1 className={style.title}>{item.collection_name}</h1>
-                )}
-              </div>
-            </SwiperSlide>
-          ))}
-          {items.map((item: any) => (
-            <SwiperSlide>
-              <div
-                className={`${style.slide}`}
-                style={{
-                  backgroundImage: `url(${
-                    item.image ? item.image : item.image_url
-                  })`,
-                }}
-              >
-                {item.collection_name && (
-                  <h1 className={style.title}>{item.collection_name}</h1>
-                )}
-              </div>
-            </SwiperSlide>
-          ))}
-          {items.map((item: any) => (
-            <SwiperSlide>
+            <SwiperSlide key={item.id}>
               <div
                 className={`${style.slide}`}
                 style={{

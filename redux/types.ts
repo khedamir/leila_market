@@ -21,7 +21,7 @@ export type FullProductType = {
   id: number;
   collection: CollectionType;
   product_name: string;
-  price: string;
+  price: number;
   delivery_info: string;
   sku: string;
   model_parameters: string;
@@ -39,18 +39,20 @@ export type FullProductType = {
 
 export type ColorItem = {
   id: number;
+  images: ImageItem[];
   color: {
     id: number;
     color_hex: string;
     color_name: string;
-    images: ImageItem[];
+    sizes: SizeItem[];
   };
-  size: SizeItem[];
 };
 
 export type SizeItem = {
-  id: 1;
-  name: string;
+  size: {
+    id: 1;
+    name: string;
+  };
   quantity: number;
 };
 

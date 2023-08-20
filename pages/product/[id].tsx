@@ -1,5 +1,5 @@
 import BreadCrumbs from "@/components/BreadCrumbs";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./Product.module.scss";
 import Button from "@/components/Button";
 import axios from "axios";
@@ -22,25 +22,44 @@ interface ProductProps {
   product: FullProductType;
 }
 
-const Product: FC<ProductProps> = ({ product }) => {
+const Product: FC<ProductProps> = () => {
   const [activeColor, setActiveColor] = useState<number>(0);
   const [activeSize, setActiveSize] = useState<string>();
+  const [product, setProduct] = useState<FullProductType>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get(`http://localhost:8000/api/product/1/`);
+
+      setProduct(data);
+    };
+    fetchData();
+  }, []);
 
   const dispatch = useAppDispatch();
 
   const addCart = () => {
-    const item: CartItemType = {
-      id: product.id,
-      size: activeSize || product.colors[activeColor].size[0].name,
-      color: product.colors[activeColor].color.color_name,
-      price: Number(product.price),
-      count: 1,
-    };
-
-    dispatch(addItem(item));
+    if (product) {
+      const item: CartItemType = {
+        product: {
+          id: product.id,
+          product_name: product.product_name,
+          image: product.colors[activeColor].images[0].image_url,
+          sku: product.sku,
+          sizes: product.colors[activeColor].color.sizes,
+          color_hex: product.colors[activeColor].color.color_hex,
+        },
+        size:
+          activeSize || product.colors[activeColor].color.sizes[0].size.name,
+        color: product.colors[activeColor].color.color_name,
+        price: Number(product.price),
+        current: 1,
+      };
+      dispatch(addItem(item));
+    }
   };
 
-  return (
+  return product ? (
     <div className={styles.product}>
       <BreadCrumbs
         value1={product.category[0].category_name}
@@ -48,7 +67,7 @@ const Product: FC<ProductProps> = ({ product }) => {
         value2={product.product_name}
       />
       <div className={styles.productCard}>
-        <ProductImages images={product.colors[activeColor].color.images} />
+        <ProductImages images={product.colors[activeColor].images} />
 
         <div className={styles.productCardDescription}>
           <h3>{product.collection.collection_name}</h3>
@@ -63,7 +82,7 @@ const Product: FC<ProductProps> = ({ product }) => {
           <SelectSize
             title={"Выберите размер"}
             activeItem={activeSize}
-            items={product.colors[activeColor].size}
+            items={product.colors[activeColor].color.sizes}
             setActiveItem={setActiveSize}
           />
 
@@ -107,32 +126,35 @@ const Product: FC<ProductProps> = ({ product }) => {
         />
       </div>
     </div>
+  ) : (
+    <>yok</>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<
-  ProductProps,
-  ProductParams
-> = async (context) => {
-  const { id } = context.params || {};
-  try {
-    const { data } = await axios.get(
-      `https://storefurniture.pythonanywhere.com/api/product/${id}`
-    );
+// export const getServerSideProps: GetServerSideProps<
+//   ProductProps,
+//   ProductParams
+// > = async (context) => {
+//   const { id } = context.params || {};
+//   try {
+//     const { data } = await axios.get(
+//       `http://localhost:8000/api/product/${id}/`
+//     );
 
-    return {
-      props: {
-        product: data,
-      },
-    };
-  } catch {
-    return {
-      redirect: {
-        destination: "/server-error",
-        permanent: false,
-      },
-    };
-  }
-};
+//     return {
+//       props: {
+//         product: data,
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       redirect: {
+//         destination: "/server-error",
+//         permanent: false,
+//       },
+//     };
+//   }
+// };
 
 export default Product;

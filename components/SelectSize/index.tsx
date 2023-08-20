@@ -20,13 +20,13 @@ const SelectSize: FC<SelectSizeProps> = ({
   return (
     <div className={styles.selectSize}>
       <Popup preview={activeItem ? activeItem : title}>
-        {items.map((item, id) => (
+        {items.map((item) => (
           <PopupItem
-            key={id}
-            onClick={() => setActiveItem(item.name)}
-            isActive={activeItem === item.name}
+            key={item.size.id}
+            onClick={() => setActiveItem(item.size.name)}
+            isActive={activeItem === item.size.name}
           >
-            {item.name}
+            {item.size.name}
           </PopupItem>
         ))}
       </Popup>
