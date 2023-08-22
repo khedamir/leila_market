@@ -16,17 +16,17 @@ const ToggleColor: FC<ToggleColorProps> = ({
   return (
     <div className={styles.toggleColor}>
       <div className={styles.colorsList}>
-        {colors.map((color, id) => (
+        {colors.map((color) => (
           <div
             key={color.id}
             className={`${styles.colorItem} ${
-              activeColor === id && styles.active
+              activeColor === color.color.id && styles.active
             }`}
           >
             <span
               style={{ backgroundColor: color.color.color_hex }}
               className={styles.color}
-              onClick={() => setActiveColor(id)}
+              onClick={() => setActiveColor(color.color.id)}
             >
               <span></span>
             </span>

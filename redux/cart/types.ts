@@ -9,8 +9,8 @@ export type CartItemType = {
     sizes: SizeItem[];
     color_hex: string;
   };
-  size: string;
-  color: string;
+  size: number;
+  color: number;
   current: number;
   price: number;
 };

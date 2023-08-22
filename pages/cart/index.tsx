@@ -7,7 +7,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import SelectSize from "@/components/SelectSize";
 import Quantity from "@/components/Quantity";
 import { useSelector } from "react-redux";
-import { cartFullItemsCount, cartSelector } from "@/redux/cart/selector";
+import { cartSelector } from "@/redux/cart/selector";
 import {
   addItem,
   changeSize,
@@ -17,11 +17,13 @@ import {
 } from "@/redux/cart/slice";
 import { useAppDispatch } from "@/redux/store";
 import Checkout from "@/components/Checkout";
+import { SizeItem } from "@/redux/types";
 
 const Cart = () => {
   const { items } = useSelector(cartSelector);
   const [checkoutActive, setCheckoutActive] = useState(false);
   const dispatch = useAppDispatch();
+
   return (
     <div className={styles.cart}>
       <BreadCrumbs value1={"Корзина"} />
@@ -64,7 +66,13 @@ const Cart = () => {
                         <p className={styles.sku}>арт. {item.product.sku}</p>
                         <div className={styles.mobileDescription}>
                           <div className={styles.wrapper}>
-                            <span>{item.size}</span>
+                            <span>
+                              {
+                                item.product.sizes.find(
+                                  (i) => i.size.id === item.size
+                                )?.size.name
+                              }
+                            </span>
                             <div
                               className={styles.color}
                               style={{
@@ -90,10 +98,14 @@ const Cart = () => {
 
                     <div className={styles.size}>
                       <SelectSize
-                        title={item.size}
+                        title={
+                          item.product.sizes.find(
+                            (i) => i.size.id === item.size
+                          )?.size.name || ""
+                        }
                         activeItem={item.size}
                         items={item.product.sizes}
-                        setActiveItem={(size: string) =>
+                        setActiveItem={(size: number) =>
                           dispatch(changeSize({ item, size }))
                         }
                       />
@@ -103,7 +115,7 @@ const Cart = () => {
                       <Quantity
                         maxCurrent={
                           item.product.sizes.find(
-                            (i) => i.size.name === item.size
+                            (i) => i.size.id === item.size
                           )?.quantity
                         }
                         current={item.current}

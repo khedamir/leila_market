@@ -24,7 +24,7 @@ export const cartSlice = createSlice({
 
       if (findItem) {
         const quantity = findItem.product.sizes.find(
-          (i) => i.size.name === findItem.size
+          (i) => i.size.id === findItem.size
         )?.quantity as number;
 
         findItem.current < quantity && findItem.current++;
@@ -49,7 +49,7 @@ export const cartSlice = createSlice({
     },
     changeSize(
       state,
-      action: PayloadAction<{ item: CartItemType; size: string }>
+      action: PayloadAction<{ item: CartItemType; size: number }>
     ) {
       const findItem = state.items.find(
         (obj) =>

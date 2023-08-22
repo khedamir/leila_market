@@ -6,13 +6,16 @@
   gap: 50px;
   height: 100%;
   padding: 100px 0;
+  min-width: 393px;
 
   h1 {
     font-weight: 400;
   }
 
   .registerForm {
-    width: 400px;
+    max-width: 400px;
+    margin: 0 20px;
+
     input {
       margin-bottom: 24px;
     }
@@ -26,6 +29,15 @@
           opacity: 0.6;
         }
       }
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .register {
+    gap: 24px;
+    h1 {
+      font-size: 24px;
     }
   }
 }

@@ -28,7 +28,7 @@ export type FullProductType = {
   size_on_the_model: string;
   description: string;
   colors: ColorItem[];
-  instructions: Instructions;
+  instructions: InstructionsType;
   category: CategoryType[];
   quantity: number;
   related_products: ProductType[];
@@ -61,7 +61,7 @@ export type ImageItem = {
   image_url: string;
 };
 
-export type Instructions = {
+export type InstructionsType = {
   details: string;
   care: string;
 };

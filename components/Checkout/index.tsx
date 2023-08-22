@@ -1,14 +1,17 @@
 import React, { FC, useState } from "react";
 import styles from "./Checkout.module.scss";
-import Input from "../Index";
+import axios from "axios";
+
+import { DaDataSuggestion, DaDataAddress } from "react-dadata";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { cartFullItemsCount, cartSelector } from "@/redux/cart/selector";
+import { cartSelector } from "@/redux/cart/selector";
+import { clearItems } from "@/redux/cart/slice";
+
 import Button from "../Button";
 import CheckoutForm from "./CheckoutForm";
 import CheckoutBlock from "./CheckoutBlock";
-import { useForm } from "react-hook-form";
-
-import { DaDataSuggestion, DaDataAddress } from "react-dadata";
+import { useAppDispatch } from "@/redux/store";
 
 export const deliveryItems = [
   { value: "1", name: "Курьер – Бесплатно (7-10 рабочих дней)" },
@@ -36,6 +39,7 @@ export type FormValues = {
 
 const Checkout: FC<CheckoutProps> = ({ active, setActive }) => {
   const { items } = useSelector(cartSelector);
+  const dispatch = useAppDispatch();
 
   const [delivery_method, setDelivery] = useState<string>(
     deliveryItems[0].value
@@ -77,11 +81,21 @@ const Checkout: FC<CheckoutProps> = ({ active, setActive }) => {
         delivery_method: deliveryItems.find(
           (item) => item.value === delivery_method
         )?.name,
-        city: formValues.city.unrestricted_value, 
+        city: formValues.city.unrestricted_value,
       },
     };
 
-    console.log(requastData);
+    const postData = async () => {
+      const { data } = await axios.post(
+        "http://localhost:8000/api/payments/yookassa/",
+        requastData
+      );
+
+      dispatch(clearItems());
+      window.location.href = data.confirmation_url;
+    };
+
+    postData();
   };
 
   return (

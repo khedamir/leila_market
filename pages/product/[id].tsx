@@ -6,13 +6,15 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import CategoryList from "@/components/CategoryList";
 import ToggleColor from "@/components/ToggleColor";
-import { FullProductType } from "@/redux/types";
+import { FullProductType, SizeItem } from "@/redux/types";
 import SelectSize from "@/components/SelectSize";
 import ProductImages from "@/components/ProductImages";
 import FavoritesIcon from "@/components/FavoritesIcon";
 import { CartItemType } from "@/redux/cart/types";
 import { useAppDispatch } from "@/redux/store";
 import { addItem } from "@/redux/cart/slice";
+import Notification from "@/components/Notification";
+import ProductDetails from "@/components/ProductDetails";
 
 type ProductParams = {
   id: string;
@@ -23,18 +25,32 @@ interface ProductProps {
 }
 
 const Product: FC<ProductProps> = () => {
-  const [activeColor, setActiveColor] = useState<number>(0);
-  const [activeSize, setActiveSize] = useState<string>();
+  const [activeColor, setActiveColor] = useState<number>();
+  const [activeSize, setActiveSize] = useState<number>();
   const [product, setProduct] = useState<FullProductType>();
+  const [animate, setAnimate] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(`http://localhost:8000/api/product/1/`);
 
       setProduct(data);
+      setActiveColor(data.colors[0].color.id);
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (animate) {
+      const timerId = setTimeout(() => {
+        setAnimate(false);
+      }, 1500);
+
+      return () => {
+        clearTimeout(timerId);
+      };
+    }
+  }, [animate]);
 
   const dispatch = useAppDispatch();
 
@@ -44,30 +60,33 @@ const Product: FC<ProductProps> = () => {
         product: {
           id: product.id,
           product_name: product.product_name,
-          image: product.colors[activeColor].images[0].image_url,
+          image: product.colors[0].images[0].image_url,
           sku: product.sku,
-          sizes: product.colors[activeColor].color.sizes,
-          color_hex: product.colors[activeColor].color.color_hex,
+          sizes: product.colors[0].color.sizes,
+          color_hex: product.colors[0].color.color_hex,
         },
-        size:
-          activeSize || product.colors[activeColor].color.sizes[0].size.name,
-        color: product.colors[activeColor].color.color_name,
+        size: activeSize
+          ? activeSize
+          : product.colors[0].color.sizes[0].size.id,
+        color: product.colors[0].color.id,
         price: Number(product.price),
         current: 1,
       };
+      setAnimate(true);
       dispatch(addItem(item));
     }
   };
 
-  return product ? (
+  return product && activeColor ? (
     <div className={styles.product}>
+      <Notification active={animate} />
       <BreadCrumbs
         value1={product.category[0].category_name}
         onClickValue1={() => {}}
         value2={product.product_name}
       />
       <div className={styles.productCard}>
-        <ProductImages images={product.colors[activeColor].images} />
+        <ProductImages images={product.colors[0].images} />
 
         <div className={styles.productCardDescription}>
           <h3>{product.collection.collection_name}</h3>
@@ -82,7 +101,10 @@ const Product: FC<ProductProps> = () => {
           <SelectSize
             title={"Выберите размер"}
             activeItem={activeSize}
-            items={product.colors[activeColor].color.sizes}
+            items={
+              product.colors.find((c) => c.color.id === activeColor)?.color
+                .sizes || []
+            }
             setActiveItem={setActiveSize}
           />
 
@@ -106,14 +128,7 @@ const Product: FC<ProductProps> = () => {
         </p>
         <p className={styles.description}>{product.description}</p>
       </div>
-      <ul className={styles.details}>
-        <li>
-          <p>Обмеры изделия</p>
-        </li>
-        <li>
-          <p>Состав и уход</p>
-        </li>
-      </ul>
+      <ProductDetails instructions={product.instructions} />
 
       <div>
         <CategoryList
