@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import { fetchCatalogData } from "@/redux/catalog/asyncAction";
 import { fetchMenu } from "@/redux/menu/asyncAction";
 import { fetchProducts } from "@/redux/products/asyncAction";
 import { wrapper } from "@/redux/store";

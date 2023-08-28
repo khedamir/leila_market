@@ -16,7 +16,7 @@ import {
 import { FormValues, deliveryItems } from "..";
 import { validationSchema } from "../validations";
 import "react-dadata/dist/react-dadata.css";
-import InputItem from "./InputItem";
+import InputItem from "../../InputItem";
 import MaskedInput from "./MeskedInput";
 
 interface CheckoutFormProps {

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import selectMenu from "@/redux/menu/selectMenu";
 import Burger from "@/components/Burger";
 import NavItem from "./NavItem";
+import { selectUser } from "@/redux/auth/slice";
 
 const MenuItems = [
   {
@@ -31,6 +32,7 @@ const MenuItems = [
 
 const MobileNav = () => {
   const { items } = useSelector(selectMenu);
+  const { user } = useSelector(selectUser);
   const [active, setActive] = useState<boolean>(false);
 
   const [activeItems, setActiveItems] = useState<number[]>([]);
@@ -51,8 +53,12 @@ const MobileNav = () => {
       </div>
       <nav className={`${styles.mainNav} ${active && styles.active}`}>
         <div className={styles.wrapper}>
-          <span className={styles.navItem}>
-            <Link href={""}>Войти в профиль</Link>
+          <span onClick={() => setActive(false)} className={styles.navItem}>
+            {user ? (
+              <Link href={"/profile"}>Перейти в профиль</Link>
+            ) : (
+              <Link href={"/login"}>Войти в профиль</Link>
+            )}
           </span>
           {items.map(({ id, menu_name, categories }) => (
             <NavItem

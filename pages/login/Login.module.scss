@@ -17,7 +17,31 @@
     max-width: 400px;
     margin: 0 20px;
     input {
-      margin-bottom: 24px;
+      margin-bottom: 34px;
+    }
+
+    .errorMessage {
+      display: none;
+    }
+
+    .error {
+      position: relative;
+      .errorMessage {
+        display: block;
+        position: absolute;
+        color: #b72025;
+        top: 34px;
+        font-size: 12px;
+      }
+
+      input {
+        border-color: #b72025;
+        color: #b72025;
+
+        &::placeholder {
+          color: #b72025;
+        }
+      }
     }
 
     .registerLink {

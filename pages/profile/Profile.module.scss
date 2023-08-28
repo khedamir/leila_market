@@ -5,24 +5,63 @@
 
   display: flex;
   gap: 48px;
+
+  padding: 0 24px;
+
+  .menuSelect {
+    display: none;
+  }
 }
 
 .content {
-    margin: 60px 0;
-    .form {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-    }
-  .formItem {
+  margin: 60px 0;
+  .userData,
+  .adressBlock {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 598px;
-    gap: 32px;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .userData {
+    margin-bottom: 24px;
 
-    input {
-        width: 481px;
+    &Item {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    p {
+      font-family: "Poppins", sans-serif;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .profile {
+    justify-content: center;
+    flex-direction: column;
+    .sidebar {
+      display: none;
+    }
+
+    .menuSelect {
+      width: 214px;
+      display: block;
+      & > div {
+        background: #f8f8f8;
+        font-size: 14px;
+        border-radius: 4px;
+
+        & > div:first-child {
+          padding: 12px 24px;
+        }
+        & > div:last-child {
+          margin-top: 12px;
+        }
+      }
+    }
+
+    .content {
+      width: 100%;
     }
   }
 }

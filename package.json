@@ -16,6 +16,7 @@
     "@types/react-dom": "18.2.4",
     "@types/react-input-mask": "^3.0.2",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
     "next": "13.4.4",
@@ -23,6 +24,7 @@
     "qs": "^6.11.2",
     "react": "18.2.0",
     "react-dadata": "^2.23.1",
+    "react-datepicker": "^4.16.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-input-mask": "^3.0.0-alpha.2",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "@types/qs": "^6.9.7",
+    "@types/react-datepicker": "^4.15.0",
     "sass": "^1.62.1"
   }
 }

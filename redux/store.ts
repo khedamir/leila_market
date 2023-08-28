@@ -6,6 +6,8 @@ import homeReducer from "./home/slice";
 import filtersReducer from "./filters/slice";
 import catalogReducer from "./catalog/slice";
 import cartReducer from "./cart/slice";
+import authReducer from "./auth/slice";
+import profileReducer from "./profile/slice";
 import { useDispatch } from "react-redux";
 
 const store = () =>
@@ -17,6 +19,8 @@ const store = () =>
       menu: menuReducer,
       filters: filtersReducer,
       cart: cartReducer,
+      auth: authReducer,
+      profile: profileReducer,
     },
   });
 

@@ -48,6 +48,14 @@
     overflow: hidden;
     border-radius: 4px;
     background: #ffffff;
+    max-height: 150px;
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE и Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &.active {
       animation: show 0.2s linear forwards;
