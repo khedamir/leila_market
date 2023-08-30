@@ -29,7 +29,10 @@ export const profileDataSlice = createSlice({
     });
     builder.addCase(fetchProfileData.fulfilled, (state, action) => {
       state.status = Status.SUCCESS;
-      state.profile = action.payload;
+      state.profile = {
+        ...action.payload,
+        birthday: action.payload.birthday,
+      };
     });
     builder.addCase(fetchProfileData.rejected, (state) => {
       console.log("Ошибка при получении данных профиля");

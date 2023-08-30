@@ -27,61 +27,67 @@ const Home = () => {
       <div>
         <Slider items={data.collections} load={true} />
         <CollectionsList collections={data.all_collections} load={true} />
-        <CategoryList
-          title={data.categories[0].category.category_name}
-          category={data.categories[0].category}
-          products={data.categories[0].products}
-        />
-        {/* <CategoryList
-          title={data.categories[1].category.category_name}
-          category={data.categories[1].category}
-          products={data.categories[1].products}
-        />
-        <CollectionBlock
-          collection={data.collections_with_products[0].collection}
-          products={data.collections_with_products[0].products}
-          version="one"
-        />
-        <CategoryList
-          title={data.categories[2].category.category_name}
-          category={data.categories[2].category}
-          products={data.categories[2].products}
-        />
-        <CategoryList
-          title={data.categories[3].category.category_name}
-          category={data.categories[3].category}
-          products={data.categories[3].products}
-        />
-        <CollectionBlock
-          collection={data.collections_with_products[1].collection}
-          products={data.collections_with_products[1].products}
-          version="two"
-        />
-        <CategoryList
-          title={data.categories[4].category.category_name}
-          category={data.categories[4].category}
-          products={data.categories[4].products}
-        />
-        <CategoryList
-          title={data.categories[5].category.category_name}
-          category={data.categories[5].category}
-          products={data.categories[5].products}
-        />
-        <CollectionBlock
-          collection={data.collections_with_products[2].collection}
-          products={data.collections_with_products[2].products}
-          version="three"
-        />
-        <CategoryList
-          title={data.categories[6].category.category_name}
-          category={data.categories[6].category}
-          products={data.categories[6].products}
-        />
-        <CategoryList
-          title={data.categories[7].category.category_name}
-          category={data.categories[7].category}
-          products={data.categories[7].products}
-        /> */}
+        {data.categories.map(
+          (item, id) =>
+            (id === 0 || id === 1) && (
+              <CategoryList
+                title={item.category.category_name}
+                category={item.category}
+                products={item.products}
+              />
+            )
+        )}
+        {data.collections_with_products[0] && (
+          <CollectionBlock
+            collection={data.collections_with_products[0].collection}
+            products={data.collections_with_products[0].products}
+            version="one"
+          />
+        )}-
+        {data.categories.map(
+          (item, id) =>
+            (id === 2 || id === 3) && (
+              <CategoryList
+                title={item.category.category_name}
+                category={item.category}
+                products={item.products}
+              />
+            )
+        )}
+        {data.collections_with_products[1] && (
+          <CollectionBlock
+            collection={data.collections_with_products[1].collection}
+            products={data.collections_with_products[1].products}
+            version="two"
+          />
+        )}
+        {data.categories.map(
+          (item, id) =>
+            (id === 4 || id === 5) && (
+              <CategoryList
+                title={item.category.category_name}
+                category={item.category}
+                products={item.products}
+              />
+            )
+        )}
+        {data.collections_with_products[2] && (
+          <CollectionBlock
+            collection={data.collections_with_products[2].collection}
+            products={data.collections_with_products[2].products}
+            version="three"
+          />
+        )}
+        {data.categories.map(
+          (item, id) =>
+            (id === 6 || id === 7) && (
+              <CategoryList
+                title={item.category.category_name}
+                category={item.category}
+                products={item.products}
+              />
+            )
+        )}
       </div>
     </>
   );

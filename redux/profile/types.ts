@@ -6,7 +6,7 @@ export type ProfileData = {
   last_name: string;
   clothing_size: number;
   gender: "Мужской" | "Женский";
-  birthday: Date;
+  birthday: string;
 
   city: string;
   street: string;

@@ -9,6 +9,7 @@ import Popup from "../Popup";
 import PopupItem from "../PopupItem";
 import { selectCatalog } from "@/redux/catalog/slice";
 import SelectDate from "../SelectDate";
+import instance from "@/redux/axios";
 
 type GenderType = "Мужской" | "Женский";
 
@@ -16,7 +17,7 @@ type FormDataType = {
   first_name: string | null;
   last_name: string | null;
   gender: GenderType | null;
-  birthday: Date | null;
+  birthday: string | null;
   clothing_size: number | null;
   city: string | null;
   street: string | null;
@@ -33,21 +34,27 @@ const ProfileData = () => {
   const dispatch = useAppDispatch();
   const [isChanged, setIsChanged] = useState(false);
 
-  const [formData, setFormData] = useState<FormDataType>({
-    first_name: profile ? profile.first_name : null,
-    last_name: profile ? profile.last_name : null,
-    gender: profile ? profile.gender : null,
-    birthday: profile ? profile.birthday : null,
-    clothing_size: profile ? profile.clothing_size : null,
-    city: profile ? profile.city : null,
-    street: profile ? profile.street : null,
-    house: profile ? profile.house : null,
-    apartment_office: profile ? profile.apartment_office : null,
-    postal_code: profile ? profile.postal_code : null,
-  });
+  const [formData, setFormData] = useState<FormDataType>();
 
   useEffect(() => {
     if (profile) {
+      setFormData({
+        first_name: profile.first_name,
+        last_name: profile.last_name,
+        gender: profile.gender,
+        birthday: profile.birthday,
+        clothing_size: profile.clothing_size,
+        city: profile.city,
+        street: profile.street,
+        house: profile.house,
+        apartment_office: profile.apartment_office,
+        postal_code: profile.postal_code,
+      });
+    }
+  }, [profile]);
+
+  useEffect(() => {
+    if (profile && formData) {
       if (
         profile.first_name !== formData.first_name ||
         profile.last_name !== formData.last_name ||
@@ -60,6 +67,7 @@ const ProfileData = () => {
         profile.apartment_office !== formData.apartment_office ||
         profile.postal_code !== formData.postal_code
       ) {
+        console.log(formData.birthday);
         setIsChanged(true);
       } else {
         setIsChanged(false);
@@ -70,8 +78,32 @@ const ProfileData = () => {
   const saveProfileData = () => {
     dispatch(setData(formData));
 
+    const params: any = { ...formData };
+
+    if (formData?.birthday) {
+      const originalDate = new Date(formData.birthday);
+
+      const year = originalDate.getFullYear();
+      const month = String(originalDate.getMonth() + 1).padStart(2, "0");
+      const day = String(originalDate.getDate()).padStart(2, "0");
+
+      const formattedDate = `${year}-${month}-${day}`;
+
+      params.birthday = formattedDate;
+      console.log(formattedDate);
+    }
+
+    const fetch = async () => {
+      await instance.post("http://localhost:8000/profile/", params);
+    };
+    fetch();
+
     setIsChanged(false);
   };
+
+  if (!(profile && formData)) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className={styles.form}>
@@ -105,8 +137,9 @@ const ProfileData = () => {
       <div className={styles.itemsWrapper}>
         <div className={styles.select}>
           <Popup preview={formData.gender || "Пол"}>
-            {gender.map((g) => (
+            {gender.map((g, id) => (
               <PopupItem
+                key={id}
                 isActive={g === formData.gender}
                 onClick={() => {
                   setFormData({
@@ -121,11 +154,11 @@ const ProfileData = () => {
           </Popup>
         </div>
         <SelectDate
-          value={formData.birthday}
+          value={formData.birthday ? new Date(formData.birthday) : null}
           onChange={(data) => {
             setFormData({
               ...formData,
-              birthday: data,
+              birthday: data.toISOString(),
             });
           }}
         />

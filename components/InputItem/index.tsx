@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import styles from "./InputItem.module.scss";
 
 interface InputItemProps {
-  label: string;
+  label?: string;
   error?: boolean;
   errorMessage?: string | undefined;
   children: ReactNode;

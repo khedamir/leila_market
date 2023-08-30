@@ -38,13 +38,13 @@ const SelectDate: FC<SelectDateProps> = ({ value, onChange }) => {
         shouldCloseOnSelect={false}
         locale={ru}
         dateFormat="dd.MM.yyyy"
-        isClearable
         placeholderText="Выберите дату рождения"
         renderCustomHeader={({ date, changeYear, changeMonth }) => (
           <div className={styles.datePickerHeader}>
             <Popup preview={String(getYear(date))}>
-              {years.map((y) => (
+              {years.map((y, id) => (
                 <PopupItem
+                  key={id}
                   isActive={y === getYear(date)}
                   onClick={() => changeYear(y)}
                 >
@@ -53,8 +53,9 @@ const SelectDate: FC<SelectDateProps> = ({ value, onChange }) => {
               ))}
             </Popup>
             <Popup preview={months[getMonth(date)]}>
-              {months.map((m) => (
+              {months.map((m, id) => (
                 <PopupItem
+                  key={id}
                   isActive={m === months[getMonth(date)]}
                   onClick={() => changeMonth(months.indexOf(m))}
                 >

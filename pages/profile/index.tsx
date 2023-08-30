@@ -51,6 +51,7 @@ const Profile = () => {
         <Popup preview={"Личные данные"}>
           {items.map((item) => (
             <PopupItem
+              key={item.id}
               isActive={item.id === 2}
               onClick={() => {
                 navigate.push(item.link);

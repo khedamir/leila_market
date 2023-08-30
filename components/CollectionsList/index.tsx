@@ -28,41 +28,6 @@ const CollectionsList: FC<CollectionsProps> = ({ collections, load }) => {
             <CollectionItem collection={collection} />
           </SwiperSlide>
         ))}
-        {collections.map((collection) => (
-          <SwiperSlide key={collection.id}>
-            <CollectionItem collection={collection} />
-          </SwiperSlide>
-        ))}
-        {collections.map((collection) => (
-          <SwiperSlide key={collection.id}>
-            <CollectionItem collection={collection} />
-          </SwiperSlide>
-        ))}
-        {collections.map((collection) => (
-          <SwiperSlide key={collection.id}>
-            <CollectionItem collection={collection} />
-          </SwiperSlide>
-        ))}
-        {collections.map((collection) => (
-          <SwiperSlide key={collection.id}>
-            <CollectionItem collection={collection} />
-          </SwiperSlide>
-        ))}
-        {collections.map((collection) => (
-          <SwiperSlide key={collection.id}>
-            <CollectionItem collection={collection} />
-          </SwiperSlide>
-        ))}
-        {collections.map((collection) => (
-          <SwiperSlide key={collection.id}>
-            <CollectionItem collection={collection} />
-          </SwiperSlide>
-        ))}
-        {collections.map((collection) => (
-          <SwiperSlide key={collection.id}>
-            <CollectionItem collection={collection} />
-          </SwiperSlide>
-        ))}
       </SliderContainer>
     </div>
   );
