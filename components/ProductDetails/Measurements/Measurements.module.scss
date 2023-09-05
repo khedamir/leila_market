@@ -1,0 +1,52 @@
+.measurements {
+  table {
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+
+    * {
+      font-family: "Poppins", sans-serif;
+    }
+
+    th,
+    td {
+      text-align: center;
+      padding: 10px;
+    }
+
+    th {
+      border-top: 1px solid #0f0f0f;
+      border-bottom: 1px solid #0f0f0f;
+      font-weight: 400;
+    }
+
+    td {
+      border-bottom: 1px solid #0f0f0f21;
+    }
+    tr:last-child td {
+      border-bottom: 1px solid #0f0f0f;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .measurements {
+    table {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .measurements {
+    table {
+      font-size: 8px;
+
+      th,
+      td {
+        padding: 4px;
+      }
+    }
+  }
+}

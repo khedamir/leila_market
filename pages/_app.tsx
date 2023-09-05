@@ -1,7 +1,5 @@
 import Layout from "@/components/Layout";
-import { fetchCatalogData } from "@/redux/catalog/asyncAction";
 import { fetchMenu } from "@/redux/menu/asyncAction";
-import { fetchProducts } from "@/redux/products/asyncAction";
 import { wrapper } from "@/redux/store";
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";

@@ -1,5 +1,5 @@
 import Input from "@/components/Index";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Login.module.scss";
 import Button from "@/components/Button";
 import { useForm } from "react-hook-form";
@@ -7,6 +7,9 @@ import { useAppDispatch } from "@/redux/store";
 import { validationSchema } from "./validations";
 import { fetchAuth, fetchAuthMe } from "@/redux/auth/asyncAction";
 import { useRouter } from "next/router";
+import { selectUser } from "@/redux/auth/slice";
+import { useSelector } from "react-redux";
+import { Status } from "@/redux/types";
 
 interface FormType {
   username: string;
@@ -14,7 +17,8 @@ interface FormType {
 }
 
 const Login = () => {
-  // const isAuth = useSelector(selectIsAuth);
+  const { status } = useSelector(selectUser);
+  const [errorMessage, setErrorMessage] = useState(false);
   const navigate = useRouter();
   const dispatch = useAppDispatch();
   const {
@@ -30,23 +34,25 @@ const Login = () => {
   });
 
   const onSubmit = async (values: FormType) => {
-    dispatch(fetchAuth(values))
-      .then(() => {
-        dispatch(fetchAuthMe())
-          .then(() => {
-            navigate.push("/profile");
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    await dispatch(fetchAuth(values));
+    if (status === Status.ERROR) {
+      console.log("hi");
+      setErrorMessage(true);
+    }
+    if (status === Status.LOADING) {
+      await dispatch(fetchAuthMe());
+      navigate.push("/profile");
+    }
   };
 
   return (
     <div className={styles.login}>
+      {errorMessage && (
+        <div className={styles.errorMessage}>
+          <p>Пользователь не найден :(</p>
+          <p>Возможно ваш аккаунт не активирован, проверьте почту.</p>
+        </div>
+      )}
       <h1>Войти в личный кабинет</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
         <span className={`${errors.username && styles.error}`}>

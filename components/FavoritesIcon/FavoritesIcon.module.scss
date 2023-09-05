@@ -2,10 +2,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 6px;
+  padding: 2px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(173, 16, 16);
+
+    svg > * {
+      fill: rgb(255, 255, 255);
+    }
+  }
 
   &.active {
+    background-color: rgb(173, 16, 16);
+
     svg > * {
-      fill: rgb(193, 27, 27);
+      fill: rgb(255, 255, 255);
     }
   }
 }

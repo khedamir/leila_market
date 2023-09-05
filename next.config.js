@@ -9,7 +9,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["storefurniture.pythonanywhere.com"],
+    domains: ["127.0.0.1"],
     unoptimized: true,
   },
   reactStrictMode: false,

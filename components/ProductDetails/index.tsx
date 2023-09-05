@@ -2,6 +2,8 @@ import React, { FC, useState } from "react";
 import styles from "./ProductDetails.module.scss";
 import { InstructionsType } from "@/redux/types";
 import Arrow from "@/public/images/arrow.svg";
+import DetailsItem from "./DetailsItem";
+import Measurements from "./Measurements";
 
 interface ProductDetailsProps {
   instructions: InstructionsType;
@@ -18,35 +20,27 @@ const ProductDetails: FC<ProductDetailsProps> = ({ instructions }) => {
     setActiveItem(item);
   };
   return (
-    <ul className={styles.details}>
-      <li
-        className={`${styles.detailsItem} ${
-          activeItem === "measurements" && styles.active
-        }`}
-        onClick={() => changeActiveItem("measurements")}
+    <div className={styles.details}>
+      <DetailsItem
+        value="measurements"
+        title="Обмеры изделия"
+        activeItem={activeItem}
+        changeActiveItem={changeActiveItem}
       >
-        <div className={styles.preview}>
-          <p>Обмеры изделия</p>
-          <Arrow />
-        </div>
-        <div className={styles.description}>Обмеры</div>
-      </li>
-      <li
-        className={`${styles.detailsItem} ${
-          activeItem === "instructions" && styles.active
-        }`}
-        onClick={() => changeActiveItem("instructions")}
+        <Measurements />
+      </DetailsItem>
+      <DetailsItem
+        value="instructions"
+        title="Состав и уход"
+        activeItem={activeItem}
+        changeActiveItem={changeActiveItem}
       >
-        <div className={styles.preview}>
-          <p>Состав и уход</p>
-          <Arrow />
-        </div>
-        <div className={styles.description}>
+        <>
           <p>{instructions.details}</p>
           <p>{instructions.care}</p>
-        </div>
-      </li>
-    </ul>
+        </>
+      </DetailsItem>
+    </div>
   );
 };
 

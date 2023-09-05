@@ -1,15 +1,10 @@
 import React, { FC } from "react";
 import styles from "./Sidebar.module.scss";
-import { useSelector } from "react-redux";
-import selectFilters from "@/redux/filters/selectMenu";
-import { getMenuById } from "@/redux/menu/selectMenu";
-import { AppState, useAppDispatch } from "@/redux/store";
-import { setCategoryValue } from "@/redux/filters/slice";
 
 interface SidebarProps {
   items: { id: number; name: string; link?: string }[];
-  activeItem: number | null;
-  onClickFn: (id: number) => void;
+  activeItem: string;
+  onClickFn: (name: string) => void;
   title: string;
 }
 
@@ -21,8 +16,8 @@ const Sidebar: FC<SidebarProps> = ({ items, activeItem, onClickFn, title }) => {
         {items?.map(({ name, id, link }) => (
           <a href={link} key={id}>
             <li
-              className={`${activeItem === id && styles.active}`}
-              onClick={() => onClickFn(id)}
+              className={`${activeItem === name && styles.active}`}
+              onClick={() => onClickFn(name)}
             >
               {name}
             </li>

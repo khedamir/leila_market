@@ -4,6 +4,7 @@ import Link from "next/link";
 
 interface NavItemProps {
   change: (a: number[]) => void;
+  setMenuActive: (a: boolean) => void;
   activeItems: number[];
   id: number;
   name: string;
@@ -13,6 +14,7 @@ interface NavItemProps {
 
 const NavItem: FC<NavItemProps> = ({
   change,
+  setMenuActive,
   activeItems,
   id,
   name,
@@ -43,7 +45,7 @@ const NavItem: FC<NavItemProps> = ({
           <ul>
             {submenu &&
               submenu.map((item) => (
-                <li key={item.id}>
+                <li onClick={() => setMenuActive(false)} key={item.id}>
                   <Link
                     href={
                       item.path || item.path === ""

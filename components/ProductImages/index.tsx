@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./ProductImages.module.scss";
 import { ImageItem } from "@/redux/types";
 import Image from "next/image";
@@ -6,10 +6,19 @@ import Slider from "../Slider";
 
 interface ProductImagesProps {
   images: ImageItem[];
+  activeImage: number;
+  setActiveImage: (i: number) => void;
 }
 
-const ProductImages: FC<ProductImagesProps> = ({ images }) => {
-  const [activeImage, setActiveImage] = useState(0);
+const ProductImages: FC<ProductImagesProps> = ({
+  images,
+  activeImage,
+  setActiveImage,
+}) => {
+
+  // useEffect(() => {
+  //   setActiveImage(0);
+  // }, [images]);
 
   return (
     <>

@@ -16,7 +16,7 @@ const InputItem: FC<InputItemProps> = ({
 }) => {
   return (
     <div className={`${styles.inputItem} ${error && styles.error}`}>
-      <label htmlFor="">{label}</label>
+      {label && <label htmlFor="">{label}</label>}
       <span className={styles.inputWrapper}>
         {children}
         <span className={styles.errorMessage}>{errorMessage}</span>

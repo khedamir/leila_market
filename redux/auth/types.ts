@@ -1,5 +1,10 @@
 import { Status } from "../types";
 
+export type TokenType = {
+  access: string;
+  refresh: string;
+};
+
 export type LoginData = {
   username: string;
   password: string;

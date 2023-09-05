@@ -18,25 +18,27 @@ interface CategoryListProps {
 
 const CategoryList: FC<CategoryListProps> = ({ title, products, category }) => {
   return (
-    <div className={styles.categoryList}>
-      <SectionHeader
-        title={title}
-        link={category ? `/catalog/?category=${category.id}` : ""}
-      />
-      <SliderContainer>
-        {products?.map((product, id) => (
-          <SwiperSlide key={id}>
-            <ProductItem
-              id={product.id}
-              product_name={product.product_name}
-              collection_name={product.collection_name}
-              image={product.image}
-              price={product.price}
-            />
-          </SwiperSlide>
-        ))}
-      </SliderContainer>
-    </div>
+    products.length > 0 && (
+      <div className={styles.categoryList}>
+        <SectionHeader
+          title={title}
+          link={category ? `/catalog/?category=${category.id}` : ""}
+        />
+        <SliderContainer>
+          {products?.map((product, id) => (
+            <SwiperSlide key={id}>
+              <ProductItem
+                id={product.id}
+                product_name={product.product_name}
+                collection_name={product.collection_name}
+                image={product.image}
+                price={product.price}
+              />
+            </SwiperSlide>
+          ))}
+        </SliderContainer>
+      </div>
+    )
   );
 };
 

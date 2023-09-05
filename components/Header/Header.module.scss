@@ -19,7 +19,7 @@
   gap: 32px;
   justify-self: end;
 
-  li {
+  .basket {
     position: relative;
   }
 
@@ -50,12 +50,6 @@
     img {
       width: 111px;
       height: 37px;
-    }
-  }
-
-  .rightPanel {
-    .search {
-      display: none;
     }
   }
 }

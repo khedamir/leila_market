@@ -1,4 +1,9 @@
 .filterPrice {
+  & > div {
+    div:last-child {
+      max-height: none;
+    }
+  }
   li {
     padding: 0;
     cursor: default;
@@ -13,6 +18,13 @@
     padding: 12px 10px;
     width: 283px;
 
+    .clean {
+      margin: 8px 0 0;
+      text-align: right;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
     &:hover {
       background-color: #fff;
     }
@@ -26,6 +38,7 @@
 
       input {
         width: 109px;
+        font-family: "Poppins", sans-serif;
       }
 
       input::-webkit-outer-spin-button,

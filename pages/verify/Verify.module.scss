@@ -2,10 +2,23 @@
   margin: 150px 0;
   padding: 0 24px;
   min-width: 393px;
-  display: flex;
+  text-align: center;
 
   button {
     width: 250px;
-    margin: 0 auto;
+    margin: 20px auto;
+  }
+
+  .message {
+    margin: 16px 0;
+    p {
+      margin-bottom: 4px;
+    }
+  }
+
+  .errorMessage {
+    * {
+      color: #b72025;
+    }
   }
 }

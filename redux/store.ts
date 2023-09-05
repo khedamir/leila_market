@@ -8,6 +8,7 @@ import catalogReducer from "./catalog/slice";
 import cartReducer from "./cart/slice";
 import authReducer from "./auth/slice";
 import profileReducer from "./profile/slice";
+import favoritesReducer from "./favorites/slice";
 import { useDispatch } from "react-redux";
 
 const store = () =>
@@ -21,6 +22,7 @@ const store = () =>
       cart: cartReducer,
       auth: authReducer,
       profile: profileReducer,
+      favorites: favoritesReducer,
     },
   });
 

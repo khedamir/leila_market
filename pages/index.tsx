@@ -31,6 +31,7 @@ const Home = () => {
           (item, id) =>
             (id === 0 || id === 1) && (
               <CategoryList
+                key={id}
                 title={item.category.category_name}
                 category={item.category}
                 products={item.products}
@@ -43,11 +44,13 @@ const Home = () => {
             products={data.collections_with_products[0].products}
             version="one"
           />
-        )}-
+        )}
+        -
         {data.categories.map(
           (item, id) =>
             (id === 2 || id === 3) && (
               <CategoryList
+                key={id}
                 title={item.category.category_name}
                 category={item.category}
                 products={item.products}
@@ -65,6 +68,7 @@ const Home = () => {
           (item, id) =>
             (id === 4 || id === 5) && (
               <CategoryList
+                key={id}
                 title={item.category.category_name}
                 category={item.category}
                 products={item.products}
@@ -82,6 +86,7 @@ const Home = () => {
           (item, id) =>
             (id === 6 || id === 7) && (
               <CategoryList
+                key={id}
                 title={item.category.category_name}
                 category={item.category}
                 products={item.products}

@@ -1,13 +1,13 @@
 export interface FiltersSliceState {
   menu: number;
   // collection: number | null;
-  category: number | null;
-  size: string[];
-  color: string[];
+  category: string;
+  size: string;
+  color: string;
   min_price: number;
   max_price: number;
   ordering: OrderType; //
-  // search: string;
+  search: string;
   page: number;
 }
 

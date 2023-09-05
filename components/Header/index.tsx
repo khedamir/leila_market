@@ -9,9 +9,13 @@ import { cartFullItemsCount, cartSelector } from "@/redux/cart/selector";
 import { useAppDispatch } from "@/redux/store";
 import { setCartItems } from "@/redux/cart/slice";
 import { getCartFronLS } from "@/utils/getCartFronLS";
+import Search from "../Search";
+import { selectUser } from "@/redux/auth/slice";
+import { localFetch } from "@/redux/axios";
 
 const Header = () => {
   const { items } = useSelector(cartSelector);
+  const { user } = useSelector(selectUser);
   const ItemsCount = useSelector(cartFullItemsCount);
   const isMounted = useRef(false);
 
@@ -22,12 +26,19 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
+    if (user && items.length) {
+      console.log("hi");
+      localFetch.post("/profile/add-card-products/", items);
+    }
+  }, [user, items]);
+
+  useEffect(() => {
     if (isMounted.current) {
       const json = JSON.stringify(items);
       localStorage.setItem("cartItems", json);
     }
     isMounted.current = true;
-  }, [items]);
+  }, [items, user]);
 
   return (
     <header className={styles.header}>
@@ -44,7 +55,9 @@ const Header = () => {
         </Link>
       </div>
       <ul className={styles.rightPanel}>
-        <li className={styles.search}>Поиск</li>
+        <li className={styles.search}>
+          <Search />
+        </li>
         <li className={styles.profile}>
           <Link href={"/profile"}>
             <Image

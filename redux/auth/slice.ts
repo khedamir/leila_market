@@ -35,8 +35,8 @@ export const authSlice = createSlice({
       localStorage.setItem("access_token", action.payload.access);
       localStorage.setItem("refresh_token", action.payload.refresh);
     });
-    builder.addCase(fetchAuth.rejected, (state) => {
-      console.log("Ошибка при авторизации");
+    builder.addCase(fetchAuth.rejected, (state, action) => {
+      console.log(action);
       state.status = Status.ERROR;
       state.user = null;
     });

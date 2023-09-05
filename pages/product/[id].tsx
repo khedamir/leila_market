@@ -2,11 +2,10 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import React, { FC, useEffect, useState } from "react";
 import styles from "./Product.module.scss";
 import Button from "@/components/Button";
-import axios from "axios";
 import { GetServerSideProps } from "next";
 import CategoryList from "@/components/CategoryList";
 import ToggleColor from "@/components/ToggleColor";
-import { FullProductType, SizeItem } from "@/redux/types";
+import { FullProductType } from "@/redux/types";
 import SelectSize from "@/components/SelectSize";
 import ProductImages from "@/components/ProductImages";
 import FavoritesIcon from "@/components/FavoritesIcon";
@@ -15,6 +14,8 @@ import { useAppDispatch } from "@/redux/store";
 import { addItem } from "@/redux/cart/slice";
 import Notification from "@/components/Notification";
 import ProductDetails from "@/components/ProductDetails";
+import { fetch } from "@/redux/axios";
+import { useRouter } from "next/router";
 
 type ProductParams = {
   id: string;
@@ -24,33 +25,24 @@ interface ProductProps {
   product: FullProductType;
 }
 
-const Product: FC<ProductProps> = () => {
+const Product: FC<ProductProps> = ({ product }) => {
   const [activeColor, setActiveColor] = useState<number>();
   const [activeSize, setActiveSize] = useState<number>();
-  const [product, setProduct] = useState<FullProductType>();
+  const [activeImage, setActiveImage] = useState<number>(0);
+
   const [animate, setAnimate] = useState<boolean>(false);
+  const navigate = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get(`http://localhost:8000/api/product/1/`);
-
-      setProduct(data);
-      setActiveColor(data.colors[0].color.id);
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (animate) {
-      const timerId = setTimeout(() => {
-        setAnimate(false);
-      }, 1500);
-
-      return () => {
-        clearTimeout(timerId);
-      };
+    if (product) {
+      setActiveColor(product.colors[0].id);
     }
-  }, [animate]);
+  }, [product]);
+
+  const toggleColorFn = (color: number) => {
+    setActiveImage(0);
+    setActiveColor(color);
+  };
 
   const dispatch = useAppDispatch();
 
@@ -62,13 +54,11 @@ const Product: FC<ProductProps> = () => {
           product_name: product.product_name,
           image: product.colors[0].images[0].image_url,
           sku: product.sku,
-          sizes: product.colors[0].color.sizes,
-          color_hex: product.colors[0].color.color_hex,
+          sizes: product.colors[0].sizes,
+          color_hex: product.colors[0].color_hex,
         },
-        size: activeSize
-          ? activeSize
-          : product.colors[0].color.sizes[0].size.id,
-        color: product.colors[0].color.id,
+        size: activeSize ? activeSize : product.colors[0].sizes[0].size.id,
+        color: product.colors[0].id,
         price: Number(product.price),
         current: 1,
       };
@@ -77,16 +67,28 @@ const Product: FC<ProductProps> = () => {
     }
   };
 
-  return product && activeColor ? (
+  if (!(product && activeColor)) {
+    return <p>loading...</p>;
+  }
+
+  return (
     <div className={styles.product}>
-      <Notification active={animate} />
+      <Notification active={animate} setActive={setAnimate} text="Добавлено" />
       <BreadCrumbs
         value1={product.category[0].category_name}
-        onClickValue1={() => {}}
+        onClickValue1={() => {
+          navigate.push(`/catalog?category=${product.category[0].id}`);
+        }}
         value2={product.product_name}
       />
       <div className={styles.productCard}>
-        <ProductImages images={product.colors[0].images} />
+        <ProductImages
+          images={[
+            ...(product.colors.find((c) => c.id === activeColor)?.images || []),
+          ]}
+          activeImage={activeImage}
+          setActiveImage={setActiveImage}
+        />
 
         <div className={styles.productCardDescription}>
           <h3>{product.collection.collection_name}</h3>
@@ -96,14 +98,13 @@ const Product: FC<ProductProps> = () => {
           <ToggleColor
             colors={product.colors}
             activeColor={activeColor}
-            setActiveColor={setActiveColor}
+            setActiveColor={toggleColorFn}
           />
           <SelectSize
             title={"Выберите размер"}
             activeItem={activeSize}
             items={
-              product.colors.find((c) => c.color.id === activeColor)?.color
-                .sizes || []
+              product.colors.find((c) => c.id === activeColor)?.sizes || []
             }
             setActiveItem={setActiveSize}
           />
@@ -139,37 +140,33 @@ const Product: FC<ProductProps> = () => {
           title="Возможно вам понравится"
           products={product.recommendations}
         />
+        <CategoryList title="Вы недавно смотрели" products={[]} />
       </div>
     </div>
-  ) : (
-    <>yok</>
   );
 };
 
-// export const getServerSideProps: GetServerSideProps<
-//   ProductProps,
-//   ProductParams
-// > = async (context) => {
-//   const { id } = context.params || {};
-//   try {
-//     const { data } = await axios.get(
-//       `http://localhost:8000/api/product/${id}/`
-//     );
+export const getServerSideProps: GetServerSideProps<
+  ProductProps,
+  ProductParams
+> = async (context) => {
+  const { id } = context.params || {};
+  try {
+    const { data } = await fetch.get(`/api/product/${id}/`);
 
-//     return {
-//       props: {
-//         product: data,
-//       },
-//     };
-//   } catch (error) {
-//     console.log(error);
-//     return {
-//       redirect: {
-//         destination: "/server-error",
-//         permanent: false,
-//       },
-//     };
-//   }
-// };
+    return {
+      props: {
+        product: data,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/server-error",
+        permanent: false,
+      },
+    };
+  }
+};
 
 export default Product;

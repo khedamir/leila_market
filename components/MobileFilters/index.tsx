@@ -16,8 +16,6 @@ import {
   changeSizeValue,
   setPriceValues,
 } from "@/redux/filters/slice";
-import { spawn } from "child_process";
-import FilterPrice from "../FilterPrice";
 import Input from "../Index";
 
 type FilterType = {
@@ -44,7 +42,7 @@ const MobileFilters = () => {
   const activeMenu = useSelector((state: AppState) => getMenuById(state, menu));
 
   const categoryName = useMemo(() => {
-    return activeMenu?.categories.find((item) => item.id === category)?.name;
+    return activeMenu?.categories.find((item) => item.name === category)?.name;
   }, [activeMenu?.categories, category]);
 
   const [min, setMin] = useState<number>(min_price);
@@ -118,7 +116,7 @@ const MobileFilters = () => {
             <div className={styles.filtersList}>
               <ul className={styles.titles}>
                 {filtersList.map((filter) => (
-                  <li onClick={() => setOpenFilter(filter)}>
+                  <li key={filter.value} onClick={() => setOpenFilter(filter)}>
                     <span>{filter.name}</span>
                     <span className={styles.arrow}>
                       <BackIcon />
@@ -130,10 +128,11 @@ const MobileFilters = () => {
                 {openFilter?.name === "Размер одежды" ? (
                   data.sizes.map((item) => (
                     <li
-                      onClick={() => dispatch(changeSizeValue(String(item.id)))}
+                      key={item.id}
+                      onClick={() => dispatch(changeSizeValue(item.name))}
                     >
                       <span>{item.name}</span>
-                      {size.find((i) => i === String(item.id)) && (
+                      {size === item.name && (
                         <span>
                           <Mark />
                         </span>
@@ -143,8 +142,9 @@ const MobileFilters = () => {
                 ) : openFilter?.name === "Цвет" ? (
                   data.colors.map((item) => (
                     <li
+                      key={item.id}
                       onClick={() =>
-                        dispatch(changeColorValue(String(item.id)))
+                        dispatch(changeColorValue(item.color_name))
                       }
                     >
                       <span className={styles.name}>
@@ -154,7 +154,7 @@ const MobileFilters = () => {
                         ></span>
                         {item.color_name}
                       </span>
-                      {color.find((i) => i === String(item.id)) && (
+                      {color === item.color_name && (
                         <span>
                           <Mark />
                         </span>

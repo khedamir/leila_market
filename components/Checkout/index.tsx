@@ -12,6 +12,7 @@ import Button from "../Button";
 import CheckoutForm from "./CheckoutForm";
 import CheckoutBlock from "./CheckoutBlock";
 import { useAppDispatch } from "@/redux/store";
+import { fetch, localFetch } from "@/redux/axios";
 
 export const deliveryItems = [
   { value: "1", name: "Курьер – Бесплатно (7-10 рабочих дней)" },
@@ -49,7 +50,7 @@ const Checkout: FC<CheckoutProps> = ({ active, setActive }) => {
     register,
     handleSubmit,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
       first_name: "",
@@ -57,7 +58,6 @@ const Checkout: FC<CheckoutProps> = ({ active, setActive }) => {
       email: "",
       phone: "",
       city: undefined,
-      // delivery_method: "",
       street: "",
       house: "",
       apartment_office: "",
@@ -85,11 +85,8 @@ const Checkout: FC<CheckoutProps> = ({ active, setActive }) => {
       },
     };
 
-    const postData = async () => {
-      const { data } = await axios.post(
-        "http://localhost:8000/api/payments/yookassa/",
-        requastData
-      );
+    const postData = async () => { 
+      const { data } = await localFetch.post("/api/payments/yookassa/", requastData);
 
       dispatch(clearItems());
       window.location.href = data.confirmation_url;

@@ -39,21 +39,25 @@ const Contacts = () => {
         <div className={styles.contactsInfo}>
           <span className={styles.phone}>
             <h3>Телефон</h3>
-            <Link href={""}>+7 499 302‑01‑40</Link>
-            <Link href={""}>Бесплатно по России</Link>
+            <Link href="tel:+74993020140">+7 499 302‑01‑40</Link>
+            <p>Бесплатно по России</p>
           </span>
           <span className={styles.email}>
             <h3>Эл. почта</h3>
-            <Link href={""}>leilamezhieva@gmail.com</Link>
+            <Link href="mailto: leilamezhieva@gmail.com">
+              leilamezhieva@gmail.com
+            </Link>
           </span>
           <span className={styles.office}>
             <h3>Офис</h3>
-            <Link href={""}>Москва, ул. Рочдельская, 15, стр. 11 - 11а</Link>
-            <Link href={""}>Часы работы Пн-Пт 10:00-19:00</Link>
+            <p>Москва, ул. Рочдельская, 15, стр. 11 - 11а</p>
+            <p>Часы работы Пн-Пт 10:00-19:00</p>
           </span>
           <span className={styles.collaboration}>
             <h3>По вопросам сотрудничества</h3>
-            <Link href={""}>leilamezhieva@gmail.com</Link>
+            <Link href="mailto: leilamezhieva@gmail.com">
+              leilamezhieva@gmail.com
+            </Link>
           </span>
         </div>
       </div>

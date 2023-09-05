@@ -36,6 +36,18 @@ const FilterPrice = () => {
     }
   };
 
+  const clean = () => {
+    setMin(0);
+    setMax(0);
+
+    dispatch(
+      setPriceValues({
+        min_price: 0,
+        max_price: 0,
+      })
+    );
+  };
+
   return (
     <div className={styles.filterPrice}>
       <Popup preview="Цена">
@@ -58,9 +70,20 @@ const FilterPrice = () => {
                 type="number"
               />
             </span>
-            <Button disabled={!(min && max)} onClick={setValues}>
+
+            <Button
+              disabled={!(min && max) || min === min_price && max === max_price}
+              onClick={setValues}
+            >
               Применить
             </Button>
+            {min && max ? (
+              <p className={styles.clean} onClick={clean}>
+                Очистить
+              </p>
+            ) : (
+              ""
+            )}
           </div>
         </PopupItem>
       </Popup>

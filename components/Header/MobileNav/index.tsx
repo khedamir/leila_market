@@ -13,9 +13,9 @@ const MenuItems = [
     name: "Покупателям",
     path: "#",
     submenu: [
-      { id: 1, name: "Доставка", path: "" },
+      { id: 1, name: "Доставка", path: "/delivery" },
       { id: 2, name: "Возврат", path: "" },
-      { id: 3, name: "Контакты", path: "" },
+      { id: 3, name: "Контакты", path: "/contacts" },
     ],
   },
   {
@@ -65,6 +65,7 @@ const MobileNav = () => {
               key={id}
               activeItems={activeItems}
               change={setActiveItems}
+              setMenuActive={setActive}
               id={id}
               name={menu_name}
               submenu={categories}
@@ -75,6 +76,7 @@ const MobileNav = () => {
               key={id}
               activeItems={activeStaticItems}
               change={setActiveStaticItems}
+              setMenuActive={setActive}
               id={id}
               name={name}
               path={path}

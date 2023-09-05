@@ -1,0 +1,44 @@
+.search {
+  //   width: 286px;
+  position: relative;
+
+  .searchIcon {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    cursor: pointer;
+  }
+
+  input {
+    padding: 12px 32px;
+    border-color: #0f0f0f;
+    background-color: #fff;
+  }
+}
+
+@media (max-width: 1440px) {
+  .search {
+    position: absolute;
+    top: 12px;
+    left: 58px;
+    z-index: 10;
+
+    .searchWrapper {
+      width: 0;
+      overflow: hidden;
+      transition: 0.3s all ease;
+    }
+
+    &.active {
+      .searchWrapper {
+        width: 280px;
+      }
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .search {
+    top: 9px;
+  }
+}

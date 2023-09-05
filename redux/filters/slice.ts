@@ -5,13 +5,13 @@ import { HYDRATE } from "next-redux-wrapper";
 const initialState: FiltersSliceState = {
   menu: 1,
   // collection: null,
-  category: null,
-  size: [],
-  color: [],
+  category: "",
+  size: "",
+  color: "",
   min_price: 0,
   max_price: 0,
   ordering: OrderType.default,
-  // search: "",
+  search: "",
   page: 1,
 };
 
@@ -25,22 +25,28 @@ export const filtersSlice = createSlice({
     // setCollectionValue(state, action: PayloadAction<number>) {
     //   state.collection = action.payload;
     // },
-    setCategoryValue(state, action: PayloadAction<number | null>) {
+    setCategoryValue(state, action: PayloadAction<string>) {
       state.category = action.payload;
     },
+    // changeSizeValue(state, action: PayloadAction<string>) {
+    //   if (state.size.includes(action.payload)) {
+    //     state.size = state.size.filter((i) => i !== action.payload);
+    //   } else {
+    //     state.size = [...state.size, action.payload];
+    //   }
+    // },
     changeSizeValue(state, action: PayloadAction<string>) {
-      if (state.size.includes(action.payload)) {
-        state.size = state.size.filter((i) => i !== action.payload);
-      } else {
-        state.size = [...state.size, action.payload];
-      }
+      state.size = action.payload;
     },
+    // changeColorValue(state, action: PayloadAction<string>) {
+    //   if (state.color.includes(action.payload)) {
+    //     state.color = state.color.filter((i) => i !== action.payload);
+    //   } else {
+    //     state.color = [...state.color, action.payload];
+    //   }
+    // },
     changeColorValue(state, action: PayloadAction<string>) {
-      if (state.color.includes(action.payload)) {
-        state.color = state.color.filter((i) => i !== action.payload);
-      } else {
-        state.color = [...state.color, action.payload];
-      }
+      state.color = action.payload;
     },
     setPriceValues(
       state,
@@ -49,9 +55,9 @@ export const filtersSlice = createSlice({
       state.min_price = action.payload.min_price;
       state.max_price = action.payload.max_price;
     },
-    // setSearchValue(state, action: PayloadAction<string>) {
-    //   state.search = action.payload;
-    // },
+    setSearchValue(state, action: PayloadAction<string>) {
+      state.search = action.payload;
+    },
     setOrderValue(state, action: PayloadAction<OrderType>) {
       state.ordering = action.payload;
     },
@@ -61,13 +67,14 @@ export const filtersSlice = createSlice({
     setFilters(state, action: PayloadAction<FiltersSliceState>) {
       state.menu = action.payload.menu;
       // state.collection = Number(action.payload.collection);
-      state.category = Number(action.payload.category);
+      state.category = action.payload.category;
       state.size = action.payload.size;
       state.color = action.payload.color;
       state.min_price = Number(action.payload.min_price);
       state.max_price = Number(action.payload.max_price);
       state.page = Number(action.payload.page);
       state.ordering = action.payload.ordering;
+      state.search = action.payload.search;
     },
   },
   extraReducers: (builder) => {
@@ -80,6 +87,7 @@ export const filtersSlice = createSlice({
         menu,
         ordering,
         size,
+        search,
         color,
       } = action.payload.filters;
 
@@ -104,6 +112,9 @@ export const filtersSlice = createSlice({
       if (page) {
         state.page = page;
       }
+      if (search) {
+        state.search = search;
+      }
       if (ordering) {
         state.ordering = ordering;
       }
@@ -119,6 +130,7 @@ export const {
   changeSizeValue,
   changeColorValue,
   setOrderValue,
+  setSearchValue,
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

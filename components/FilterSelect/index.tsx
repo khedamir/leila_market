@@ -6,7 +6,7 @@ import PopupItem from "../PopupItem";
 interface FilterSelectProps {
   title: string;
   items: any;
-  activeItems: string[];
+  activeItems: string;
   setActiveItem: (i: string) => void;
 }
 
@@ -16,17 +16,18 @@ const FilterSelect: FC<FilterSelectProps> = ({
   activeItems,
   setActiveItem,
 }) => {
+  console.log(items[0]);
   return (
-    <Popup preview={title} countSelectItems={activeItems.length}>
+    <Popup preview={title}>
       {items.map((item: any) => (
         <PopupItem
           key={item.id}
           onClick={() =>
-            setActiveItem(item.color ? item.color_name : String(item.id))
+            setActiveItem(item.color_name ? item.color_name : item.name)
           }
-          isActive={activeItems.includes(
-            item.color ? item.color_name : String(item.id)
-          )}
+          isActive={
+            activeItems === item.name || activeItems === item.color_name
+          }
         >
           <span className={styles.item}>
             {item.color_name && (

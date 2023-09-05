@@ -1,0 +1,33 @@
+.detailsItem {
+  .preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 0;
+
+    svg {
+      transition: 0.3s transform ease;
+    }
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  .description {
+    display: none;
+    padding: 20px 0;
+  }
+
+  &.active {
+    .preview {
+      svg {
+        transform: rotate(90deg);
+      }
+    }
+    .description {
+      display: block;
+    }
+  }
+}

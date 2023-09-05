@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./Cart.module.scss";
-import Image from "next/image";
 import RemoveIcon from "../../public/images/close-icon.svg";
 import Link from "next/link";
 import BreadCrumbs from "@/components/BreadCrumbs";
@@ -17,7 +16,6 @@ import {
 } from "@/redux/cart/slice";
 import { useAppDispatch } from "@/redux/store";
 import Checkout from "@/components/Checkout";
-import { SizeItem } from "@/redux/types";
 
 const Cart = () => {
   const { items } = useSelector(cartSelector);
@@ -53,12 +51,7 @@ const Cart = () => {
                     className={styles.cartItemImg}
                     href={`/product/${item.product.id}`}
                   >
-                    <img
-                      src={
-                        "https://dolinamod.ru/image/cache/catalog/2021_evening/DM-993-01-776x1165.jpg"
-                      }
-                      alt=""
-                    />
+                    <img src={item.product.image} alt="" />
                   </Link>
                   <div className={styles.properties}>
                     <div className={styles.description}>

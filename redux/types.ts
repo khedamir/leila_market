@@ -39,13 +39,10 @@ export type FullProductType = {
 
 export type ColorItem = {
   id: number;
+  color_hex: string;
+  color_name: string;
+  sizes: SizeItem[];
   images: ImageItem[];
-  color: {
-    id: number;
-    color_hex: string;
-    color_name: string;
-    sizes: SizeItem[];
-  };
 };
 
 export type SizeItem = {

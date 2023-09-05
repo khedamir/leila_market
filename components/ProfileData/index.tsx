@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ProfileData.module.scss";
 import Input from "../Index";
 import { useSelector } from "react-redux";
@@ -7,9 +7,9 @@ import Button from "../Button";
 import { useAppDispatch } from "@/redux/store";
 import Popup from "../Popup";
 import PopupItem from "../PopupItem";
-import { selectCatalog } from "@/redux/catalog/slice";
 import SelectDate from "../SelectDate";
-import instance from "@/redux/axios";
+import { localFetch } from "@/redux/axios";
+import Notification from "../Notification";
 
 type GenderType = "Мужской" | "Женский";
 
@@ -30,9 +30,9 @@ const gender: GenderType[] = ["Мужской", "Женский"];
 
 const ProfileData = () => {
   const { profile } = useSelector(selectProfile);
-  const { data } = useSelector(selectCatalog);
   const dispatch = useAppDispatch();
   const [isChanged, setIsChanged] = useState(false);
+  const [animate, setAnimate] = useState<boolean>(false);
 
   const [formData, setFormData] = useState<FormDataType>();
 
@@ -67,7 +67,6 @@ const ProfileData = () => {
         profile.apartment_office !== formData.apartment_office ||
         profile.postal_code !== formData.postal_code
       ) {
-        console.log(formData.birthday);
         setIsChanged(true);
       } else {
         setIsChanged(false);
@@ -77,26 +76,21 @@ const ProfileData = () => {
 
   const saveProfileData = () => {
     dispatch(setData(formData));
-
     const params: any = { ...formData };
 
     if (formData?.birthday) {
       const originalDate = new Date(formData.birthday);
-
-      const year = originalDate.getFullYear();
-      const month = String(originalDate.getMonth() + 1).padStart(2, "0");
-      const day = String(originalDate.getDate()).padStart(2, "0");
-
-      const formattedDate = `${year}-${month}-${day}`;
-
+      const formattedDate = originalDate.toISOString().slice(0, 10);
       params.birthday = formattedDate;
       console.log(formattedDate);
     }
 
     const fetch = async () => {
-      await instance.post("http://localhost:8000/profile/", params);
+      await localFetch.post("/profile/", params);
     };
-    fetch();
+    fetch().then(() => {
+      setAnimate(true);
+    });
 
     setIsChanged(false);
   };
@@ -107,6 +101,11 @@ const ProfileData = () => {
 
   return (
     <div className={styles.form}>
+      <Notification
+        active={animate}
+        setActive={setAnimate}
+        text="Данные профиля обновлены"
+      />
       <div className={styles.formItem}>
         <label htmlFor="">Имя</label>
         <Input

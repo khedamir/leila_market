@@ -8,6 +8,13 @@
   padding: 100px 0;
   min-width: 393px;
 
+  .errorMessage {
+    text-align: center;
+    p {
+      color: #b72025;
+    }
+  }
+
   h1 {
     font-weight: 400;
   }
@@ -15,10 +22,16 @@
   .registerForm {
     width: 100%;
     max-width: 400px;
-    margin: 0 20px;
+    // margin: 0 20px;
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
     gap: 28px;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+    }
 
     input {
       font-size: 16px;

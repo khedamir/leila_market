@@ -10,7 +10,7 @@ export type FetchProductsArgs = {
   min_price?: string;
   max_price?: string;
   ordering?: OrderType;
-  // search?: string;
+  search?: string;
   page?: string;
 };
 

@@ -4,6 +4,14 @@ import Image from "next/image";
 import { ProductType } from "@/redux/products/types";
 import Link from "next/link";
 import FavoritesIcon from "../FavoritesIcon";
+import { useSelector } from "react-redux";
+import {
+  addItem,
+  removeItem,
+  selectorIsFavorited,
+} from "@/redux/favorites/slice";
+import { AppState, useAppDispatch } from "@/redux/store";
+import { localFetch } from "@/redux/axios";
 
 const ProductItem: FC<ProductType> = ({
   id,
@@ -12,10 +20,36 @@ const ProductItem: FC<ProductType> = ({
   image,
   price,
 }) => {
+  const favorited = useSelector((state: AppState) =>
+    selectorIsFavorited(state, id)
+  );
+  const dispatch = useAppDispatch();
+
+  const addItemFn = async () => {
+    await localFetch.post("/profile/favorite-products/", { product_id: id });
+    dispatch(addItem({ id, product_name, collection_name, image, price }));
+  };
+
+  const deleteItemFn = async () => {
+    await localFetch.delete(`/profile/favorite-products/`, {
+      params: { product_id: id },
+    });
+    dispatch(removeItem(id));
+  };
+
+  const changeFavorite = () => {
+    if (favorited) {
+      deleteItemFn();
+    }
+    if (!favorited) {
+      addItemFn();
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.favorites}>
-        <FavoritesIcon />
+      <div onClick={changeFavorite} className={styles.favorites}>
+        <FavoritesIcon active={Boolean(favorited)} />
       </div>
       <Link href={`/product/${id}`}>
         <div className={styles.productItem}>

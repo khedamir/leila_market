@@ -8,6 +8,7 @@ import InputItem from "@/components/InputItem";
 import MaskedInput from "@/components/MeskedInput";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { fetch } from "@/redux/axios";
 
 type RegisterValuesType = {
   username: string;
@@ -36,6 +37,7 @@ const Login = () => {
 
   const [passwordIsValid, setPassowrdIsValid] = useState(true);
   const navigate = useRouter();
+  const [registerError, setRegisterError] = useState(false);
 
   const onSubmit = (formValues: RegisterValuesType) => {
     if (formValues.password !== formValues.re_password) {
@@ -45,12 +47,15 @@ const Login = () => {
     setPassowrdIsValid(true);
     console.log(formValues);
     const postData = async () => {
-      const { data } = await axios.post(
-        "http://localhost:8000/auth/users/",
-        formValues
-      );
-
-      navigate.push("/login");
+      await fetch
+        .post("/auth/users/", formValues)
+        .then(() => {
+          navigate.push("/register_info");
+        })
+        .catch((error) => {
+          console.error(error);
+          setRegisterError(true);
+        });
     };
 
     postData();
@@ -58,6 +63,12 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.register}>
+      {registerError && (
+        <div className={styles.errorMessage}>
+          <p>Не удалось зарегистрироваться :(</p>
+          <p>Повторите попытку позже.</p>
+        </div>
+      )}
       <h1>Регистрация</h1>
       <div className={styles.registerForm}>
         <InputItem

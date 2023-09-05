@@ -21,8 +21,17 @@ import { Status } from "@/redux/types";
 
 const Catalog = () => {
   const products = useSelector(selectProducts);
-  const { category, min_price, max_price, page, menu, size, color, ordering } =
-    useSelector(selectFilters);
+  const {
+    category,
+    min_price,
+    max_price,
+    page,
+    menu,
+    size,
+    color,
+    ordering,
+    search,
+  } = useSelector(selectFilters);
 
   const activeMenu = useSelector((state: AppState) => getMenuById(state, menu));
 
@@ -34,8 +43,8 @@ const Catalog = () => {
     const updateQueryParams = () => {
       const queryParams: FetchProductsArgs = {};
 
-      if (category !== null) {
-        queryParams.category = String(category);
+      if (category !== "") {
+        queryParams.category = category;
       }
       if (min_price > 0) {
         queryParams.min_price = String(min_price);
@@ -47,10 +56,13 @@ const Catalog = () => {
         queryParams.page = String(page);
       }
       if (size.length) {
-        queryParams.size = size.join(";");
+        queryParams.size = size;
       }
       if (color.length) {
-        queryParams.color = color.join(";");
+        queryParams.color = color;
+      }
+      if (search.length) {
+        queryParams.search = search;
       }
       if (ordering !== OrderType.default) {
         queryParams.ordering = ordering;
@@ -68,7 +80,7 @@ const Catalog = () => {
     };
 
     updateQueryParams();
-  }, [category, min_price, max_price, page, size, color, ordering]);
+  }, [category, min_price, max_price, page, size, color, ordering, search]);
 
   return (
     <div className={styles.catalog}>
@@ -76,9 +88,9 @@ const Catalog = () => {
         <BreadCrumbs
           value1={activeMenu?.menu_name || ""}
           value2={
-            activeMenu?.categories.find((v) => v.id === category)?.name || ""
+            activeMenu?.categories.find((v) => v.name === category)?.name || ""
           }
-          onClickValue1={() => dispatch(setCategoryValue(null))}
+          onClickValue1={() => dispatch(setCategoryValue(""))}
         />
       </div>
       <div className={styles.wrapper}>
@@ -86,16 +98,16 @@ const Catalog = () => {
           <Sidebar
             items={activeMenu?.categories}
             activeItem={category}
-            onClickFn={(id: number) => dispatch(setCategoryValue(id))}
+            onClickFn={(name: string) => dispatch(setCategoryValue(name))}
             title={activeMenu?.menu_name}
           />
         </div>
-        <div>
+        <div className={styles.content}>
           <Filters />
           <MobileFilters />
           <ul className={styles.productList}>
             {products.items.map((product) => (
-              <li key={product.id}>
+              <li className={styles.productItem} key={product.id}>
                 <ProductItem
                   id={product.id}
                   product_name={product.product_name}
@@ -130,13 +142,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     store.dispatch(
       setFilters({
-        menu: query.menu !== null ? Number(query.menu) : 3,
-        category: query.category !== null ? Number(query.category) : null,
+        menu: query.menu !== null ? Number(query.menu) : 3, //sonra
+        category: query.category ? String(query.category) : "",
         min_price: Number(query.min_price) ? Number(query.min_price) : 0,
         max_price: Number(query.max_price) ? Number(query.max_price) : 0,
         page: query.page ? Number(query.page) : 1,
-        size: query.size ? String(query.size).split(";") : [],
-        color: query.color ? String(query.color).split(";") : [],
+        size: query.size ? String(query.size) : "",
+        color: query.color ? String(query.color) : "",
+        search: query.search ? String(query.search) : "",
         ordering: query.ordering
           ? (query.ordering as OrderType)
           : OrderType.default,
