@@ -38,7 +38,7 @@ const Login = () => {
     if (user) {
       navigate.push("/profile");
     }
-  }, [user]);
+  }, [user, navigate]);
 
   const onSubmit = async (values: FormType) => {
     await dispatch(fetchAuth(values));

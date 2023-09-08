@@ -15,8 +15,7 @@ const Collections: FC<CollectionProps> = ({ collections }) => {
       <h1>Коллекции</h1>
       <div className={styles.collectionList}>
         {collections.map((collection) => (
-          <Link href={`/collection/${collection.id}`}>
-            {" "}
+          <Link key={collection.id} href={`/collection/${collection.id}`}>
             <div
               style={{
                 backgroundImage: `url("${collection.images[0].image_url}")`,
