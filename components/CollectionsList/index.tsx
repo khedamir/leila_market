@@ -21,7 +21,7 @@ interface CollectionsProps {
 const CollectionsList: FC<CollectionsProps> = ({ collections, load }) => {
   return (
     <div className={styles.collectionList}>
-      <SectionHeader title="Коллекции" link="/catalog" />
+      <SectionHeader title="Коллекции" link="/collections" />
       <SliderContainer>
         {collections.map((collection) => (
           <SwiperSlide key={collection.id}>

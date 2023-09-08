@@ -14,7 +14,7 @@ const Logout = () => {
     dispatch(logout);
     dispatch(cleanProfileData);
     navigate.push("/");
-  }, []);
+  }, [dispatch, navigate]);
   return <div className={styles.logout}>Выход из аккаунта</div>;
 };
 

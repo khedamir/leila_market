@@ -8,7 +8,7 @@ export interface FiltersSliceState {
   max_price: number;
   ordering: OrderType; //
   search: string;
-  page: number;
+  // page: number;
 }
 
 export enum OrderType {

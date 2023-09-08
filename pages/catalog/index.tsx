@@ -1,86 +1,76 @@
-import ProductItem from "@/components/ProductItem";
-import { fetchProducts } from "@/redux/products/asyncAction";
-import { selectProducts } from "@/redux/products/slice";
-import { AppState, useAppDispatch, wrapper } from "@/redux/store";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Catalog.module.scss";
+
+import ProductItem from "@/components/ProductItem";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import Sidebar from "@/components/Sidebar";
 import MobileFilters from "@/components/MobileFilters";
+import Filters from "@/components/Filters";
+
+import { useSelector } from "react-redux";
+import { AppState, useAppDispatch, wrapper } from "@/redux/store";
+import { Status } from "@/redux/types";
+import { fetchCatalogData } from "@/redux/catalog/asyncAction";
+import { fetchProducts } from "@/redux/products/asyncAction";
+import { selectProducts, setItems } from "@/redux/products/slice";
 import { setCategoryValue, setFilters } from "@/redux/filters/slice";
 import selectFilters from "@/redux/filters/selectMenu";
-import { useRouter } from "next/router";
-import { FetchProductsArgs } from "@/redux/products/types";
-import { getMenuById } from "@/redux/menu/selectMenu";
-import Filters from "@/components/Filters";
 import { OrderType } from "@/redux/filters/types";
-import { isEqual } from "@/utils/isEqual";
-import { fetchCatalogData } from "@/redux/catalog/asyncAction";
-import { Status } from "@/redux/types";
+import { getMenuById } from "@/redux/menu/selectMenu";
+import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
+import { fetch } from "@/redux/axios";
+import { FetchProductsArgs, ProductsSlice } from "@/redux/products/types";
+import { useRouter } from "next/router";
+
+const fetchNextPage = async (params: FetchProductsArgs, page: number) => {
+  const { data } = await fetch.get(`/api/product?page=${page}`, {
+    params,
+  });
+  return data as ProductsSlice;
+};
 
 const Catalog = () => {
-  const products = useSelector(selectProducts);
-  const {
-    category,
-    min_price,
-    max_price,
-    page,
-    menu,
-    size,
-    color,
-    ordering,
-    search,
-  } = useSelector(selectFilters);
+  const { items, status } = useSelector(selectProducts);
+  const filters = useSelector(selectFilters);
+  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const totalPage = Math.ceil(items.count / 9);
+  console.log(totalPage);
 
-  const activeMenu = useSelector((state: AppState) => getMenuById(state, menu));
+  const activeMenu = useSelector((state: AppState) =>
+    getMenuById(state, filters.menu)
+  );
 
   const dispatch = useAppDispatch();
 
-  const router = useRouter();
+  useUpdateQueryParams(filters);
 
   useEffect(() => {
-    const updateQueryParams = () => {
-      const queryParams: FetchProductsArgs = {};
+    if (page > 1) {
+      fetchNextPage(router.query, page).then((response) => {
+        dispatch(setItems(response));
+      });
+    }
+  }, [page, dispatch, router.query]);
 
-      if (category !== "") {
-        queryParams.category = category;
-      }
-      if (min_price > 0) {
-        queryParams.min_price = String(min_price);
-      }
-      if (max_price > 0) {
-        queryParams.max_price = String(max_price);
-      }
-      if (page !== null && page !== 1) {
-        queryParams.page = String(page);
-      }
-      if (size.length) {
-        queryParams.size = size;
-      }
-      if (color.length) {
-        queryParams.color = color;
-      }
-      if (search.length) {
-        queryParams.search = search;
-      }
-      if (ordering !== OrderType.default) {
-        queryParams.ordering = ordering;
-      }
+  const handleScroll = useCallback(() => {
+    if (page < totalPage) {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
 
-      const currentQueryParams = router.query;
-
-      console.log(queryParams, currentQueryParams);
-      if (!isEqual(queryParams, currentQueryParams)) {
-        router.push({
-          pathname: router.pathname,
-          query: queryParams,
-        });
+      if (scrollY + windowHeight >= documentHeight - 200) {
+        setPage(page + 1);
       }
+    }
+  }, [page, totalPage, setPage]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
-
-    updateQueryParams();
-  }, [category, min_price, max_price, page, size, color, ordering, search]);
+  }, [handleScroll]);
 
   return (
     <div className={styles.catalog}>
@@ -88,7 +78,8 @@ const Catalog = () => {
         <BreadCrumbs
           value1={activeMenu?.menu_name || ""}
           value2={
-            activeMenu?.categories.find((v) => v.name === category)?.name || ""
+            activeMenu?.categories.find((v) => v.name === filters.category)
+              ?.name || ""
           }
           onClickValue1={() => dispatch(setCategoryValue(""))}
         />
@@ -97,7 +88,7 @@ const Catalog = () => {
         <div className={styles.sidebar}>
           <Sidebar
             items={activeMenu?.categories}
-            activeItem={category}
+            activeItem={filters.category}
             onClickFn={(name: string) => dispatch(setCategoryValue(name))}
             title={activeMenu?.menu_name}
           />
@@ -106,7 +97,7 @@ const Catalog = () => {
           <Filters />
           <MobileFilters />
           <ul className={styles.productList}>
-            {products.items.map((product) => (
+            {items.results.map((product) => (
               <li className={styles.productItem} key={product.id}>
                 <ProductItem
                   id={product.id}
@@ -146,7 +137,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         category: query.category ? String(query.category) : "",
         min_price: Number(query.min_price) ? Number(query.min_price) : 0,
         max_price: Number(query.max_price) ? Number(query.max_price) : 0,
-        page: query.page ? Number(query.page) : 1,
+        // page: query.page ? Number(query.page) : 1,
         size: query.size ? String(query.size) : "",
         color: query.color ? String(query.color) : "",
         search: query.search ? String(query.search) : "",

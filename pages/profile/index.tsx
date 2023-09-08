@@ -33,7 +33,7 @@ const Profile = () => {
     if (status === Status.ERROR) {
       navigate.push("/login");
     }
-  }, [user, status]);
+  }, [user, status, dispatch, navigate]);
 
   return status === Status.LOADING || !user ? (
     <p>Loading</p>
@@ -42,7 +42,7 @@ const Profile = () => {
       <div className={styles.sidebar}>
         <Sidebar
           items={items}
-          activeItem={2}
+          activeItem={items[1].name}
           onClickFn={() => {}}
           title={items[1].name}
         />

@@ -18,7 +18,7 @@ const Notification: FC<NotificationProps> = ({ active, text, setActive }) => {
         clearTimeout(timerId);
       };
     }
-  }, [active]);
+  }, [active, setActive]);
   return (
     <div className={`${styles.notification} ${active && styles.active}`}>
       <span className={styles.message}>{text}</span>

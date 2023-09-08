@@ -1,15 +1,16 @@
 import Input from "@/components/Index";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import Button from "@/components/Button";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "@/redux/store";
-import { validationSchema } from "./validations";
 import { fetchAuth, fetchAuthMe } from "@/redux/auth/asyncAction";
 import { useRouter } from "next/router";
 import { selectUser } from "@/redux/auth/slice";
 import { useSelector } from "react-redux";
 import { Status } from "@/redux/types";
+import Link from "next/link";
+import { loginSchema } from "@/redux/validations";
 
 interface FormType {
   username: string;
@@ -17,7 +18,7 @@ interface FormType {
 }
 
 const Login = () => {
-  const { status } = useSelector(selectUser);
+  const { user, status } = useSelector(selectUser);
   const [errorMessage, setErrorMessage] = useState(false);
   const navigate = useRouter();
   const dispatch = useAppDispatch();
@@ -33,10 +34,15 @@ const Login = () => {
     mode: "onBlur",
   });
 
+  useEffect(() => {
+    if (user) {
+      navigate.push("/profile");
+    }
+  }, [user]);
+
   const onSubmit = async (values: FormType) => {
     await dispatch(fetchAuth(values));
     if (status === Status.ERROR) {
-      console.log("hi");
       setErrorMessage(true);
     }
     if (status === Status.LOADING) {
@@ -58,7 +64,7 @@ const Login = () => {
         <span className={`${errors.username && styles.error}`}>
           <Input
             placeholder="Имя пользователя, почта или телефон"
-            {...register("username", validationSchema.username)}
+            {...register("username", loginSchema.username)}
           />
           <span className={styles.errorMessage}>
             {errors.username?.message}
@@ -68,7 +74,7 @@ const Login = () => {
           <Input
             placeholder="Пароль"
             type="password"
-            {...register("password", validationSchema.password)}
+            {...register("password", loginSchema.password)}
           />
           <span className={styles.errorMessage}>
             {errors.password?.message}
@@ -76,9 +82,9 @@ const Login = () => {
         </span>
 
         <Button type="submit">Войти</Button>
-        <a className={styles.registerLink} href="/register">
+        <Link className={styles.registerLink} href="/register">
           Зарегистрироваться
-        </a>
+        </Link>
       </form>
     </div>
   );

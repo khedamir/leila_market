@@ -16,6 +16,7 @@ import {
 } from "@/redux/cart/slice";
 import { useAppDispatch } from "@/redux/store";
 import Checkout from "@/components/Checkout";
+import Image from "next/image";
 
 const Cart = () => {
   const { items } = useSelector(cartSelector);
@@ -51,7 +52,12 @@ const Cart = () => {
                     className={styles.cartItemImg}
                     href={`/product/${item.product.id}`}
                   >
-                    <img src={item.product.image} alt="" />
+                    <Image
+                      width={109}
+                      height={133}
+                      src={item.product.image}
+                      alt=""
+                    />
                   </Link>
                   <div className={styles.properties}>
                     <div className={styles.description}>
@@ -130,13 +136,12 @@ const Cart = () => {
               ))}
             </div>
           </div>
-
           <Checkout active={checkoutActive} setActive={setCheckoutActive} />
         </>
       ) : (
         <div className={styles.emptyCart}>
           <p>Ваша корзина пока пуста</p>
-          <a href="/catalog">В каталог</a>
+          <Link href="/catalog">В каталог</Link>
         </div>
       )}
     </div>

@@ -21,7 +21,7 @@ const Favorites = () => {
     if (status === Status.ERROR) {
       navigate.push("/login");
     }
-  }, [status]);
+  }, [status, navigate]);
 
   return (
     <div className={styles.favorites}>
@@ -35,9 +35,7 @@ const Favorites = () => {
           <div className={styles.favoritItem} key={item.id}>
             <ProductItem
               id={item.id}
-              image={
-                "https://dolinamod.ru/image/cache/catalog/2021_evening/DM-993-01-776x1165.jpg"
-              }
+              image={item.image}
               product_name={item.product_name}
               collection_name={item.collection_name}
               price={item.price}

@@ -38,7 +38,12 @@ export type Instructions = {
   care: string;
 };
 
+export type ProductsSlice = {
+  count: number;
+  results: ProductType[];
+};
+
 export interface ProductSliceState {
-  items: ProductType[];
+  items: ProductsSlice;
   status: Status;
 }

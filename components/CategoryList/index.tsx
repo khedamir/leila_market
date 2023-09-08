@@ -22,7 +22,7 @@ const CategoryList: FC<CategoryListProps> = ({ title, products, category }) => {
       <div className={styles.categoryList}>
         <SectionHeader
           title={title}
-          link={category ? `/catalog/?category=${category.id}` : ""}
+          link={category ? `/catalog/?category=${category.category_name}` : ""}
         />
         <SliderContainer>
           {products?.map((product, id) => (

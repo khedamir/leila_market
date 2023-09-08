@@ -12,7 +12,7 @@ const initialState: FiltersSliceState = {
   max_price: 0,
   ordering: OrderType.default,
   search: "",
-  page: 1,
+  // page: 1,
 };
 
 export const filtersSlice = createSlice({
@@ -61,9 +61,9 @@ export const filtersSlice = createSlice({
     setOrderValue(state, action: PayloadAction<OrderType>) {
       state.ordering = action.payload;
     },
-    setCurrentPage(state, action: PayloadAction<number>) {
-      state.page = action.payload;
-    },
+    // setCurrentPage(state, action: PayloadAction<number>) {
+    //   state.page = action.payload;
+    // },
     setFilters(state, action: PayloadAction<FiltersSliceState>) {
       state.menu = action.payload.menu;
       // state.collection = Number(action.payload.collection);
@@ -72,7 +72,7 @@ export const filtersSlice = createSlice({
       state.color = action.payload.color;
       state.min_price = Number(action.payload.min_price);
       state.max_price = Number(action.payload.max_price);
-      state.page = Number(action.payload.page);
+      // state.page = Number(action.payload.page);
       state.ordering = action.payload.ordering;
       state.search = action.payload.search;
     },
@@ -83,7 +83,7 @@ export const filtersSlice = createSlice({
         category,
         min_price,
         max_price,
-        page,
+        // page,
         menu,
         ordering,
         size,
@@ -97,7 +97,7 @@ export const filtersSlice = createSlice({
       if (size) {
         state.size = size;
       }
-      if (size) {
+      if (color) {
         state.color = color;
       }
       if (category) {
@@ -109,9 +109,9 @@ export const filtersSlice = createSlice({
       if (max_price) {
         state.max_price = max_price;
       }
-      if (page) {
-        state.page = page;
-      }
+      // if (page) {
+      //   state.page = page;
+      // }
       if (search) {
         state.search = search;
       }
@@ -123,7 +123,7 @@ export const filtersSlice = createSlice({
 });
 
 export const {
-  setCurrentPage,
+  // setCurrentPage,
   setFilters,
   setCategoryValue,
   setPriceValues,

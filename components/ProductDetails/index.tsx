@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import styles from "./ProductDetails.module.scss";
 import { InstructionsType } from "@/redux/types";
 import Arrow from "@/public/images/arrow.svg";
-import DetailsItem from "./DetailsItem";
+import DetailsItem from "../DetailsItem";
 import Measurements from "./Measurements";
 
 interface ProductDetailsProps {

@@ -81,12 +81,15 @@ const Checkout: FC<CheckoutProps> = ({ active, setActive }) => {
         delivery_method: deliveryItems.find(
           (item) => item.value === delivery_method
         )?.name,
-        city: formValues.city.unrestricted_value,
+        city: formValues.city.value,
       },
     };
 
-    const postData = async () => { 
-      const { data } = await localFetch.post("/api/payments/yookassa/", requastData);
+    const postData = async () => {
+      const { data } = await localFetch.post(
+        "/api/payments/yookassa/",
+        requastData
+      );
 
       dispatch(clearItems());
       window.location.href = data.confirmation_url;

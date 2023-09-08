@@ -1,4 +1,13 @@
-export const validationSchema = {
+export const loginSchema = {
+  username: {
+    required: "Заполните поле",
+  },
+  password: {
+    required: "Укажите пароль",
+  },
+};
+
+export const registerScheme = {
   username: {
     required: "Укажите имя",
     minLength: {

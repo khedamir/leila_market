@@ -22,10 +22,10 @@ const Measurements = () => {
           <th>Длина рукава</th>
           <th>Длина по спинке</th>
         </tr>
-        {sizes.map((size) => (
-          <tr>
-            {size.map((i) => (
-              <td>{i}</td>
+        {sizes.map((size, id) => (
+          <tr key={id}>
+            {size.map((i, id) => (
+              <td key={id}>{i}</td>
             ))}
           </tr>
         ))}

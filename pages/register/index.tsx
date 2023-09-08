@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import styles from "./Register.module.scss";
 import Button from "@/components/Button";
 import { useForm } from "react-hook-form";
-import { validationSchema } from "./validations";
 import InputItem from "@/components/InputItem";
 import MaskedInput from "@/components/MeskedInput";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { fetch } from "@/redux/axios";
+import Link from "next/link";
+import { registerScheme } from "@/redux/validations";
 
 type RegisterValuesType = {
   username: string;
@@ -76,7 +77,7 @@ const Login = () => {
           errorMessage={errors.username?.message}
         >
           <Input
-            {...register("username", validationSchema.username)}
+            {...register("username", registerScheme.username)}
             placeholder="Имя пользователя"
           />
         </InputItem>
@@ -85,7 +86,7 @@ const Login = () => {
           errorMessage={errors.email?.message}
         >
           <Input
-            {...register("email", validationSchema.email)}
+            {...register("email", registerScheme.email)}
             placeholder="Электронная почта"
             type="email"
           />
@@ -98,7 +99,7 @@ const Login = () => {
           <MaskedInput
             control={control}
             name={"phone"}
-            rules={validationSchema.phone}
+            rules={registerScheme.phone}
             mask={"+7 (999) 999-99-99"}
             placeholder={"+7"}
           />
@@ -109,7 +110,7 @@ const Login = () => {
           errorMessage={errors.password?.message}
         >
           <Input
-            {...register("password", validationSchema.password)}
+            {...register("password", registerScheme.password)}
             placeholder="Пароль"
             type="password"
           />
@@ -119,7 +120,7 @@ const Login = () => {
           errorMessage={errors.re_password?.message || "Пароль не верный"}
         >
           <Input
-            {...register("re_password", validationSchema.re_password)}
+            {...register("re_password", registerScheme.re_password)}
             placeholder="Повторите пароль"
             type="password"
           />
@@ -129,9 +130,9 @@ const Login = () => {
           <Button>Зарегистрироваться</Button>
           <div className={styles.login}>
             Раньше уже делали регистрацию?
-            <a className={styles.loginLink} href="/login">
+            <Link className={styles.loginLink} href="/login">
               Войти
-            </a>
+            </Link>
           </div>
         </span>
       </div>

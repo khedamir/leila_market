@@ -17,7 +17,7 @@ const Layout: FC<layoutProps> = ({ children }) => {
       dispatch(fetchFavorites());
       dispatch(fetchAuthMe());
     }
-  }, []);
+  }, [dispatch]);
   return (
     <div>
       <Header />

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./RegisterInfo.module.scss";
+import Link from "next/link";
 
 const RegisterInfo = () => {
   return (
@@ -9,7 +10,7 @@ const RegisterInfo = () => {
       <p>Вам придет письмо с ссылкой для подтверждения почты</p>
       <p>
         После активации аккаунт вы можете авторизоваться на сайте:{" "}
-        <a href="/login">Войти</a>
+        <Link href="/login">Войти</Link>
       </p>
     </div>
   );

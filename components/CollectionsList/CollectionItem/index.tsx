@@ -12,7 +12,11 @@ const CollectionItem: FC<CollectionItem> = ({ collection }) => {
     background: `linear-gradient(180deg, rgba(31, 27, 22, 0) 0%, rgba(31, 27, 22, 0.6) 100%), url(${collection.image}) center/cover`,
   };
   return (
-    <Link href={"/"} style={backgroundStyle} className={styles.collectionItem}>
+    <Link
+      href={`/collection/${collection.id}`}
+      style={backgroundStyle}
+      className={styles.collectionItem}
+    >
       <h4>{collection.collection_name}</h4>
     </Link>
   );

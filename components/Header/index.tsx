@@ -23,7 +23,7 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(setCartItems(getCartFronLS()));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (user && items.length) {

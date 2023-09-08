@@ -72,7 +72,7 @@ const ProfileData = () => {
         setIsChanged(false);
       }
     }
-  }, [formData]);
+  }, [formData, profile]);
 
   const saveProfileData = () => {
     dispatch(setData(formData));

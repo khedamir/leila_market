@@ -4,6 +4,31 @@
   min-width: 393px;
   text-align: center;
 
+  .successMessage,
+  .errorMessage {
+    display: none;
+  }
+
+  &.success {
+    .successMessage {
+      display: block;
+    }
+
+    button {
+      background-color: #005111ac;
+    }
+  }
+
+  &.error {
+    .errorMessage {
+      display: block;
+    }
+
+    button {
+      background-color: #6e090ca7;
+    }
+  }
+
   button {
     width: 250px;
     margin: 20px auto;
@@ -13,6 +38,11 @@
     margin: 16px 0;
     p {
       margin-bottom: 4px;
+    }
+
+    a {
+      text-decoration: underline;
+      font-weight: 500;
     }
   }
 
