@@ -72,6 +72,11 @@ const Catalog = () => {
     };
   }, [handleScroll]);
 
+  const changeCategory = (name: string) => {
+    setPage(1);
+    dispatch(setCategoryValue(name));
+  };
+
   return (
     <div className={styles.catalog}>
       <div className={styles.breadcrumbs}>
@@ -89,7 +94,7 @@ const Catalog = () => {
           <Sidebar
             items={activeMenu?.categories}
             activeItem={filters.category}
-            onClickFn={(name: string) => dispatch(setCategoryValue(name))}
+            onClickFn={(name: string) => changeCategory(name)}
             title={activeMenu?.menu_name}
           />
         </div>

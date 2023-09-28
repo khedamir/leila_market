@@ -77,7 +77,7 @@ const Product: FC<ProductProps> = ({ product }) => {
       <BreadCrumbs
         value1={product.category[0].category_name}
         onClickValue1={() => {
-          navigate.push(`/catalog?category=${product.category[0].id}`);
+          navigate.push(`/catalog?category=${product.category[0].category_name}`);
         }}
         value2={product.product_name}
       />

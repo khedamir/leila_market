@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import { fetch } from "@/redux/axios";
 import { FullCollectionType } from "@/redux/types";
 import Link from "next/link";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 interface CollectionProps {
   collections: FullCollectionType[];
@@ -12,6 +13,7 @@ interface CollectionProps {
 const Collections: FC<CollectionProps> = ({ collections }) => {
   return (
     <div className={styles.collections}>
+      <BreadCrumbs value1={"Коллекции"} />
       <h1>Коллекции</h1>
       <div className={styles.collectionList}>
         {collections.map((collection) => (

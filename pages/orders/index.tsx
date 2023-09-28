@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "@/redux/auth/slice";
 import DetailsItem from "@/components/DetailsItem";
 import OrderItem from "@/components/OrderItem";
+import Link from "next/link";
 
 const Orders = () => {
   const [orders, setOrders] = useState<OrderType[]>();
@@ -34,6 +35,7 @@ const Orders = () => {
         console.error(error);
       });
   }, [status, navigate]);
+
   return (
     <div className={styles.orders}>
       <h1>Заказы</h1>
@@ -41,6 +43,12 @@ const Orders = () => {
         {orders?.map((order) => (
           <OrderItem key={order.id} order={order} />
         ))}
+        {orders?.length === 0 && (
+          <div className={styles.emptyCart}>
+            <p>У вас пока нет заказов</p>
+            <Link href="/catalog">В каталог</Link>
+          </div>
+        )}
       </div>
     </div>
   );

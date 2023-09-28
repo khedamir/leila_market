@@ -12,6 +12,7 @@ import {
 } from "@/redux/favorites/slice";
 import { AppState, useAppDispatch } from "@/redux/store";
 import { localFetch } from "@/redux/axios";
+import { selectUser } from "@/redux/auth/slice";
 
 const ProductItem: FC<ProductType> = ({
   id,
@@ -23,11 +24,16 @@ const ProductItem: FC<ProductType> = ({
   const favorited = useSelector((state: AppState) =>
     selectorIsFavorited(state, id)
   );
+  const { user } = useSelector(selectUser);
   const dispatch = useAppDispatch();
 
   const addItemFn = async () => {
-    await localFetch.post("/profile/favorite-products/", { product_id: id });
-    dispatch(addItem({ id, product_name, collection_name, image, price }));
+    if (user) {
+      await localFetch.post("/profile/favorite-products/", { product_id: id });
+      dispatch(addItem({ id, product_name, collection_name, image, price }));
+    } else {
+      
+    }
   };
 
   const deleteItemFn = async () => {

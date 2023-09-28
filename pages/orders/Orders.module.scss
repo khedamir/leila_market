@@ -3,6 +3,16 @@
   min-width: 393px;
   margin: 90px auto;
   padding: 0 24px;
+  text-align: center;
+
+  .emptyCart {
+    text-align: center;
+    a {
+      text-decoration: underline;
+      display: block;
+      margin: 24px 0;
+    }
+  }
 
   h1 {
     text-align: center;

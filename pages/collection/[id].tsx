@@ -5,14 +5,22 @@ import { GetServerSideProps } from "next";
 import { fetch } from "@/redux/axios";
 import Image from "next/image";
 import HTMLRenderer from "@/components/HTMLRenderer";
+import BreadCrumbs from "@/components/BreadCrumbs";
+import { useRouter } from "next/router";
 
 interface CollectionProps {
   collection: FullCollectionType;
 }
 
 const Collection: FC<CollectionProps> = ({ collection }) => {
+  const navigate = useRouter();
   return (
     <div className={styles.collection}>
+      <BreadCrumbs
+        value1={"Коллекции"}
+        value2={collection.collection_name}
+        onClickValue1={() => navigate.push("/collections")}
+      />
       <h1>{collection.collection_name}</h1>
       <div className={styles.images}>
         {collection.images.map((image, id) => (
