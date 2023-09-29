@@ -2,7 +2,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AppState } from "../store";
-import { fetchProducts } from "./asyncAction";
+import { fetchNextPage, fetchProducts } from "./asyncAction";
 import { ProductType, ProductSliceState, ProductsSlice } from "./types";
 import { Status } from "../types";
 
@@ -34,6 +34,27 @@ export const productSlice = createSlice({
       state.status = Status.ERROR;
       state.items = { count: 0, results: [] };
     });
+
+    builder.addCase(fetchNextPage.pending, (state) => {
+      state.status = Status.LOADING;
+      // state.items = { count: 0, results: [] };
+    });
+    builder.addCase(
+      fetchNextPage.fulfilled,
+      (state, action: PayloadAction<ProductsSlice>) => {
+        state.items.results = [
+          ...state.items.results,
+          ...action.payload.results,
+        ];
+        state.status = Status.SUCCESS;
+      }
+    );
+    builder.addCase(fetchNextPage.rejected, (state) => {
+      console.log("Ошибка при получении товаров");
+      state.status = Status.ERROR;
+      // state.items = { count: 0, results: [] };
+    });
+
     builder.addCase(HYDRATE as any, (state, action) => {
       const { items, status } = action.payload.products;
       if (!items) {

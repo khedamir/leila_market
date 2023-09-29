@@ -9,10 +9,13 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["80.78.244.72"],
+    domains: ["127.0.0.1"],
     unoptimized: true,
   },
   reactStrictMode: false,
+  publicRuntimeConfig: {
+    API_HOST: process.env.API_HOST,
+  },
 };
 
 module.exports = nextConfig;

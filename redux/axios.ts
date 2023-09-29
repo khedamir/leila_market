@@ -1,11 +1,14 @@
 import axios from "axios";
 
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+
 const fetch = axios.create({
-  baseURL: process.env.API_HOST,
+  baseURL: publicRuntimeConfig.API_HOST,
 });
 
 const localFetch = axios.create({
-  baseURL: process.env.API_HOST,
+  baseURL: publicRuntimeConfig.API_HOST,
 });
 
 localFetch.interceptors.request.use((config) => {

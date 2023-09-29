@@ -55,10 +55,10 @@ const Product: FC<ProductProps> = ({ product }) => {
           image: product.colors[0].images[0].image_url,
           sku: product.sku,
           sizes: product.colors[0].sizes,
-          color_hex: product.colors[0].color_hex,
+          color_hex: product.colors.find((c) => c.id === activeColor)?.color_hex as string,
         },
         size: activeSize ? activeSize : product.colors[0].sizes[0].size.id,
-        color: product.colors[0].id,
+        color: product.colors.find((c) => c.id === activeColor)?.id as number,
         price: Number(product.price),
         current: 1,
       };
@@ -77,7 +77,9 @@ const Product: FC<ProductProps> = ({ product }) => {
       <BreadCrumbs
         value1={product.category[0].category_name}
         onClickValue1={() => {
-          navigate.push(`/catalog?category=${product.category[0].category_name}`);
+          navigate.push(
+            `/catalog?category=${product.category[0].category_name}`
+          );
         }}
         value2={product.product_name}
       />

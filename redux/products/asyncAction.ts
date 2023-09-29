@@ -12,3 +12,13 @@ export const fetchProducts = createAsyncThunk<ProductsSlice, FetchProductsArgs>(
     return data;
   }
 );
+
+export const fetchNextPage = createAsyncThunk<ProductsSlice, FetchProductsArgs>(
+  "product/fetchNextPage",
+  async (params) => {
+    const { data } = await fetch.get("/api/product/", {
+      params,
+    });
+    return data;
+  }
+);

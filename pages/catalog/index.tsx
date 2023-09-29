@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { AppState, useAppDispatch, wrapper } from "@/redux/store";
 import { Status } from "@/redux/types";
 import { fetchCatalogData } from "@/redux/catalog/asyncAction";
-import { fetchProducts } from "@/redux/products/asyncAction";
+import { fetchNextPage, fetchProducts } from "@/redux/products/asyncAction";
 import { selectProducts, setItems } from "@/redux/products/slice";
 import { setCategoryValue, setFilters } from "@/redux/filters/slice";
 import selectFilters from "@/redux/filters/selectMenu";
@@ -22,12 +22,12 @@ import { fetch } from "@/redux/axios";
 import { FetchProductsArgs, ProductsSlice } from "@/redux/products/types";
 import { useRouter } from "next/router";
 
-const fetchNextPage = async (params: FetchProductsArgs, page: number) => {
-  const { data } = await fetch.get(`/api/product?page=${page}`, {
-    params,
-  });
-  return data as ProductsSlice;
-};
+// const fetchNextPage = async (params: FetchProductsArgs, page: number) => {
+//   const { data } = await fetch.get(`/api/product?page=${page}`, {
+//     params,
+//   });
+//   return data as ProductsSlice;
+// };
 
 const Catalog = () => {
   const { items, status } = useSelector(selectProducts);
@@ -47,9 +47,10 @@ const Catalog = () => {
 
   useEffect(() => {
     if (page > 1) {
-      fetchNextPage(router.query, page).then((response) => {
-        dispatch(setItems(response));
-      });
+      // fetchNextPage(router.query, page).then((response) => {
+      //   dispatch(setItems(response));
+      // });
+      dispatch(fetchNextPage({ ...router.query, page: String(page) }));
     }
   }, [page, dispatch, router.query]);
 

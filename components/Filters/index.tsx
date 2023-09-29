@@ -19,13 +19,13 @@ const Filters = () => {
       <FilterSelect
         title="Размер одежды"
         items={data.sizes}
-        activeItems={size}
+        activeItem={size}
         setActiveItem={(s: string) => dispatch(changeSizeValue(s))}
       />
       <FilterSelect
         title="Цвет"
         items={data.colors}
-        activeItems={color}
+        activeItem={color}
         setActiveItem={(c: string) => dispatch(changeColorValue(c))}
       />
       <FilterPrice />
