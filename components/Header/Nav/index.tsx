@@ -10,9 +10,9 @@ const MenuItems = [
     name: "Покупателям",
     path: "#",
     submenu: [
-      { id: 1, name: "Доставка", path: "" },
+      { id: 1, name: "Доставка", path: "/delivery" },
       { id: 2, name: "Возврат", path: "" },
-      { id: 3, name: "Контакты", path: "" },
+      { id: 3, name: "Контакты", path: "/contacts" },
       { id: 4, name: "Telegram", path: "" },
       { id: 5, name: "Whatsapp", path: "" },
       { id: 6, name: "Instagram", path: "" },

@@ -8,6 +8,7 @@ import { selectUser } from "@/redux/auth/slice";
 import DetailsItem from "@/components/DetailsItem";
 import OrderItem from "@/components/OrderItem";
 import Link from "next/link";
+import Head from "next/head";
 
 const Orders = () => {
   const [orders, setOrders] = useState<OrderType[]>();
@@ -37,20 +38,25 @@ const Orders = () => {
   }, [status, navigate]);
 
   return (
-    <div className={styles.orders}>
-      <h1>Заказы</h1>
-      <div className={styles.ordersList}>
-        {orders?.map((order) => (
-          <OrderItem key={order.id} order={order} />
-        ))}
-        {orders?.length === 0 && (
-          <div className={styles.emptyCart}>
-            <p>У вас пока нет заказов</p>
-            <Link href="/catalog">В каталог</Link>
-          </div>
-        )}
+    <>
+      <Head>
+        <title>Заказы</title>
+      </Head>
+      <div className={styles.orders}>
+        <h1>Заказы</h1>
+        <div className={styles.ordersList}>
+          {orders?.map((order) => (
+            <OrderItem key={order.id} order={order} />
+          ))}
+          {orders?.length === 0 && (
+            <div className={styles.emptyCart}>
+              <p>У вас пока нет заказов</p>
+              <Link href="/catalog">В каталог</Link>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

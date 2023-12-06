@@ -18,16 +18,8 @@ import selectFilters from "@/redux/filters/selectMenu";
 import { OrderType } from "@/redux/filters/types";
 import { getMenuById } from "@/redux/menu/selectMenu";
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
-import { fetch } from "@/redux/axios";
-import { FetchProductsArgs, ProductsSlice } from "@/redux/products/types";
 import { useRouter } from "next/router";
-
-// const fetchNextPage = async (params: FetchProductsArgs, page: number) => {
-//   const { data } = await fetch.get(`/api/product?page=${page}`, {
-//     params,
-//   });
-//   return data as ProductsSlice;
-// };
+import Head from "next/head";
 
 const Catalog = () => {
   const { items, status } = useSelector(selectProducts);
@@ -35,7 +27,7 @@ const Catalog = () => {
   const [page, setPage] = useState(1);
   const router = useRouter();
   const totalPage = Math.ceil(items.count / 9);
-  console.log(totalPage);
+  console.log(items);
 
   const activeMenu = useSelector((state: AppState) =>
     getMenuById(state, filters.menu)
@@ -47,9 +39,6 @@ const Catalog = () => {
 
   useEffect(() => {
     if (page > 1) {
-      // fetchNextPage(router.query, page).then((response) => {
-      //   dispatch(setItems(response));
-      // });
       dispatch(fetchNextPage({ ...router.query, page: String(page) }));
     }
   }, [page, dispatch, router.query]);
@@ -79,45 +68,50 @@ const Catalog = () => {
   };
 
   return (
-    <div className={styles.catalog}>
-      <div className={styles.breadcrumbs}>
-        <BreadCrumbs
-          value1={activeMenu?.menu_name || ""}
-          value2={
-            activeMenu?.categories.find((v) => v.name === filters.category)
-              ?.name || ""
-          }
-          onClickValue1={() => dispatch(setCategoryValue(""))}
-        />
-      </div>
-      <div className={styles.wrapper}>
-        <div className={styles.sidebar}>
-          <Sidebar
-            items={activeMenu?.categories}
-            activeItem={filters.category}
-            onClickFn={(name: string) => changeCategory(name)}
-            title={activeMenu?.menu_name}
+    <>
+      <Head>
+        <title>Каталог</title>
+      </Head>
+      <div className={styles.catalog}>
+        <div className={styles.breadcrumbs}>
+          <BreadCrumbs
+            value1={activeMenu?.menu_name || ""}
+            value2={
+              activeMenu?.categories.find((v) => v.name === filters.category)
+                ?.name || ""
+            }
+            onClickValue1={() => dispatch(setCategoryValue(""))}
           />
         </div>
-        <div className={styles.content}>
-          <Filters />
-          <MobileFilters />
-          <ul className={styles.productList}>
-            {items.results.map((product) => (
-              <li className={styles.productItem} key={product.id}>
-                <ProductItem
-                  id={product.id}
-                  product_name={product.product_name}
-                  collection_name={product.collection_name}
-                  price={product.price}
-                  image={product.image}
-                />
-              </li>
-            ))}
-          </ul>
+        <div className={styles.wrapper}>
+          <div className={styles.sidebar}>
+            <Sidebar
+              items={activeMenu?.categories}
+              activeItem={filters.category}
+              onClickFn={(name: string) => changeCategory(name)}
+              title={activeMenu?.menu_name}
+            />
+          </div>
+          <div className={styles.content}>
+            <Filters />
+            <MobileFilters />
+            <ul className={styles.productList}>
+              {items.results.map((product) => (
+                <li className={styles.productItem} key={product.id}>
+                  <ProductItem
+                    id={product.id}
+                    product_name={product.product_name}
+                    collection_name={product.collection_name}
+                    price={product.price}
+                    image={product.image}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

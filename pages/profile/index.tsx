@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import ProfileData from "@/components/ProfileData";
 import Popup from "@/components/Popup";
 import PopupItem from "@/components/PopupItem";
+import Head from "next/head";
 
 const items = [
   { id: 1, name: "Мои заказы", link: "/orders" },
@@ -38,44 +39,49 @@ const Profile = () => {
   return status === Status.LOADING || !user ? (
     <p>Loading</p>
   ) : (
-    <div className={styles.profile}>
-      <div className={styles.sidebar}>
-        <Sidebar
-          items={items}
-          activeItem={items[1].name}
-          onClickFn={() => {}}
-          title={items[1].name}
-        />
-      </div>
-      <div className={styles.menuSelect}>
-        <Popup preview={"Личные данные"}>
-          {items.map((item) => (
-            <PopupItem
-              key={item.id}
-              isActive={item.id === 2}
-              onClick={() => {
-                navigate.push(item.link);
-              }}
-            >
-              {item.name}
-            </PopupItem>
-          ))}
-        </Popup>
-      </div>
-      <div className={styles.content}>
-        <div className={styles.userData}>
-          <div className={styles.userDataItem}>
-            <p>Телефон</p>
-            <p>{user?.phone}</p>
-          </div>
-          <div className={styles.userDataItem}>
-            <p>Эл. почта</p>
-            <p>{user?.email}</p>
-          </div>
+    <>
+      <Head>
+        <title>Профиль</title>
+      </Head>
+      <div className={styles.profile}>
+        <div className={styles.sidebar}>
+          <Sidebar
+            items={items}
+            activeItem={items[1].name}
+            onClickFn={() => {}}
+            title={items[1].name}
+          />
         </div>
-        <ProfileData />
+        <div className={styles.menuSelect}>
+          <Popup preview={"Личные данные"}>
+            {items.map((item) => (
+              <PopupItem
+                key={item.id}
+                isActive={item.id === 2}
+                onClick={() => {
+                  navigate.push(item.link);
+                }}
+              >
+                {item.name}
+              </PopupItem>
+            ))}
+          </Popup>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.userData}>
+            <div className={styles.userDataItem}>
+              <p>Телефон</p>
+              <p>{user?.phone}</p>
+            </div>
+            <div className={styles.userDataItem}>
+              <p>Эл. почта</p>
+              <p>{user?.email}</p>
+            </div>
+          </div>
+          <ProfileData />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

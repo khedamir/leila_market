@@ -14,21 +14,25 @@ const Measurements = () => {
   return (
     <div className={styles.measurements}>
       <table>
-        <tr>
-          <th>Размер</th>
-          <th>Обхват под проймами</th>
-          <th>Обхват по талии</th>
-          <th>Обхват по нижнему краю</th>
-          <th>Длина рукава</th>
-          <th>Длина по спинке</th>
-        </tr>
-        {sizes.map((size, id) => (
-          <tr key={id}>
-            {size.map((i, id) => (
-              <td key={id}>{i}</td>
-            ))}
+        <thead>
+          <tr>
+            <th>Размер</th>
+            <th>Обхват под проймами</th>
+            <th>Обхват по талии</th>
+            <th>Обхват по нижнему краю</th>
+            <th>Длина рукава</th>
+            <th>Длина по спинке</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {sizes.map((size, id) => (
+            <tr key={id}>
+              {size.map((i, id) => (
+                <td key={id}>{i}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );

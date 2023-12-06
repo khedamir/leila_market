@@ -12,12 +12,14 @@ type layoutProps = {
 
 const Layout: FC<layoutProps> = ({ children }) => {
   const dispatch = useAppDispatch();
+  
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
       dispatch(fetchFavorites());
       dispatch(fetchAuthMe());
     }
   }, [dispatch]);
+
   return (
     <div>
       <Header />

@@ -16,10 +16,6 @@ const ProductImages: FC<ProductImagesProps> = ({
   setActiveImage,
 }) => {
 
-  // useEffect(() => {
-  //   setActiveImage(0);
-  // }, [images]);
-
   return (
     <>
       <div className={styles.productImages}>
@@ -53,7 +49,7 @@ const ProductImages: FC<ProductImagesProps> = ({
         </div>
       </div>
       <div className={styles.slider}>
-        <Slider items={images} load={true} />
+        <Slider items={images} />
       </div>
     </>
   );

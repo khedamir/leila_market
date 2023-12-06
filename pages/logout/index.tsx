@@ -4,6 +4,7 @@ import styles from "./Logout.module.scss";
 import { logout } from "@/redux/auth/slice";
 import { cleanProfileData } from "@/redux/profile/slice";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const Logout = () => {
   const dispatch = useAppDispatch();
@@ -15,7 +16,14 @@ const Logout = () => {
     dispatch(cleanProfileData);
     navigate.push("/");
   }, [dispatch, navigate]);
-  return <div className={styles.logout}>Выход из аккаунта</div>;
+  return (
+    <>
+      <Head>
+        <title>Выход из аккаунт</title>
+      </Head>
+      <div className={styles.logout}>Выход из аккаунта</div>
+    </>
+  );
 };
 
 export default Logout;

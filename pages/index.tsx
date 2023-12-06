@@ -1,98 +1,80 @@
-import Head from "next/head";
-import styles from "@/styles/Home.module.scss";
-
-import Slider from "@/components/Slider";
-import CollectionsList from "@/components/CollectionsList";
 import CategoryList from "@/components/CategoryList";
-import CollectionBlock from "@/components/CollectionBlock";
 
 import { wrapper } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { fetchHomeData } from "@/redux/home/asyncAction";
 import { selectHomeData } from "@/redux/home/slice";
-import { Status } from "@/redux/types";
+
+import CollectionsList from "@/components/pageHome/CollectionList";
+import CollectionBlock from "@/components/pageHome/CollectionBlock";
+import Slider from "@/components/Slider";
+import Head from "next/head";
 
 const Home = () => {
-  const { data, status } = useSelector(selectHomeData);
-
-  if (status === Status.LOADING) {
-    return <div>Loading...</div>;
-  }
+  const { data } = useSelector(selectHomeData);
+  const { categories, collections_with_products } = data;
 
   return (
     <>
       <Head>
-        <title>Главная</title>
+        <title>Главное</title>
       </Head>
       <div>
-        <Slider items={data.collections} load={true} />
+        <Slider items={data.collections} />
         <CollectionsList collections={data.all_collections} load={true} />
-        {data.categories.map(
-          (item, id) =>
-            (id === 0 || id === 1) && (
-              <CategoryList
-                key={id}
-                title={item.category.category_name}
-                category={item.category}
-                products={item.products}
-              />
-            )
-        )}
-        {data.collections_with_products[0] && (
+        {categories.slice(0, 2).map((item) => (
+          <CategoryList
+            key={item.category.id}
+            title={item.category.category_name}
+            category={item.category}
+            products={item.products}
+          />
+        ))}
+        {collections_with_products[0] && (
           <CollectionBlock
-            collection={data.collections_with_products[0].collection}
-            products={data.collections_with_products[0].products}
+            collection={collections_with_products[0].collection}
+            products={collections_with_products[0].products}
             version="one"
           />
         )}
-        -
-        {data.categories.map(
-          (item, id) =>
-            (id === 2 || id === 3) && (
-              <CategoryList
-                key={id}
-                title={item.category.category_name}
-                category={item.category}
-                products={item.products}
-              />
-            )
-        )}
-        {data.collections_with_products[1] && (
+        {categories.slice(2, 4).map((item) => (
+          <CategoryList
+            key={item.category.id}
+            title={item.category.category_name}
+            category={item.category}
+            products={item.products}
+          />
+        ))}
+        {collections_with_products[1] && (
           <CollectionBlock
-            collection={data.collections_with_products[1].collection}
-            products={data.collections_with_products[1].products}
+            collection={collections_with_products[1].collection}
+            products={collections_with_products[1].products}
             version="two"
           />
         )}
-        {data.categories.map(
-          (item, id) =>
-            (id === 4 || id === 5) && (
-              <CategoryList
-                key={id}
-                title={item.category.category_name}
-                category={item.category}
-                products={item.products}
-              />
-            )
-        )}
-        {data.collections_with_products[2] && (
+        {categories.slice(4, 6).map((item) => (
+          <CategoryList
+            key={item.category.id}
+            title={item.category.category_name}
+            category={item.category}
+            products={item.products}
+          />
+        ))}
+        {collections_with_products[2] && (
           <CollectionBlock
-            collection={data.collections_with_products[2].collection}
-            products={data.collections_with_products[2].products}
+            collection={collections_with_products[2].collection}
+            products={collections_with_products[2].products}
             version="three"
           />
         )}
-        {data.categories.map(
-          (item, id) =>
-            (id === 6 || id === 7) && (
-              <CategoryList
-                key={id}
-                title={item.category.category_name}
-                category={item.category}
-                products={item.products}
-              />
-            )
-        )}
+        {categories.slice(6, 8).map((item) => (
+          <CategoryList
+            key={item.category.id}
+            title={item.category.category_name}
+            category={item.category}
+            products={item.products}
+          />
+        ))}
       </div>
     </>
   );

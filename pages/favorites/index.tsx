@@ -8,6 +8,7 @@ import styles from "./Favorites.module.scss";
 import ProductItem from "@/components/ProductItem";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import Button from "@/components/Button";
+import Head from "next/head";
 
 const Favorites = () => {
   const { status } = useSelector(selectUser);
@@ -24,27 +25,32 @@ const Favorites = () => {
   }, [status, navigate]);
 
   return (
-    <div className={styles.favorites}>
-      <BreadCrumbs value1="Избранное" />
-      <header>
-        <h1>Избранное</h1>
-        <p>Количество товаров: {items.length}</p>
-      </header>
-      <div className={styles.favoritesList}>
-        {items.map((item) => (
-          <div className={styles.favoritItem} key={item.id}>
-            <ProductItem
-              id={item.id}
-              image={item.image}
-              product_name={item.product_name}
-              collection_name={item.collection_name}
-              price={item.price}
-            />
-            {/* <Button>В корзину</Button> */}
-          </div>
-        ))}
+    <>
+      <Head>
+        <title>Избранное</title>
+      </Head>
+      <div className={styles.favorites}>
+        <BreadCrumbs value1="Избранное" />
+        <header>
+          <h1>Избранное</h1>
+          <p>Количество товаров: {items.length}</p>
+        </header>
+        <div className={styles.favoritesList}>
+          {items.map((item) => (
+            <div className={styles.favoritItem} key={item.id}>
+              <ProductItem
+                id={item.id}
+                image={item.image}
+                product_name={item.product_name}
+                collection_name={item.collection_name}
+                price={item.price}
+              />
+              {/* <Button>В корзину</Button> */}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

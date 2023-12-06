@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styles from "./CollectionBlock.module.scss";
-import ProductItem from "../ProductItem";
 import { CollectionType } from "@/redux/types";
 import { ProductType } from "@/redux/products/types";
+import ProductItem from "@/components/ProductItem";
 
 interface CollectionBlockProps {
   collection: CollectionType;
@@ -15,7 +15,6 @@ const CollectionBlock: FC<CollectionBlockProps> = ({
   products,
   version,
 }) => {
-  console.log(products);
   return (
     <div className={styles.collection}>
       <h3 className={styles.mobileTitle}>{collection.collection_name}</h3>

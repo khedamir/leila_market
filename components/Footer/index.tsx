@@ -30,8 +30,10 @@ const Footer = () => {
           </li>
           <li className={styles.contacts}>
             <h3>Контакты</h3>
-            <Link href={""}>leilamezhieva@info.com</Link>
-            <Link href={""}>+ 7 (929) 898 - 15 - 65</Link>
+            <Link href={"mailto: mezhievaofficial@gmail.com"}>
+              mezhievaofficial@gmail.com
+            </Link>
+            <Link href={""}>+7 (928) 889-03-05</Link>
             <span className={styles.socialItems}>
               <Link href={""}>
                 <Image

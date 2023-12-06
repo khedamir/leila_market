@@ -1,17 +1,15 @@
-// import { CollectionType } from "@/pages";
-import React, { FC, useRef } from "react";
-import CollectionItem from "./CollectionItem";
+import React, { FC } from "react";
 import styles from "./CollectionsList.module.scss";
-import Link from "next/link";
-import SectionHeader from "../SectionHeader";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, EffectFade, Autoplay } from "swiper";
+import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import { CollectionType } from "@/redux/types";
-import SliderContainer from "../SliderContainer";
+
+import SectionHeader from "@/components/SectionHeader";
+import SliderContainer from "@/components/SliderContainer";
+import CollectionItem from "./CollectionListItem";
 
 interface CollectionsProps {
   collections: CollectionType[];

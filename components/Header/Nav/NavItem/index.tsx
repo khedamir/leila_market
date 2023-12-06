@@ -42,7 +42,7 @@ const NavItem: FC<NavItemProps> = ({
                     href={
                       item.path || item.path === ""
                         ? item.path
-                        : `/catalog/?menu=${id}&category=${item.id}`
+                        : `/catalog/?category=${item.name}`
                     }
                   >
                     {item.name}

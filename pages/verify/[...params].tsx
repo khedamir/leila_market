@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import styles from "./Verify.module.scss";
 import { fetch } from "@/redux/axios";
 import Link from "next/link";
+import Head from "next/head";
 
 const Verify = () => {
   const navigate = useRouter();
@@ -34,27 +35,32 @@ const Verify = () => {
     }
   };
   return (
-    <div
-      className={`${styles.verify} ${error && styles.error} ${
-        success && styles.success
-      }`}
-    >
-      <Button disabled={success || error} onClick={Activate}>
-        Активировать аккаунт
-      </Button>
-      <div className={`${styles.successMessage} ${styles.message}`}>
-        <p>Активация прошла успешно :)</p>
-        <p>Поздравляю! Регистрация на сайте завершена</p>
-        <p>
-          теперь вы можете авторизоваться: <Link href="/login">Войти</Link>
-        </p>
+    <>
+      <Head>
+        <title>Активация аккаунта</title>
+      </Head>
+      <div
+        className={`${styles.verify} ${error && styles.error} ${
+          success && styles.success
+        }`}
+      >
+        <Button disabled={success || error} onClick={Activate}>
+          Активировать аккаунт
+        </Button>
+        <div className={`${styles.successMessage} ${styles.message}`}>
+          <p>Активация прошла успешно :)</p>
+          <p>Поздравляю! Регистрация на сайте завершена</p>
+          <p>
+            теперь вы можете авторизоваться: <Link href="/login">Войти</Link>
+          </p>
+        </div>
+        <div className={`${styles.errorMessage} ${styles.message}`}>
+          <p>Не удалось активировать аккаунт :(</p>
+          <p>Если вы всё еще не можете авторизоваться на сайте,</p>
+          <p>убедитесь в том, что ссылка действительна.</p>
+        </div>
       </div>
-      <div className={`${styles.errorMessage} ${styles.message}`}>
-        <p>Не удалось активировать аккаунт :(</p>
-        <p>Если вы всё еще не можете авторизоваться на сайте,</p>
-        <p>убедитесь в том, что ссылка действительна.</p>
-      </div>
-    </div>
+    </>
   );
 };
 

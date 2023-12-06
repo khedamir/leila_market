@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { Status } from "@/redux/types";
 import Link from "next/link";
 import { loginSchema } from "@/redux/validations";
+import Head from "next/head";
 
 interface FormType {
   username: string;
@@ -52,41 +53,46 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.login}>
-      {errorMessage && (
-        <div className={styles.errorMessage}>
-          <p>Пользователь не найден :(</p>
-          <p>Возможно ваш аккаунт не активирован, проверьте почту.</p>
-        </div>
-      )}
-      <h1>Войти в личный кабинет</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
-        <span className={`${errors.username && styles.error}`}>
-          <Input
-            placeholder="Имя пользователя, почта или телефон"
-            {...register("username", loginSchema.username)}
-          />
-          <span className={styles.errorMessage}>
-            {errors.username?.message}
+    <>
+      <Head>
+        <title>Авторизация</title>
+      </Head>
+      <div className={styles.login}>
+        {errorMessage && (
+          <div className={styles.errorMessage}>
+            <p>Пользователь не найден :(</p>
+            <p>Возможно ваш аккаунт не активирован, проверьте почту.</p>
+          </div>
+        )}
+        <h1>Войти в личный кабинет</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
+          <span className={`${errors.username && styles.error}`}>
+            <Input
+              placeholder="Имя пользователя, почта или телефон"
+              {...register("username", loginSchema.username)}
+            />
+            <span className={styles.errorMessage}>
+              {errors.username?.message}
+            </span>
           </span>
-        </span>
-        <span className={`${errors.password && styles.error}`}>
-          <Input
-            placeholder="Пароль"
-            type="password"
-            {...register("password", loginSchema.password)}
-          />
-          <span className={styles.errorMessage}>
-            {errors.password?.message}
+          <span className={`${errors.password && styles.error}`}>
+            <Input
+              placeholder="Пароль"
+              type="password"
+              {...register("password", loginSchema.password)}
+            />
+            <span className={styles.errorMessage}>
+              {errors.password?.message}
+            </span>
           </span>
-        </span>
 
-        <Button type="submit">Войти</Button>
-        <Link className={styles.registerLink} href="/register">
-          Зарегистрироваться
-        </Link>
-      </form>
-    </div>
+          <Button type="submit">Войти</Button>
+          <Link className={styles.registerLink} href="/register">
+            Зарегистрироваться
+          </Link>
+        </form>
+      </div>
+    </>
   );
 };
 
